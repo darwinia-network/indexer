@@ -1,0 +1,52 @@
+specVersion: 1.0.0
+name: index-pangolin
+version: 1.0.0
+runner:
+  node:
+    name: '@subql/node'
+    version: '*'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: Pangolin index
+repository: 'https://github.com/darwinia-network/indexer'
+schema:
+  file: ./schema.graphql
+network:
+  chainId: '0xce44bd16fc276f9e457b452577b6c2678e57768260012af127479fed806da7e7'
+  endpoint: 'https://pangolin-rpc.darwinia.network'
+  dictionary: 'https://api.subquery.network/sq/darwinia-network/pangolin-dictionary'
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 2597115
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+        - handler: handleCall
+          kind: substrate/CallHandler
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: grandpa
+            method: NewAuthorities
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangoroMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangolinParachainMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangoroDispatch
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangolinParachainDispatch

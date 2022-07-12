@@ -1,0 +1,23 @@
+{
+  "name": "index-common",
+  "version": "1.0.0",
+  "description": "index common library",
+  "main": "dist/index.js",
+  "author": "Darwinia Network",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "jest",
+    "docs": "npx typedoc --out dist/docs index.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@polkadot/api": "^8",
+    "@subql/types": "latest",
+    "typescript": "^4.2.4"
+  },
+  "resolutions": {
+    "ipfs-unixfs": "6.0.6"
+  }
+}
