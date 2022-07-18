@@ -4,6 +4,7 @@ import {BridgeS2SHandler} from "../logic/bridge-s2s";
 import {MMRHandler} from "../logic/mmr";
 import {GenericBlockHandler} from "../logic/block";
 import {CandidateIncludedHandler} from "../logic/candidate-included";
+import {BridgeEthV1Handler} from "../logic/bridge-ethv1";
 
 
 export class CrabHandler extends BasicChainHandler {
@@ -42,6 +43,7 @@ export class DarwiniaHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Darwinia),
       new BridgeS2SHandler(Chain.Darwinia),
       new MMRHandler(Chain.Darwinia),
+      new BridgeEthV1Handler(Chain.Darwinia),
     ];
   }
 }
@@ -70,6 +72,7 @@ export class PangolinHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Pangolin),
       new BridgeS2SHandler(Chain.Pangolin),
       new MMRHandler(Chain.Pangolin),
+      new BridgeEthV1Handler(Chain.Pangolin),
     ];
   }
 }

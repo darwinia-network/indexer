@@ -29,6 +29,8 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
+        ## bridge s2s
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
@@ -52,3 +54,26 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: bridgePangolinParachainDispatch
+
+        ## bridge ethv1
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ethereumRelayAuthorities
+            method: MMRRootSigned
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ethereumRelayAuthorities
+            method: ScheduleMMRRoot
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ethereumRelayAuthorities
+            method: ScheduleAuthoritiesChange
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ethereumRelayAuthorities
+            method: AuthoritiesChangeSigned
+

@@ -3,6 +3,7 @@
     "generic",
     "mmr",
     "bridge-s2s",
+    "bridge-ethv1",
     "parachain-candidate-included"
   ],
   "special": {
