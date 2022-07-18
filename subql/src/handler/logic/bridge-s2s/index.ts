@@ -8,6 +8,7 @@ import {ChainPangolinParachainEventHandler} from "./chain/pangolin_parachain";
 import {ChainCrabParachainEventHandler} from "./chain/crab_parachain";
 import {ChainKusamaEventHandler} from "./chain/kusama";
 import {ChainRococoEventHandler} from "./chain/rococo";
+import {JustificationStorage} from "./storage";
 
 export class BridgeS2SHandler implements IndexHandler {
 
@@ -22,6 +23,7 @@ export class BridgeS2SHandler implements IndexHandler {
   }
 
   async handleBlock(block: FastBlock): Promise<void> {
+    await new JustificationStorage(block).store();
   }
 
   async handleCall(call: FastExtrinsic): Promise<void> {

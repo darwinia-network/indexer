@@ -3,6 +3,7 @@ import {Chain, IndexHandler} from "../../common";
 import {BridgeS2SHandler} from "../logic/bridge-s2s";
 import {MMRHandler} from "../logic/mmr";
 import {GenericBlockHandler} from "../logic/block";
+import {CandidateIncludedHandler} from "../logic/candidate-included";
 
 
 export class CrabHandler extends BasicChainHandler {
@@ -54,6 +55,7 @@ export class KusamaHandler extends BasicChainHandler {
     return [
       new GenericBlockHandler(Chain.Kusama),
       new BridgeS2SHandler(Chain.Kusama),
+      new CandidateIncludedHandler(Chain.Kusama),
     ];
   }
 }
@@ -107,6 +109,7 @@ export class RococoHandler extends BasicChainHandler {
     return [
       new GenericBlockHandler(Chain.Rococo),
       new BridgeS2SHandler(Chain.Rococo),
+      new CandidateIncludedHandler(Chain.Rococo),
     ];
   }
 }

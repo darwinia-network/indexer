@@ -29,8 +29,16 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
+        ## bridge s2s (parachain)
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: grandpa
             method: NewAuthorities
+
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: paraInclusion
+            method: CandidateIncluded
