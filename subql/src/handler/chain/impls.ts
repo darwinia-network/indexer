@@ -2,6 +2,7 @@ import {BasicChainHandler} from "./basic";
 import {Chain, IndexHandler} from "../../common";
 import {BridgeS2SHandler} from "../logic/bridge-s2s";
 import {MMRHandler} from "../logic/mmr";
+import {GenericBlockHandler} from "../logic/block";
 
 
 export class CrabHandler extends BasicChainHandler {
@@ -11,6 +12,7 @@ export class CrabHandler extends BasicChainHandler {
 
   handlers(): Array<IndexHandler> {
     return [
+      new GenericBlockHandler(Chain.Crab),
       new BridgeS2SHandler(Chain.Crab),
     ];
   }
@@ -23,6 +25,7 @@ export class CrabParachainHandler extends BasicChainHandler {
 
   handlers(): Array<IndexHandler> {
     return [
+      new GenericBlockHandler(Chain.CrabParachain),
       new BridgeS2SHandler(Chain.CrabParachain),
     ];
   }
@@ -35,6 +38,7 @@ export class DarwiniaHandler extends BasicChainHandler {
 
   handlers(): Array<IndexHandler> {
     return [
+      new GenericBlockHandler(Chain.Darwinia),
       new BridgeS2SHandler(Chain.Darwinia),
       new MMRHandler(Chain.Darwinia),
     ];
@@ -48,6 +52,7 @@ export class KusamaHandler extends BasicChainHandler {
 
   handlers(): Array<IndexHandler> {
     return [
+      new GenericBlockHandler(Chain.Kusama),
       new BridgeS2SHandler(Chain.Kusama),
     ];
   }
@@ -60,8 +65,9 @@ export class PangolinHandler extends BasicChainHandler {
 
   handlers(): Array<IndexHandler> {
     return [
+      new GenericBlockHandler(Chain.Pangolin),
       new BridgeS2SHandler(Chain.Pangolin),
-      new MMRHandler(Chain.Darwinia),
+      new MMRHandler(Chain.Pangolin),
     ];
   }
 }
@@ -73,6 +79,7 @@ export class PangolinParachainHandler extends BasicChainHandler {
 
   handlers(): Array<IndexHandler> {
     return [
+      new GenericBlockHandler(Chain.PangolinParachain),
       new BridgeS2SHandler(Chain.PangolinParachain),
     ];
   }
@@ -85,6 +92,7 @@ export class PangoroHandler extends BasicChainHandler {
 
   handlers(): Array<IndexHandler> {
     return [
+      new GenericBlockHandler(Chain.Pangoro),
       new BridgeS2SHandler(Chain.Pangoro),
     ];
   }
@@ -97,6 +105,7 @@ export class RococoHandler extends BasicChainHandler {
 
   handlers(): Array<IndexHandler> {
     return [
+      new GenericBlockHandler(Chain.Rococo),
       new BridgeS2SHandler(Chain.Rococo),
     ];
   }
