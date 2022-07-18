@@ -1,5 +1,5 @@
 import {SubstrateBlock, SubstrateEvent, SubstrateExtrinsic} from '@subql/types';
-import {activeChain, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
+import {activeChain, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "../common";
 import {
   CrabHandler,
   CrabParachainHandler,

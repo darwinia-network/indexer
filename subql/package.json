@@ -26,9 +26,6 @@
     "project.yaml"
   ],
   "author": "Darwinia Network",
-  "dependencies": {
-    "index-common": "file:../common"
-  },
   "devDependencies": {
     "@polkadot/api": "^8",
     "@subql/cli": "latest",

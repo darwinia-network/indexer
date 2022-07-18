@@ -1,4 +1,4 @@
-import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
+import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "../../../common";
 
 export class BridgeS2SHandler implements IndexHandler {
 
