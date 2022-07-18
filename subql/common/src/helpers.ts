@@ -1,6 +1,11 @@
-import { Block } from '@polkadot/types/interfaces/runtime';
+import {Block} from '@polkadot/types/interfaces/runtime';
+import {Chain} from "./types";
 
-export const getBlockTimestamp = (block: Block): Date => {
+/**
+ * extract timestamp of block
+ * @param block block
+ */
+export function extractTimestamp(block: Block): Date {
   const extrinsicForSetTimestamp = block.extrinsics.find((item) => {
     return item.method.method === 'set' && item.method.section === 'timestamp';
   });
@@ -10,4 +15,37 @@ export const getBlockTimestamp = (block: Block): Date => {
   }
 
   return new Date();
-};
+}
+
+/**
+ * Query active chain
+ */
+export function activeChain(): Chain {
+  const envChain = process.env.CHAIN || '';
+  if (!envChain) {
+    throw new Error('Can not detect active chain, please set an environment with key by CHAIN')
+  }
+  const lowercaseChainName = envChain.toLowerCase();
+  switch (lowercaseChainName) {
+    case 'pangolin':
+      return Chain.Pangolin;
+    case 'pangoro':
+      return Chain.Pangoro;
+    case 'darwinia':
+      return Chain.Darwinia;
+    case 'crab':
+      return Chain.Crab;
+    case 'pangolin-parachain':
+    case 'pangolinparachain':
+      return Chain.PangolinParachain;
+    case 'crab-parachain':
+    case 'crabparachain':
+      return Chain.CrabParachain;
+    case 'kusama':
+      return Chain.Kusama;
+    case 'rococo':
+      return Chain.Rococo;
+    default:
+      throw new Error(`Unsupported chain: ${envChain}`)
+  }
+}

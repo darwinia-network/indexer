@@ -4,7 +4,14 @@
   "description": "This SubQuery project can be use as a starting point for Rococo network",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc -b",
+    "build:pangolin": "cross-env CHAIN=pangolin tsc -b",
+    "build:pangoro": "cross-env CHAIN=pangoro tsc -b",
+    "build:darwinia": "cross-env CHAIN=darwinia tsc -b",
+    "build:crab": "cross-env CHAIN=crab tsc -b",
+    "build:pangolin-parachain": "cross-env CHAIN=pangolin-parachain tsc -b",
+    "build:crab-parachain": "cross-env CHAIN=crab-parachain tsc -b",
+    "build:kusama": "cross-env CHAIN=kusama tsc -b",
+    "build:rococo": "cross-env CHAIN=rococo tsc -b",
     "prepack": "rm -rf dist && npm build",
     "test": "jest",
     "codegen": "./node_modules/.bin/subql codegen"
@@ -17,11 +24,15 @@
     "project.yaml"
   ],
   "author": "Darwinia Network",
+  "dependencies": {
+    "index-common": "file:../common"
+  },
   "devDependencies": {
     "@polkadot/api": "^8",
+    "@subql/cli": "latest",
     "@subql/types": "latest",
-    "typescript": "^4.2.4",
-    "@subql/cli": "latest"
+    "cross-env": "^7.0.3",
+    "typescript": "^4.2.4"
   },
   "resolutions": {
     "ipfs-unixfs": "6.0.6"
