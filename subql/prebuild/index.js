@@ -1,6 +1,5 @@
 
-
-
+// write env data
 function handleEnv() {
   const allowEnv = {
     CHAIN: process.env.CHAIN,
@@ -8,6 +7,7 @@ function handleEnv() {
   console.log('allow env: ', allowEnv)
 }
 
+// merge schema file
 function handleSchema() {}
 
 

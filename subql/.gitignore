@@ -53,3 +53,7 @@ Thumbs.db
 *.mov
 *.wmv
 
+
+/schema.graphql
+_env.json
+_env.js
