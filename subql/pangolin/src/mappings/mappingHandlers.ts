@@ -1,13 +1,15 @@
 import {SubstrateBlock, SubstrateEvent, SubstrateExtrinsic} from '@subql/types';
 import {activeChain, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
-import {CrabHandler} from "../handler/crab";
-import {DarwiniaHandler} from "../handler/darwinia";
-import {PangolinHandler} from "../handler/pangolin";
-import {PangoroHandler} from "../handler/pangoro";
-import {PangolinParachainHandler} from "../handler/pangolin_parachain";
-import {CrabParachainHandler} from "../handler/crab_parachain";
-import {KusamaHandler} from "../handler/kusama";
-import {RococoHandler} from "../handler/rococo";
+import {
+  CrabHandler,
+  CrabParachainHandler,
+  DarwiniaHandler,
+  KusamaHandler,
+  PangolinHandler,
+  PangolinParachainHandler,
+  PangoroHandler,
+  RococoHandler,
+} from "../handler/chain"
 
 
 function _activeChain(): Chain | undefined {

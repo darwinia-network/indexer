@@ -5,6 +5,10 @@ import {FastBlock, FastEvent, FastExtrinsic} from "../types";
  */
 export interface IndexHandler {
   /**
+   * handler name
+   */
+  name(): string;
+  /**
    * handle event
    */
   handleEvent(event: FastEvent): Promise<void>;
