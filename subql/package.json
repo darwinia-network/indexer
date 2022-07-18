@@ -4,7 +4,7 @@
   "description": "This SubQuery project can be use as a starting point for Rococo network",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "ls d:/",
+    "prebuild": "node prebuild/index.js",
     "build": "tsc -b",
     "build:pangolin": "cross-env CHAIN=pangolin npm run build",
     "build:pangoro": "cross-env CHAIN=pangoro npm run build",
