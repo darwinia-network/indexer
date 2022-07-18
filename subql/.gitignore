@@ -55,6 +55,7 @@ Thumbs.db
 
 
 /schema.graphql
+/project.yaml
 _env.json
 _env.js
 _env.ts

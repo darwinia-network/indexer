@@ -1,4 +1,5 @@
 import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "../../../common";
+import {MMRNodeEntity} from "../../../types";
 
 export class MMRHandler implements IndexHandler {
 
@@ -19,6 +20,7 @@ export class MMRHandler implements IndexHandler {
   }
 
   async handleEvent(event: FastEvent): Promise<void> {
+    await MMRNodeEntity.get(event.id);
   }
 
 }

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const childProcess = require('child_process');
 
 const schemaLink = require('../schema/link.json');
 
@@ -21,7 +22,7 @@ function _env() {
 }
 
 // write env data
-function handleEnv() {
+function processEnv() {
   const env = _env();
   const json = JSON.stringify(env, '', 2);
   const code = `export default ${json}\n`;
@@ -33,30 +34,62 @@ function handleEnv() {
 }
 
 // merge schema file
-function handleSchema() {
+function mergeSchema() {
   const env = _env();
-  const features = schemaLink[env.CHAIN];
-  console.info(`[prebuild] [schema] found links [${features}] for ${env.CHAIN}`);
+  const {common, special} = schemaLink;
+
+  // console.info(`[prebuild] [schema] found links [${features}] for ${env.CHAIN}`);
   const outputFile = _dir('schema.graphql');
   if (fs.existsSync(outputFile)) {
     fs.rmSync(outputFile);
   }
+  const schemas = [
+    ...common.map(item => {
+      return {feature: item, type: 'common'}
+    }),
+  ];
+  const chainFeatures = special[env.CHAIN];
+  if (chainFeatures) {
+    schemas.push(...chainFeatures.map(item => {
+      return {feature: item, type: 'chain'}
+    }));
+  }
 
-  for (const feature of features) {
+  for (const schema of schemas) {
+    const {feature, type} = schema;
     const schemaPath = path.resolve(_dir('schema'), feature, 'schema.graphql');
     const data = fs.readFileSync(schemaPath);
-    const separator = `###\n## ${env.CHAIN} - ${feature}\n###\n`;
+    const separator = `###\n## ${type === 'common' ? 'common' : env.CHAIN} - ${feature}\n###\n`;
     fs.appendFileSync(outputFile, separator);
     fs.appendFileSync(outputFile, data);
     fs.appendFileSync(outputFile, '\n\n');
     console.info(`[prebuild] [schema] merge schema to ${outputFile} from ${schemaPath}`);
   }
-  console.info('[prebuild] [schema] all schemas merged')
+
+  console.info('[prebuild] [schema] all schemas merged');
+}
+
+function genSchema() {
+  const manifestSourcePath = _dir('project/crab.yaml');
+  const manifestDestPath = _dir('project.yaml');
+  console.info('[prebuild] [codegen] prepare generate schema types');
+  try {
+    fs.copyFileSync(manifestSourcePath, manifestDestPath);
+    const ret = childProcess.execSync('npx subql codegen', {
+      cwd: _dir('/'),
+      encoding: 'utf8',
+    });
+    console.log(ret);
+  } finally {
+    fs.rmSync(manifestDestPath);
+  }
+  console.info('[prebuild] [codegen] generated schema types');
 }
 
 function main() {
-  handleEnv();
-  handleSchema();
+  processEnv();
+  mergeSchema();
+  genSchema();
 }
 
 main();
