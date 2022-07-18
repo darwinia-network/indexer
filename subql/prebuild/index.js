@@ -1,20 +1,28 @@
 const fs = require('fs');
 const path = require('path');
 
+const schemaLink = require('../schema/link.json');
+
 function _dir(subpath) {
   const appDir = path.dirname(require.main.filename);
   return path.normalize(`${appDir}/../${subpath}`);
 }
 
-// write env data
-function handleEnv() {
-  const env = {
-    CHAIN: process.env.CHAIN,
-  };
-  if (!env.CHAIN) {
+function _env() {
+  let chain = process.env.CHAIN;
+  if (!chain) {
     console.error('Missing CHAIN, please set it from environment.');
     process.exit(1);
   }
+  chain = chain.toLowerCase();
+  return {
+    CHAIN: chain,
+  }
+}
+
+// write env data
+function handleEnv() {
+  const env = _env();
   const json = JSON.stringify(env, '', 2);
   const code = `export default ${json}\n`;
 
@@ -26,20 +34,22 @@ function handleEnv() {
 
 // merge schema file
 function handleSchema() {
-  const schemaDir = _dir('schema');
-  const files = fs.readdirSync(schemaDir, {withFileTypes: true})
-    .filter(item => !item.isDirectory())
-    .filter(item => item.name && item.name.indexOf('.schema.graphql') > 0)
-    .map(item => item.name);
+  const env = _env();
+  const features = schemaLink[env.CHAIN];
+  console.info(`[prebuild] [schema] found links [${features}] for ${env.CHAIN}`);
   const outputFile = _dir('schema.graphql');
   if (fs.existsSync(outputFile)) {
     fs.rmSync(outputFile);
   }
-  for (const file of files) {
-    const filePath = path.resolve(schemaDir, file);
-    const data = fs.readFileSync(filePath);
+
+  for (const feature of features) {
+    const schemaPath = path.resolve(_dir('schema'), feature, 'schema.graphql');
+    const data = fs.readFileSync(schemaPath);
+    const separator = `###\n## ${env.CHAIN} - ${feature}\n###\n`;
+    fs.appendFileSync(outputFile, separator);
     fs.appendFileSync(outputFile, data);
-    console.info(`[prebuild] [schema] merge schema to ${outputFile} from ${file}`);
+    fs.appendFileSync(outputFile, '\n\n');
+    console.info(`[prebuild] [schema] merge schema to ${outputFile} from ${schemaPath}`);
   }
   console.info('[prebuild] [schema] all schemas merged')
 }

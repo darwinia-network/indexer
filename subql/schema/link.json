@@ -1,0 +1,10 @@
+{
+  "darwinia": ["generic", "bridge-s2s-selfchain", "mmr"],
+  "pangolin": ["generic", "bridge-s2s-selfchain", "mmr"],
+  "pangoro": ["generic", "bridge-s2s-selfchain"],
+  "crab": ["generic", "bridge-s2s-selfchain"],
+  "pangolin-parachain": ["generic", "bridge-s2s-selfchain"],
+  "crab-parachain": ["generic", "bridge-s2s-selfchain"],
+  "kusama": ["generic", "bridge-s2s-relaychain"],
+  "rococo": ["generic", "bridge-s2s-relaychain"]
+}
