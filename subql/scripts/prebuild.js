@@ -82,11 +82,11 @@ function genSchema() {
     const data = fs.readFileSync(manifestSourcePath);
     fs.appendFileSync(manifestDestPath, '###! IMPORTANT\n## This file is auto generated. please do not modify it.\n###!\n\n');
     fs.appendFileSync(manifestDestPath, data);
-    const ret = childProcess.execSync('npx subql codegen', {
-      cwd: _dir('/'),
-      encoding: 'utf8',
-    });
-    console.log(ret);
+    // const ret = childProcess.execSync('npx subql codegen', {
+    //   cwd: _dir('/'),
+    //   encoding: 'utf8',
+    // });
+    // console.log(ret);
   } finally {
     // fs.rmSync(manifestDestPath);
   }
