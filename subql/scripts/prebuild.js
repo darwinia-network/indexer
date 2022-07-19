@@ -90,7 +90,7 @@ function genSchema() {
   } finally {
     // fs.rmSync(manifestDestPath);
   }
-  console.info('[prebuild] [codegen] generated schema types');
+  // console.info('[prebuild] [codegen] generated schema types');
 }
 
 function main() {
