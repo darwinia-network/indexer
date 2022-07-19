@@ -1,4 +1,5 @@
 import {FastEvent} from "../../../../common";
+// @ts-ignore
 import {ScheduleAuthoritiesChangeEvent} from "../../../../types";
 
 export class ScheduleAuthoritiesChangeStorage {

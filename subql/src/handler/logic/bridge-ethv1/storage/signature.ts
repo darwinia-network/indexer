@@ -1,4 +1,5 @@
 import {FastEvent} from "../../../../common";
+// @ts-ignore
 import {Signature} from "../../../../types";
 
 export class SignatureStorage {

@@ -1,4 +1,5 @@
 import {FastEvent} from "../../../../common";
+// @ts-ignore
 import {ScheduleMMRRootEvent} from "../../../../types";
 
 export class ScheduleMMRRootEmittedStorage {

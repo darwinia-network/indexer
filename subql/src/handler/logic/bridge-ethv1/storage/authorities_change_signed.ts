@@ -1,4 +1,5 @@
 import {FastEvent} from "../../../../common";
+// @ts-ignore
 import {AuthoritiesChangeSignedEvent} from "../../../../types";
 import {SignatureStorage} from "./signature";
 

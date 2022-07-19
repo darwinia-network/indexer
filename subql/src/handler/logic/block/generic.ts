@@ -1,4 +1,5 @@
 import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "../../../common";
+// @ts-ignore
 import {Block} from "../../../types";
 
 export class GenericBlockHandler implements IndexHandler {

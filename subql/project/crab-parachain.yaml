@@ -27,12 +27,12 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
+        ## bridge s2s
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: bridgeCrabMessages
             method: MessageAccepted
-
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:

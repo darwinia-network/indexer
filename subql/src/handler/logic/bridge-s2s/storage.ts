@@ -3,6 +3,7 @@
  */
 import {FastBlock, FastEvent} from "../../../common";
 import {BridgeS2SOnDemandType, BridgeS2SRelayBlockOrigin, BridgeS2SRelayBlockType} from "./types";
+// @ts-ignore
 import {JustificationMapping, NeedRelayBlock} from "../../../types";
 import {Justifications} from "@polkadot/types/interfaces/runtime/types";
 

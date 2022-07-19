@@ -29,18 +29,17 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
+        ## bridge s2s
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: grandpa
             method: NewAuthorities
-
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: bridgePangolinMessages
             method: MessageAccepted
-
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:

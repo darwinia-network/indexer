@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const childProcess = require('child_process');
 
-const schemaLink = require('../schema/link.json');
+const schemaLink = require('../schema/relation.json');
 
 function _dir(subpath) {
   const appDir = path.dirname(require.main.filename);
@@ -55,6 +55,7 @@ function mergeSchema() {
     }));
   }
 
+  fs.appendFileSync(outputFile, '###! IMPORTANT\n## This file is auto generated. please do not modify it.\n###!\n\n');
   for (const schema of schemas) {
     const {feature, type} = schema;
     const schemaPath = path.resolve(_dir('schema'), feature, 'schema.graphql');
@@ -70,18 +71,24 @@ function mergeSchema() {
 }
 
 function genSchema() {
-  const manifestSourcePath = _dir('project/crab.yaml');
+  const env = _env();
+  const manifestSourcePath = _dir(`project/${env.CHAIN}.yaml`);
   const manifestDestPath = _dir('project.yaml');
   console.info('[prebuild] [codegen] prepare generate schema types');
   try {
-    fs.copyFileSync(manifestSourcePath, manifestDestPath);
+    if (fs.existsSync(manifestDestPath)) {
+      fs.rmSync(manifestDestPath);
+    }
+    const data = fs.readFileSync(manifestSourcePath);
+    fs.appendFileSync(manifestDestPath, '###! IMPORTANT\n## This file is auto generated. please do not modify it.\n###!\n\n');
+    fs.appendFileSync(manifestDestPath, data);
     const ret = childProcess.execSync('npx subql codegen', {
       cwd: _dir('/'),
       encoding: 'utf8',
     });
     console.log(ret);
   } finally {
-    fs.rmSync(manifestDestPath);
+    // fs.rmSync(manifestDestPath);
   }
   console.info('[prebuild] [codegen] generated schema types');
 }

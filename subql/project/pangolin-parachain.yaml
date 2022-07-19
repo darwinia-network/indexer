@@ -25,16 +25,16 @@ dataSources:
         - handler: handleBlock
           kind: substrate/BlockHandler
 
+        - handler: handleCall
+          kind: substrate/CallHandler
+
+        ## bridge s2s
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: bridgePangolinMessages
             method: MessageAccepted
-
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: bridgePangolinDispatch
-
-        - handler: handleCall
-          kind: substrate/CallHandler

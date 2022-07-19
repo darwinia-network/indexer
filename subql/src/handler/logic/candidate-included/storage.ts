@@ -1,4 +1,5 @@
 import {Chain, FastEvent} from "../../../common";
+// @ts-ignore
 import {CandidateIncludedEvent} from "../../../types";
 
 export const ALLOW_PARA_IDS_MAP = {

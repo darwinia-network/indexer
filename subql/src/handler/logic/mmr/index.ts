@@ -1,4 +1,5 @@
 import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "../../../common";
+// @ts-ignore
 import {MMRNodeEntity} from "../../../types";
 
 export class MMRHandler implements IndexHandler {
