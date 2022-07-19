@@ -20,6 +20,6 @@ jobs:
         working-directory: subql
         run: npm i
 
-      - name: build
+      - name: build subql
         working-directory: subql
         run: npm run build:crab
