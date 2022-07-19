@@ -1,4 +1,4 @@
-import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "../../../common";
+import {BRIDGE_START_BLOCK, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "../../../common";
 import {BridgeS2SEventHandler} from "./types";
 import {ChainCrabEventHandler} from "./chain/crab";
 import {ChainDarwiniaEventHandler} from "./chain/darwinia";
@@ -30,24 +30,37 @@ export class BridgeS2SHandler implements IndexHandler {
   }
 
   async handleEvent(event: FastEvent): Promise<void> {
+    const blockNumber = event.blockNumber;
+
     const eventId = event.id;
     const eventSection = event.section;
     const eventMethod = event.method;
-    const blockNumber = event.blockNumber;
     const eventKey = `${eventSection}:${eventMethod}`;
     logger.info(`[${this.chain}] [event] Received event: [${eventKey}] [${eventId}] in block ${blockNumber}`);
     let handler: BridgeS2SEventHandler;
     switch (this.chain) {
       case Chain.Crab:
+        if (blockNumber < BRIDGE_START_BLOCK.crab) {
+          return;
+        }
         handler = new ChainCrabEventHandler();
         break;
       case Chain.Darwinia:
+        if (blockNumber < BRIDGE_START_BLOCK.darwinia) {
+          return;
+        }
         handler = new ChainDarwiniaEventHandler();
         break;
       case Chain.Pangolin:
+        if (blockNumber < BRIDGE_START_BLOCK.pangolin) {
+          return;
+        }
         handler = new ChainPangolinEventHandler();
         break;
       case Chain.Pangoro:
+        if (blockNumber < BRIDGE_START_BLOCK.pangoro) {
+          return;
+        }
         handler = new ChainPangoroEventHandler();
         break;
       case Chain.PangolinParachain:

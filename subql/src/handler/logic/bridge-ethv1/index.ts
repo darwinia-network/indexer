@@ -1,4 +1,4 @@
-import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "../../../common";
+import {BRIDGE_START_BLOCK, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "../../../common";
 import {
   AuthoritiesChangeSignedStorage,
   MMRRootSignedStorage,
@@ -26,10 +26,18 @@ export class BridgeEthV1Handler implements IndexHandler {
   }
 
   async handleEvent(event: FastEvent): Promise<void> {
+    const blockNumber = event.blockNumber;
+
+    if (this.chain === Chain.Darwinia && blockNumber < BRIDGE_START_BLOCK.darwinia) {
+      return;
+    }
+    if (this.chain === Chain.Pangolin && blockNumber < BRIDGE_START_BLOCK.pangolin) {
+      return;
+    }
+
     const eventId = event.id;
     const eventSection = event.section;
     const eventMethod = event.method;
-    const blockNumber = event.blockNumber;
     const eventKey = `${eventSection}:${eventMethod}`;
     logger.info(`[event] Received event: [${eventKey}] [${eventId}] in block ${blockNumber}`);
     switch (eventKey) {
