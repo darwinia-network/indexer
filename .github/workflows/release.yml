@@ -33,7 +33,7 @@ jobs:
           secret: ${{ github.TOKEN }}
           approvers: fewensa,HackFisher,JayJay1024,sxlwar
           minimum-approvals: 1
-          issue-title: "Deploy ${{ matrix.chain }} subql for production mode?"
+          issue-title: "Deploy subql for production mode about chain ${{ matrix.chain }}?"
 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
@@ -46,11 +46,11 @@ jobs:
 
       - name: build subql
         working-directory: subql
-        run: yarn build:${{ matrix.chain }}
+        run: npm run build:${{ matrix.chain }}
 
       - name: publish subql
         working-directory: subql
-        run: yarn publish -- ${{ matrix.chain }}
+        run: npm run publish -- ${{ matrix.chain }}
 
       - name: deploy subql
         working-directory: subql
