@@ -33,3 +33,4 @@ jobs:
       - name: build subql
         working-directory: subql
         run: yarn build:crab
+
