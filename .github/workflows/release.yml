@@ -19,7 +19,7 @@ jobs:
           approvers: fewensa,HackFisher,JayJay1024,sxlwar
           minimum-approvals: 1
           timeout-minutes: 15
-          issue-title: "Deploy crab subql for production mode by run ${{ github.run_id }}"
+          issue-title: "Deploy crab subql for production mode?"
 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
