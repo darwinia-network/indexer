@@ -8,18 +8,32 @@ name: Release
 on:
   pull_request:
 
+env:
+  SUBQUERY_ORG: fewensa
+
 jobs:
   deploy-subql:
     name: Deploy subql
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chain:
+          - pangolin
+          - pangoro
+          - darwinia
+          - crab
+          - pangolin-parachain
+          - crab-parachain
+          - kusama
+          - rococo
     steps:
       - uses: trstringer/manual-approval@v1
+        timeout-minutes: 15
         with:
           secret: ${{ github.TOKEN }}
           approvers: fewensa,HackFisher,JayJay1024,sxlwar
           minimum-approvals: 1
-          timeout-minutes: 15
-          issue-title: "Deploy crab subql for production mode?"
+          issue-title: "Deploy ${{ matrix.chain }} subql for production mode?"
 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
@@ -32,5 +46,18 @@ jobs:
 
       - name: build subql
         working-directory: subql
-        run: yarn build:crab
+        run: yarn build:${{ matrix.chain }}
 
+      - name: publish subql
+        working-directory: subql
+        run: yarn publish -- ${{ matrix.chain }}
+
+      - name: deploy subql
+        working-directory: subql
+        run: |
+          echo npx subql deployment:deploy -d \
+            --type primary \
+            --org ${{ env.SUBQUERY_ORG }} \
+            --projectName ${{ matrix.chain }} \
+            --endpoint https://pangolin-rpc.darwinia.network \
+            --ipfsCID 12345
