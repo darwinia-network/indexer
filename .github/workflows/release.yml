@@ -50,10 +50,14 @@ jobs:
 
       - name: publish subql
         working-directory: subql
+        env:
+          SUBQL_ACCESS_TOKEN: ${{ secret.SUBQUERY_TOKEN }}
         run: npm run publish -- ${{ matrix.chain }}
 
       - name: deploy subql
         working-directory: subql
+        env:
+          SUBQL_ACCESS_TOKEN: ${{ secret.SUBQUERY_TOKEN }}
         run: |
           echo npx subql deployment:deploy -d \
             --type primary \
