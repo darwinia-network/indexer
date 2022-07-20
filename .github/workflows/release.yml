@@ -10,7 +10,7 @@ on:
 
 env:
   SUBQUERY_ORG: fewensa
-  SUBQL_ACCESS_TOKEN: ${{ secret.SUBQUERY_TOKEN }}
+  SUBQL_ACCESS_TOKEN: ${{ secrets.SUBQUERY_TOKEN }}
 
 jobs:
   deploy-subql:
