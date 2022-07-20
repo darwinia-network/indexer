@@ -18,8 +18,8 @@ jobs:
 
       - name: install deps
         working-directory: subql
-        run: npm i
+        run: yarn install
 
       - name: build subql
         working-directory: subql
-        run: npm run build:crab
+        run: yarn build:crab
