@@ -16,7 +16,9 @@ jobs:
       - uses: trstringer/manual-approval@v1
         with:
           secret: ${{ github.TOKEN }}
-          approvers: fewensa
+          approvers: fewensa,HackFisher,JayJay1024,sxlwar
+          minimum-approvals: 1
+          issue-title: "Deploy crab subql for production mode by run ${{ github.run_id }}"
 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
