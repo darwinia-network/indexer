@@ -11,6 +11,8 @@ on:
 env:
   SUBQUERY_ORG: fewensa
   SUBQL_ACCESS_TOKEN: ${{ secrets.SUBQUERY_TOKEN }}
+  SUBQL_INDEXER_VERSION: v1.0.0
+  SUBQL_QUERY_VERSION: v1.0.0
 
 jobs:
   deploy-subql:
@@ -56,10 +58,12 @@ jobs:
       - name: deploy subql
         working-directory: subql
         run: |
-          echo npx subql deployment:deploy -d \
+          npx subql deployment:deploy -d \
             --type primary \
+            --indexerVersion=${{ env.SUBQL_INDEXER_VERSION }} \
+            --queryVersion=${{ env.SUBQL_QUERY_VERSION }} \
             --org ${{ env.SUBQUERY_ORG }} \
             --projectName ${{ matrix.chain }} \
-            --endpoint https://pangolin-rpc.darwinia.network \
-            --ipfsCID 12345
+            --endpoint $(cat project.yaml | yq '.network.endpoint') \
+            --ipfsCID $(cat .project-cid)
 
