@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  pull_request:
 
 env:
   SUBQUERY_ORG: fewensa
@@ -55,6 +56,7 @@ jobs:
       - name: deploy subql
         working-directory: subql
         run: |
+          DICT=$(cat project.yaml | yq '.network.dictionary')
           npx subql deployment:deploy -d \
             --type stage \
             --indexerVersion=${{ env.SUBQL_INDEXER_VERSION }} \
@@ -62,5 +64,6 @@ jobs:
             --org ${{ env.SUBQUERY_ORG }} \
             --projectName ${{ matrix.chain }} \
             --endpoint $(cat project.yaml | yq '.network.endpoint') \
-            --ipfsCID $(cat .project-cid)
+            --ipfsCID $(cat .project-cid) \
+            ${DICT:+--dict $DICT}
 
