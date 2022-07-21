@@ -22,7 +22,7 @@ export abstract class BasicChainHandler implements IndexHandler {
       try {
         await handler.handleBlock(block);
       } catch (e) {
-        logger.error(`Failed to handle block when call ${handler.name()} handler`, e);
+        logger.error(`Failed to handle block when call ${handler.name()} handler: ${e}`);
       }
     }
   }
@@ -32,7 +32,7 @@ export abstract class BasicChainHandler implements IndexHandler {
       try {
         await handler.handleEvent(event);
       } catch (e) {
-        logger.error(`Failed to handle event when call ${handler.name()} handler`, e);
+        logger.error(`Failed to handle event when call ${handler.name()} handler: ${e}`);
       }
     }
   }
@@ -42,7 +42,7 @@ export abstract class BasicChainHandler implements IndexHandler {
       try {
         await handler.handleCall(call);
       } catch (e) {
-        logger.error(`Failed to handle call when call ${handler.name()} handler`, e);
+        logger.error(`Failed to handle call when call ${handler.name()} handler: ${e}`);
       }
     }
   }

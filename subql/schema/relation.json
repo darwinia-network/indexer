@@ -9,7 +9,7 @@
     "crab": ["bridge-s2s"],
     "pangolin-parachain": ["bridge-s2s"],
     "crab-parachain": ["bridge-s2s"],
-    "kusama": ["candidate-included"],
-    "rococo": ["candidate-included"]
+    "kusama": ["bridge-s2s", "candidate-included"],
+    "rococo": ["bridge-s2s", "candidate-included"]
   }
 }
