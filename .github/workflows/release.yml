@@ -1,12 +1,9 @@
 name: Release
 
-#on:
-#  push:
-#    tags:
-#      - "v*"
-
 on:
-  pull_request:
+  push:
+    tags:
+      - "v*"
 
 env:
   SUBQUERY_ORG: fewensa
