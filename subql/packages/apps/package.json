@@ -4,19 +4,10 @@
   "description": "This SubQuery project can be use as a starting point for Rococo network",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "node scripts/prebuild.js apps && npx subql codegen",
-    "build": "tsc -b",
-    "build:pangolin": "cross-env CHAIN=pangolin npm run build",
-    "build:pangoro": "cross-env CHAIN=pangoro npm run build",
-    "build:darwinia": "cross-env CHAIN=darwinia npm run build",
-    "build:crab": "cross-env CHAIN=crab npm run build",
-    "build:pangolin-parachain": "cross-env CHAIN=pangolin-parachain npm run build",
-    "build:crab-parachain": "cross-env CHAIN=crab-parachain npm run build",
-    "build:kusama": "cross-env CHAIN=kusama npm run build",
-    "build:rococo": "cross-env CHAIN=rococo npm run build",
+    "build": "node ../../scripts/build.js apps",
     "prepack": "rm -rf dist && npm build",
     "test": "jest",
-    "publish": "node scripts/publish.js apps"
+    "publish": "node ../../scripts/publish.js apps"
   },
   "homepage": "https://github.com/darwinia-network/bridger",
   "repository": "https://github.com/darwinia-network/bridger",

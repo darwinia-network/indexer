@@ -4,10 +4,7 @@
   "description": "This SubQuery project can be use as a starting point for Rococo network",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "node ../../scripts/prebuild.js mmr && npx subql codegen",
-    "build": "tsc -b",
-    "build:pangolin": "cross-env CHAIN=pangolin npm run build",
-    "build:darwinia": "cross-env CHAIN=darwinia npm run build",
+    "build": "node ../../scripts/build.js mmr",
     "prepack": "rm -rf dist && npm build",
     "test": "jest",
     "publish": "node ../../scripts/publish.js mmr"

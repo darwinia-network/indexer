@@ -5,7 +5,10 @@
   "author": "Darwinia Network",
   "license": "MIT",
   "scripts": {
-    "build:common": "cd common && npm run build"
+    "build:common": "cd common && npm run build",
+    "build:apps": "cd packages/apps && npm run build",
+    "build:bridger": "cd packages/bridger && npm run build",
+    "build:mmr": "cd packages/mmr && npm run build"
   },
   "devDependencies": {
     "lerna": "^5.1.8",
