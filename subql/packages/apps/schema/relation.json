@@ -1,0 +1,15 @@
+{
+  "common": [
+    "generic"
+  ],
+  "special": {
+    "darwinia": [],
+    "pangolin": [],
+    "pangoro": [],
+    "crab": [],
+    "pangolin-parachain": [],
+    "crab-parachain": [],
+    "kusama": [],
+    "rococo": []
+  }
+}

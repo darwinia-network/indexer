@@ -1,39 +1,14 @@
 {
-  "name": "index-subql",
-  "version": "1.0.0",
-  "description": "This SubQuery project can be use as a starting point for Rococo network",
-  "main": "dist/index.js",
-  "scripts": {
-    "prebuild": "node scripts/prebuild.js && npx subql codegen",
-    "build": "tsc -b",
-    "build:pangolin": "cross-env CHAIN=pangolin npm run build",
-    "build:pangoro": "cross-env CHAIN=pangoro npm run build",
-    "build:darwinia": "cross-env CHAIN=darwinia npm run build",
-    "build:crab": "cross-env CHAIN=crab npm run build",
-    "build:pangolin-parachain": "cross-env CHAIN=pangolin-parachain npm run build",
-    "build:crab-parachain": "cross-env CHAIN=crab-parachain npm run build",
-    "build:kusama": "cross-env CHAIN=kusama npm run build",
-    "build:rococo": "cross-env CHAIN=rococo npm run build",
-    "prepack": "rm -rf dist && npm build",
-    "test": "jest",
-    "publish": "node scripts/publish.js"
-  },
-  "homepage": "https://github.com/darwinia-network/bridger",
-  "repository": "https://github.com/darwinia-network/bridger",
-  "files": [
-    "dist",
-    "schema.graphql",
-    "project.yaml"
-  ],
+  "name": "subql",
+  "version": "0.0.1",
+  "description": "subql index",
   "author": "Darwinia Network",
-  "devDependencies": {
-    "@polkadot/api": "^8",
-    "@subql/cli": "latest",
-    "@subql/types": "latest",
-    "cross-env": "^7.0.3",
-    "typescript": "^4.2.4"
+  "license": "MIT",
+  "scripts": {
+    "build:common": "cd common && npm run build"
   },
-  "resolutions": {
-    "ipfs-unixfs": "6.0.6"
+  "devDependencies": {
+    "lerna": "^5.1.8",
+    "nx": "^14.4.3"
   }
 }

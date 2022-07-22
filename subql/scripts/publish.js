@@ -1,15 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const childProcess = require('child_process');
+const pkg = process.argv[2];
 
 function _dir(subpath) {
   const appDir = path.dirname(require.main.filename);
-  return path.normalize(`${appDir}/../${subpath}`);
+  return path.normalize(`${appDir}/../packages/${pkg}/${subpath}`);
 }
 
 function _chain() {
-  const args = process.argv.slice(2);
-  let chain = args[0];
+  let chain = process.argv[3];
   if (chain) {
     return chain.toLowerCase();
   }

@@ -16,3 +16,5 @@ dist
 
 *.dep.txt
 *.log
+
+_env.ts

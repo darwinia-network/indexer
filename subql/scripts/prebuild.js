@@ -1,12 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const childProcess = require('child_process');
-
-const schemaLink = require('../schema/relation.json');
+const pkg = process.argv[2];
 
 function _dir(subpath) {
   const appDir = path.dirname(require.main.filename);
-  return path.normalize(`${appDir}/../${subpath}`);
+  return path.normalize(`${appDir}/../packages/${pkg}/${subpath}`);
 }
 
 function _env() {
@@ -27,7 +25,7 @@ function processEnv() {
   const json = JSON.stringify(env, '', 2);
   const code = `export default ${json}\n`;
 
-  const savePath = _dir('src/_env.ts');
+  const savePath = _dir('../../common/src/_env.ts');
   fs.writeFileSync(savePath, code);
   console.info('[prebuild] [env] wrote env to', savePath);
   console.info('[prebuild] ENV DATA: ', json);
@@ -36,6 +34,7 @@ function processEnv() {
 // merge schema file
 function mergeSchema() {
   const env = _env();
+  const schemaLink = require(_dir('schema/relation.json'));
   const {common, special} = schemaLink;
 
   // console.info(`[prebuild] [schema] found links [${features}] for ${env.CHAIN}`);
@@ -70,6 +69,17 @@ function mergeSchema() {
   console.info('[prebuild] [schema] all schemas merged');
 }
 
+function copyChainTypes() {
+  const appDir = path.dirname(require.main.filename);
+  const chainTypesSourcePath = path.resolve(appDir, '../chaintypes');
+  const chainTypesDestPath = _dir('chaintypes');
+  if (fs.existsSync(chainTypesDestPath)) {
+    fs.rmdirSync(chainTypesDestPath, {recursive: true});
+  }
+  copyRecursiveSync(chainTypesSourcePath, chainTypesDestPath);
+  console.info(`[prebuild] [chaintypes] copy chaintypes from ${chainTypesSourcePath} to ${chainTypesDestPath}`);
+}
+
 function genSchema() {
   const env = _env();
   const manifestSourcePath = _dir(`project/${env.CHAIN}.yaml`);
@@ -93,9 +103,25 @@ function genSchema() {
   // console.info('[prebuild] [codegen] generated schema types');
 }
 
+function copyRecursiveSync(src, dest) {
+  const exists = fs.existsSync(src);
+  const stats = exists && fs.statSync(src);
+  const isDirectory = exists && stats.isDirectory();
+  if (isDirectory) {
+    fs.mkdirSync(dest);
+    fs.readdirSync(src).forEach(function(childItemName) {
+      copyRecursiveSync(path.join(src, childItemName),
+        path.join(dest, childItemName));
+    });
+  } else {
+    fs.copyFileSync(src, dest);
+  }
+}
+
 function main() {
   processEnv();
   mergeSchema();
+  copyChainTypes();
   genSchema();
 }
 

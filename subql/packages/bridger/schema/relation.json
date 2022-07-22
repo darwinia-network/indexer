@@ -1,0 +1,15 @@
+{
+  "common": [
+    "generic"
+  ],
+  "special": {
+    "darwinia": ["bridge-ethv1", "bridge-s2s"],
+    "pangolin": ["bridge-ethv1", "bridge-s2s"],
+    "pangoro": ["bridge-s2s"],
+    "crab": ["bridge-s2s"],
+    "pangolin-parachain": ["bridge-s2s"],
+    "crab-parachain": ["bridge-s2s"],
+    "kusama": ["bridge-s2s", "candidate-included"],
+    "rococo": ["bridge-s2s", "candidate-included"]
+  }
+}
