@@ -26,7 +26,7 @@ function processEnv() {
   const json = JSON.stringify(env, '', 2);
   const code = `export default ${json}\n`;
 
-  const savePath = _dir('../../common/src/_env.ts');
+  const savePath = _dir('src/_env.ts');
   fs.writeFileSync(savePath, code);
   console.info('[build] [env] wrote env to', savePath);
   console.info('[build] ENV DATA: ', json);

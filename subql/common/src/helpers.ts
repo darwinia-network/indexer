@@ -1,6 +1,5 @@
 import {Block} from '@polkadot/types/interfaces/runtime';
 import {Chain} from "./types";
-import * as _env from "./_env"
 
 /**
  * extract timestamp of block
@@ -21,8 +20,8 @@ export function extractTimestamp(block: Block): Date {
 /**
  * Query active chain
  */
-export function activeChain(): Chain {
-  const envChain = _env.default.CHAIN;
+export function activeChain(envChain): Chain {
+  // const envChain = _env.default.CHAIN;
   if (!envChain) {
     throw new Error('Can not detect active chain, please set an environment with key by CHAIN')
   }

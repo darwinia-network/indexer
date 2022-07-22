@@ -1,15 +1,15 @@
 import {SubstrateBlock, SubstrateEvent, SubstrateExtrinsic} from '@subql/types';
-// @ts-ignore
 import {activeChain, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
 import {
   DarwiniaHandler,
   PangolinHandler,
 } from "../handler/chain"
+import * as _env from "../_env"
 
 
 function _activeChain(): Chain | undefined {
   try {
-    return activeChain();
+    return activeChain(_env.default.CHAIN);
   } catch (e) {
     logger.error(`Can not read active chain: ${e.message || 'No message'}`, e);
   }
