@@ -1,0 +1,16 @@
+{
+  "name": "index-common",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Darwinia Network",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "devDependencies": {
+    "@polkadot/api": "^8",
+    "@subql/types": "latest",
+    "typescript": "^4.2.4"
+  }
+}

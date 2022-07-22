@@ -1,0 +1,17 @@
+{
+  "name": "subql",
+  "version": "0.0.1",
+  "description": "subql index",
+  "author": "Darwinia Network",
+  "license": "MIT",
+  "scripts": {
+    "build:common": "cd common && npm run build",
+    "build:apps": "cd packages/apps && npm run build",
+    "build:bridger": "cd packages/bridger && npm run build",
+    "build:mmr": "cd packages/mmr && npm run build"
+  },
+  "devDependencies": {
+    "lerna": "^5.1.8",
+    "nx": "^14.4.3"
+  }
+}

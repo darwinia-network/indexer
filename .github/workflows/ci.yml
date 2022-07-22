@@ -1,0 +1,35 @@
+name: Check pull request
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-subql:
+    name: Check subql
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [
+          {name: "apps", chain: "darwinia"},
+          {name: "bridger", chain: "darwinia"},
+          {name: "mmr", chain: "darwinia"},
+        ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: install deps
+        working-directory: subql
+        run: |
+          npm i
+          npx lerna bootstrap
+          npm run build:common
+
+      - name: build subql
+        working-directory: subql
+        run: npm run build:${{ matrix.project.name }} -- ${{ matrix.project.chain }}

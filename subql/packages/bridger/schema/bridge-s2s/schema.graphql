@@ -1,0 +1,31 @@
+
+type NeedRelayBlock @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+  type: String!
+  origin: String!
+  laneId: String
+  messageNonce: Int
+  parentHash: String!
+  stateRoot: String!
+  extrinsicsRoot: String!
+  digest: String!
+
+  onDemandType: String,
+
+  additional: String
+
+  timestamp: Date
+}
+
+type JustificationMapping @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+  mandatory: Boolean!
+  justification: String!
+
+}
