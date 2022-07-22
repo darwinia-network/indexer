@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project:
-          - apps
-          - bridger
-          - mmr
+        project: [
+          {name: "apps", chain: "darwinia"},
+          {name: "bridger", chain: "darwinia"},
+          {name: "mmr", chain: "darwinia"},
+        ]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
@@ -31,15 +32,4 @@ jobs:
 
       - name: build subql
         working-directory: subql
-        if: matrix.project == 'apps'
-        run: npm run build:${{ matrix.project }} -- darwinia
-
-      - name: build subql
-        working-directory: subql
-        if: matrix.project == 'bridger'
-        run: npm run build:${{ matrix.project }} -- darwinia
-
-      - name: build subql
-        working-directory: subql
-        if: matrix.project == 'mmr'
-        run: npm run build:${{ matrix.project }} -- darwinia
+        run: npm run build:${{ matrix.project.name }} -- ${{ matrix.project.chain }}
