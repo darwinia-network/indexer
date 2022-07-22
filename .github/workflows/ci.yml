@@ -24,7 +24,9 @@ jobs:
 
       - name: install deps
         working-directory: subql
-        run: yarn install
+        run: |
+          npm i
+          npx lerna bootstrap
 
       - name: build subql
         working-directory: subql
