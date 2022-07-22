@@ -31,14 +31,20 @@ jobs:
       - name: build subql
         working-directory: subql
         if: matrix.project == 'apps'
-        run: npm run build:${{ matrix.project }} -- darwinia
+        run: |
+          npm run build:common
+          npm run build:${{ matrix.project }} -- darwinia
 
       - name: build subql
         working-directory: subql
         if: matrix.project == 'bridger'
-        run: npm run build:${{ matrix.project }} -- darwinia
+        run: |
+          npm run build:common
+          npm run build:${{ matrix.project }} -- darwinia
 
       - name: build subql
         working-directory: subql
         if: matrix.project == 'mmr'
-        run: npm run build:${{ matrix.project }} -- darwinia
+        run: |
+          npm run build:common
+          npm run build:${{ matrix.project }} -- darwinia
