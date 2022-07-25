@@ -1,0 +1,63 @@
+name: Deploy Subql
+
+on:
+  push:
+    tags:
+      - "v*"
+  pull_request:
+
+env:
+  SUBQUERY_ORG: darwinia-network
+  SUBQL_ACCESS_TOKEN: ${{ secrets.SUBQUERY_TOKEN }}
+  SUBQL_INDEXER_VERSION: v1.0.0
+  SUBQL_QUERY_VERSION: v1.0.0
+
+jobs:
+  deploy-mmr:
+    name: Deploy mmr
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - mmr
+          - apps
+          - bridger
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: install deps
+        working-directory: subql
+        run: |
+          npm i
+          npx lerna bootstrap
+          npm run build:common
+
+      - name: deploy project
+        working-directory: subql
+        run: |
+          FILE_PROJECt_CHAIN_MAPPING=../.maintain/subql-project-chain.json
+          CHAINS=$(jq -r ".${{ matrix.project }} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
+          BASE_PATH=$(pwd)
+          for CHAIN in $CHAINS; do
+            echo "=== Deploy ${{ matrix.project }} for ${CHAIN} ==="
+
+            cd ${BASE_PATH}/packages/${{ matrix.project }}
+            npm run build:${{ matrix.project }} -- ${CHAIN}
+            npm run publish:${{ matrix.project }} -- ${CHAIN}
+
+            DICT=$(cat project.yaml | yq '.network.dictionary')
+
+            echo npx subql deployment:deploy -d \
+              --type stage \
+              --indexerVersion=${{ env.SUBQL_INDEXER_VERSION }} \
+              --queryVersion=${{ env.SUBQL_QUERY_VERSION }} \
+              --org ${{ env.SUBQUERY_ORG }} \
+              --projectName ${{ matrix.chain }} \
+              --endpoint $(cat project.yaml | yq '.network.endpoint') \
+              --ipfsCID $(cat .project-cid) \
+              ${DICT:+--dict $DICT}
+
+          done
