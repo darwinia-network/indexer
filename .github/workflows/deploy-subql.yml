@@ -45,8 +45,8 @@ jobs:
             echo "=== Deploy ${{ matrix.project }} for ${CHAIN} ==="
 
             cd ${BASE_PATH}/packages/${{ matrix.project }}
-            npm run build:${{ matrix.project }} -- ${CHAIN}
-            npm run publish:${{ matrix.project }} -- ${CHAIN}
+            npm run build -- ${CHAIN}
+            npm run publish -- ${CHAIN}
 
             DICT=$(cat project.yaml | yq '.network.dictionary')
 
