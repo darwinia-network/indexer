@@ -42,7 +42,7 @@ jobs:
           ITEMS=$(echo $JSONARGS | jq '.[]')
           BASE_PATH=$(pwd)
 
-          for ITEM in ${PROJECTS}; do
+          for ITEM in ${ITEMS}; do
             PROJECT=$(echo $ITEM | jq -r '.project')
             CHAINS=$(echo $ITEM | jq -r '.chains[]')
             DEPLOY_ALL_CHAIN=$(echo $ITEM | jq -r '.all')
