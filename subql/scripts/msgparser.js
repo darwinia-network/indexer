@@ -6,7 +6,7 @@ function handleArg() {
   const _args = process.argv;
   const args = _args.splice(2);
   const rets = [];
-  if (args.indexOf('[deploy]')) {
+  if (args.indexOf('[deploy-subql]')) {
     rets.push(...handleWithGitCommit(args[0]))
   } else {
     rets.push(handleWithRawCommand(args));

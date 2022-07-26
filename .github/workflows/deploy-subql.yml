@@ -11,15 +11,9 @@ env:
   SUBQL_QUERY_VERSION: v1.0.0
 
 jobs:
-  deploy-mmr:
-    name: Deploy mmr
+  deploy-subql:
+    name: Deploy subql
     runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        project:
-#          - mmr
-#          - apps
-#          - bridger
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
@@ -35,7 +29,7 @@ jobs:
 
       - name: deploy project
         working-directory: subql
-        if: ${{ contains(github.event.head_commit.message, '[deploy]') }}
+        if: ${{ contains(github.event.head_commit.message, '[deploy-subql]') }}
         run: |
           COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
           JSON_ARGS=$(node scripts/msgparser.js "${COMMIT_MESSAGE}")
@@ -56,7 +50,7 @@ jobs:
               echo ''
               echo "====== Deploy ${PROJECT} for ${CHAIN} ======"
 
-              cd ${BASE_PATH}/packages/${{ matrix.project }}
+              cd ${BASE_PATH}/packages/${PROJECT}
               npm run build -- ${CHAIN}
               npm run publish -- ${CHAIN}
 
@@ -66,7 +60,7 @@ jobs:
                 --indexerVersion=${{ env.SUBQL_INDEXER_VERSION }} \
                 --queryVersion=${{ env.SUBQL_QUERY_VERSION }} \
                 --org ${{ env.SUBQUERY_ORG }} \
-                --projectName subql-${{ matrix.project }}-${CHAIN} \
+                --projectName subql-${PROJECT}-${CHAIN} \
                 --endpoint $(cat project.yaml | yq '.network.endpoint') \
                 --ipfsCID $(cat .project-cid) \
                 ${DICT:+--dict $DICT}
