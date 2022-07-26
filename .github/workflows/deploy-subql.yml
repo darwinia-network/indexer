@@ -40,10 +40,10 @@ jobs:
           COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
           JSON_ARGS=$(node scripts/msgparser.js "${COMMIT_MESSAGE}")
           ITEMS=$(echo $JSON_ARGS | jq -c '.[]')
-          echo ${ITEMS}
           BASE_PATH=$(pwd)
 
           for ITEM in ${ITEMS}; do
+            echo ${ITEM}
             PROJECT=$(echo $ITEM | jq -r '.project')
             CHAINS=$(echo $ITEM | jq -r '.chains[]')
             DEPLOY_ALL_CHAIN=$(echo $ITEM | jq -r '.all')
