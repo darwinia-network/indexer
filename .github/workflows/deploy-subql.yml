@@ -26,12 +26,12 @@ jobs:
         with:
           node-version: 16
 
-      - name: install deps
-        working-directory: subql
-        run: |
-          npm i
-          npx lerna bootstrap
-          npm run build:common
+#      - name: install deps
+#        working-directory: subql
+#        run: |
+#          npm i
+#          npx lerna bootstrap
+#          npm run build:common
 
       - name: deploy project
         working-directory: subql
@@ -39,6 +39,7 @@ jobs:
         run: |
           COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
           JSON_ARGS=$(node scripts/msgparser.js '${COMMIT_MESSAGE}')
+          echo ${JSON_ARGS}
           ITEMS=$(echo $JSON_ARGS | jq '.[]')
           BASE_PATH=$(pwd)
 
