@@ -16,12 +16,10 @@ network:
   chainId: '0xce44bd16fc276f9e457b452577b6c2678e57768260012af127479fed806da7e7'
   endpoint: 'https://pangolin-rpc.darwinia.network'
   dictionary: 'https://api.subquery.network/sq/darwinia-network/pangolin-dictionary'
-  chaintypes:
-    file: chaintypes/pangolin.yaml
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 9
+    startBlock: 3197354
     mapping:
       file: ./dist/index.js
       handlers:
