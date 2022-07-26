@@ -39,8 +39,8 @@ jobs:
         run: |
           COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
           JSON_ARGS=$(node scripts/msgparser.js "${COMMIT_MESSAGE}")
-          echo ${JSON_ARGS}
           ITEMS=$(echo $JSON_ARGS | jq '.[]')
+          echo ${ITEMS}
           BASE_PATH=$(pwd)
 
           for ITEM in ${ITEMS}; do
