@@ -2,7 +2,7 @@ name: Deploy Index
 
 on:
   push:
-    branches: [ fewensa-release ]
+    branches: [ main ]
 
 env:
   SUBQUERY_ORG: darwinia-network
