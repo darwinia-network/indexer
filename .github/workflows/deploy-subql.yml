@@ -35,9 +35,11 @@ jobs:
 
       - name: deploy project
         working-directory: subql
+        if: ${{ contains(github.event.head_commit.message, '[deploy]') }}
         run: |
           COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
           echo ${COMMIT_MESSAGE}
+          node --version
           FILE_PROJECt_CHAIN_MAPPING=../.maintain/subql-project-chain.json
           CHAINS=$(jq -r ".${{ matrix.project }} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
           BASE_PATH=$(pwd)
