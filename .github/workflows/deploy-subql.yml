@@ -2,7 +2,7 @@ name: Deploy Index
 
 on:
   push:
-    branches: [ main ]
+    branches: [ fewensa-release ]
 
 env:
   SUBQUERY_ORG: darwinia-network
@@ -57,7 +57,7 @@ jobs:
               npm run publish -- ${CHAIN}
 
               DICT=$(cat project.yaml | yq '.network.dictionary')
-              echo npx subql deployment:deploy -d \
+              npx subql deployment:deploy -d \
                 --type stage \
                 --indexerVersion=${{ env.SUBQL_INDEXER_VERSION }} \
                 --queryVersion=${{ env.SUBQL_QUERY_VERSION }} \
