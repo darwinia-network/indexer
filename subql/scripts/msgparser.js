@@ -2,11 +2,13 @@
 
 // const pkg = process.argv[2];
 
+const MAGIC_PREFIX = '[deploy-subql]';
+
 function handleArg() {
   const _args = process.argv;
   const args = _args.splice(2);
   const rets = [];
-  if (args.indexOf('[deploy-subql]')) {
+  if (args.indexOf(MAGIC_PREFIX)) {
     rets.push(...handleWithGitCommit(args[0]))
   } else {
     rets.push(handleWithRawCommand(args));
@@ -15,7 +17,7 @@ function handleArg() {
 }
 
 function handleWithGitCommit(commitMessage) {
-  let msg = commitMessage.replace('[deploy]', '');
+  let msg = commitMessage.replace(MAGIC_PREFIX, '');
   const operationList = msg.split('|');
   const rets = [];
   for (const part of operationList) {
