@@ -1,8 +1,8 @@
-name: Deploy Subql
+name: Deploy Index
 
 on:
   push:
-    branches: [ fewensa-release ]
+    branches: [ main ]
 
 env:
   SUBQUERY_ORG: darwinia-network
@@ -46,6 +46,8 @@ jobs:
             fi
 
             for CHAIN in ${CHAINS}; do
+              echo ''
+              echo ''
               echo ''
               echo ''
               echo "====== Deploy ${PROJECT} for ${CHAIN} ======"
