@@ -14,12 +14,12 @@ jobs:
   deploy-mmr:
     name: Deploy mmr
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        project:
-          - mmr
-          - apps
-          - bridger
+#    strategy:
+#      matrix:
+#        project:
+#          - mmr
+#          - apps
+#          - bridger
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
@@ -38,22 +38,28 @@ jobs:
         if: ${{ contains(github.event.head_commit.message, '[deploy]') }}
         run: |
           COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
-          echo ${COMMIT_MESSAGE}
-          node --version
-          FILE_PROJECt_CHAIN_MAPPING=../.maintain/subql-project-chain.json
-          CHAINS=$(jq -r ".${{ matrix.project }} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
+          JSON_ARGS=$(node scripts/msgparser.js '${COMMIT_MESSAGE}')
+          ITEMS=$(echo $JSONARGS | jq '.[]')
           BASE_PATH=$(pwd)
-          for CHAIN in $CHAINS; do
+
+          for ITEM in ${PROJECTS}; do
+            PROJECT=$(echo $ITEM | jq -r '.project')
+            CHAINS=$(echo $ITEM | jq -r '.chains[]')
+            DEPLOY_ALL_CHAIN=$(echo $ITEM | jq -r '.all')
+            if [ "${DEPLOY_ALL_CHAIN}" == "true" ]; then
+              FILE_PROJECt_CHAIN_MAPPING=../.maintain/subql-project-chain.json
+              CHAINS=$(jq -r ".${PROJECT} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
+            fi
+
             echo ''
             echo ''
-            echo "=== Deploy ${{ matrix.project }} for ${CHAIN} ==="
+            echo "====== Deploy ${{ matrix.project }} for ${CHAIN} ======"
 
             cd ${BASE_PATH}/packages/${{ matrix.project }}
             npm run build -- ${CHAIN}
             npm run publish -- ${CHAIN}
 
             DICT=$(cat project.yaml | yq '.network.dictionary')
-
             echo npx subql deployment:deploy -d \
               --type stage \
               --indexerVersion=${{ env.SUBQL_INDEXER_VERSION }} \
@@ -63,5 +69,5 @@ jobs:
               --endpoint $(cat project.yaml | yq '.network.endpoint') \
               --ipfsCID $(cat .project-cid) \
               ${DICT:+--dict $DICT}
-
           done
+
