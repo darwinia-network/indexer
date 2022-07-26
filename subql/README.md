@@ -10,7 +10,7 @@ You can create follow [template](packages/template) project. and then add your
 code to `src/handler/logic` directory. last add your logic class to
 special [chain handler](packages/template/src/handler/chain/impls.ts).
 
-### How to deploy (to Subquery hosted service)
+### How to deploy (to Subquery hosted server)
 
 Please create new commit to main branch. and the commit message format like this
 
