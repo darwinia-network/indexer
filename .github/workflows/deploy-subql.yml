@@ -43,7 +43,6 @@ jobs:
           BASE_PATH=$(pwd)
 
           for ITEM in ${ITEMS}; do
-            echo ${ITEM}
             PROJECT=$(echo $ITEM | jq -r '.project')
             CHAINS=$(echo $ITEM | jq -r '.chains[]')
             DEPLOY_ALL_CHAIN=$(echo $ITEM | jq -r '.all')
@@ -52,23 +51,25 @@ jobs:
               CHAINS=$(jq -r ".${PROJECT} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
             fi
 
-            echo ''
-            echo ''
-            echo "====== Deploy ${{ matrix.project }} for ${CHAIN} ======"
+            for CHAIN in ${CHAINS}; do
+              echo ''
+              echo ''
+              echo "====== Deploy ${PROJECT} for ${CHAIN} ======"
 
-            cd ${BASE_PATH}/packages/${{ matrix.project }}
-            npm run build -- ${CHAIN}
-            npm run publish -- ${CHAIN}
+              cd ${BASE_PATH}/packages/${{ matrix.project }}
+              npm run build -- ${CHAIN}
+              npm run publish -- ${CHAIN}
 
-            DICT=$(cat project.yaml | yq '.network.dictionary')
-            echo npx subql deployment:deploy -d \
-              --type stage \
-              --indexerVersion=${{ env.SUBQL_INDEXER_VERSION }} \
-              --queryVersion=${{ env.SUBQL_QUERY_VERSION }} \
-              --org ${{ env.SUBQUERY_ORG }} \
-              --projectName subql-${{ matrix.project }}-${CHAIN} \
-              --endpoint $(cat project.yaml | yq '.network.endpoint') \
-              --ipfsCID $(cat .project-cid) \
-              ${DICT:+--dict $DICT}
+              DICT=$(cat project.yaml | yq '.network.dictionary')
+              echo npx subql deployment:deploy -d \
+                --type stage \
+                --indexerVersion=${{ env.SUBQL_INDEXER_VERSION }} \
+                --queryVersion=${{ env.SUBQL_QUERY_VERSION }} \
+                --org ${{ env.SUBQUERY_ORG }} \
+                --projectName subql-${{ matrix.project }}-${CHAIN} \
+                --endpoint $(cat project.yaml | yq '.network.endpoint') \
+                --ipfsCID $(cat .project-cid) \
+                ${DICT:+--dict $DICT}
+            done
           done
 
