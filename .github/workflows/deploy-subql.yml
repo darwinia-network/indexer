@@ -35,13 +35,13 @@ jobs:
           JSON_ARGS=$(node scripts/msgparser.js "${COMMIT_MESSAGE}")
           ITEMS=$(echo $JSON_ARGS | jq -c '.[]')
           BASE_PATH=$(pwd)
+          FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subql-project-chain.json
 
           for ITEM in ${ITEMS}; do
             PROJECT=$(echo $ITEM | jq -r '.project')
             CHAINS=$(echo $ITEM | jq -r '.chains[]')
             DEPLOY_ALL_CHAIN=$(echo $ITEM | jq -r '.all')
             if [ "${DEPLOY_ALL_CHAIN}" == "true" ]; then
-              FILE_PROJECt_CHAIN_MAPPING=../.maintain/subql-project-chain.json
               CHAINS=$(jq -r ".${PROJECT} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
             fi
 
