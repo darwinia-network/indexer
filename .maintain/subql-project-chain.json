@@ -1,0 +1,20 @@
+{
+  "mmr": [
+    "darwinia",
+    "pangolin"
+  ],
+  "apps": [
+    "darwinia",
+    "pangolin"
+  ],
+  "bridger": [
+    "darwinia",
+    "crab",
+    "pangolin",
+    "pangoro",
+    "pangolin-parachain",
+    "crab-parachain",
+    "kusama",
+    "rococo"
+  ]
+}

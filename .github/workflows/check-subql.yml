@@ -1,4 +1,4 @@
-name: Check pull request
+name: Check Subql
 
 on:
   push:
