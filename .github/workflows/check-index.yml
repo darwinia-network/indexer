@@ -13,9 +13,12 @@ jobs:
     strategy:
       matrix:
         project:
-          - {name: "apps", chain: "darwinia"}
-          - {name: "bridger", chain: "darwinia"}
-          - {name: "mmr", chain: "darwinia"}
+          - name: "apps"
+            chain: "darwinia"
+          - name: "bridger"
+            chain: "darwinia"
+          - name: "mmr"
+            chain: "darwinia"
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
