@@ -13,25 +13,47 @@ jobs:
     strategy:
       matrix:
         project:
-          - name: "apps"
-            chain: "darwinia"
-          - name: "bridger"
-            chain: "darwinia"
-          - name: "mmr"
-            chain: "darwinia"
+          - name: apps
+            chain: darwinia
+          - name: bridger
+            chain: darwinia
+          - name: mmr
+            chain: darwinia
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - name: install deps
+      - name: Install deps
         working-directory: subql
         run: |
           npm i
           npx lerna bootstrap
           npm run build:common
 
-      - name: build subql
+      - name: Check subql
         working-directory: subql
         run: npm run build:${{ matrix.project.name }} -- ${{ matrix.project.chain }}
+
+  check-subgraph:
+    name: Check subgraph
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - name: bridge-ethv1
+            chain: ethereum
+          - name: mmr
+            chain: ethereum
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Check subgraph
+        run: |
+          cd thegraph/${{ matrix.project.name }}
+          npm i
+          npm run codegen -- subgraph-${{ matrix.project.chain }}.yaml
+          npm run build -- subgraph-${{ matrix.project.chain }}.yaml
