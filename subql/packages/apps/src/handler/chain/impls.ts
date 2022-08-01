@@ -1,6 +1,8 @@
 import {BasicChainHandler} from "./basic";
 import {Chain, IndexHandler} from "index-common";
 import {GenericBlockHandler} from "../logic/block";
+import {GenericStakingHandler} from "../logic/staking";
+import {GenericFeeMarketHandler} from "../logic/feemarket";
 
 
 export class CrabHandler extends BasicChainHandler {
@@ -11,6 +13,8 @@ export class CrabHandler extends BasicChainHandler {
   handlers(): Array<IndexHandler> {
     return [
       new GenericBlockHandler(Chain.Crab),
+      new GenericStakingHandler(Chain.Crab),
+      new GenericFeeMarketHandler(Chain.Crab),
     ];
   }
 }
@@ -59,6 +63,8 @@ export class PangolinHandler extends BasicChainHandler {
   handlers(): Array<IndexHandler> {
     return [
       new GenericBlockHandler(Chain.Pangolin),
+      new GenericStakingHandler(Chain.Pangolin),
+      new GenericFeeMarketHandler(Chain.Pangolin),
     ];
   }
 }
