@@ -13,6 +13,7 @@ node_modules
 
 generated
 dist
+.data
 
 *.dep.txt
 *.log
