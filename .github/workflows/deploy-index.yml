@@ -31,7 +31,7 @@ jobs:
         if: ${{ contains(github.event.head_commit.message, '[deploy-subql]') }}
         run: |
           COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
-          JSON_ARGS=$(node ../scripts/msgparser.js "${COMMIT_MESSAGE}")
+          JSON_ARGS=$(node ../scripts/msgparser.js "[deploy-subql]" "${COMMIT_MESSAGE}")
           ITEMS=$(echo $JSON_ARGS | jq -c '.[]')
           BASE_PATH=$(pwd)
           FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subql-project-chain.json
@@ -82,7 +82,7 @@ jobs:
         if: ${{ contains(github.event.head_commit.message, '[deploy-subgraph]') }}
         run: |
           COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
-          JSON_ARGS=$(node ../scripts/msgparser.js "${COMMIT_MESSAGE}")
+          JSON_ARGS=$(node ../scripts/msgparser.js "[deploy-subgraph]" "${COMMIT_MESSAGE}")
           ITEMS=$(echo $JSON_ARGS | jq -c '.[]')
           BASE_PATH=$(pwd)
           FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subgraph-project-chain.json
