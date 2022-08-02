@@ -39,6 +39,8 @@ export class DarwiniaHandler extends BasicChainHandler {
   handlers(): Array<IndexHandler> {
     return [
       new GenericBlockHandler(Chain.Darwinia),
+      new GenericStakingHandler(Chain.Crab),
+      new GenericFeeMarketHandler(Chain.Crab),
     ];
   }
 }
@@ -89,6 +91,8 @@ export class PangoroHandler extends BasicChainHandler {
   handlers(): Array<IndexHandler> {
     return [
       new GenericBlockHandler(Chain.Pangoro),
+      new GenericStakingHandler(Chain.Crab),
+      new GenericFeeMarketHandler(Chain.Crab),
     ];
   }
 }
