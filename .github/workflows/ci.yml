@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         project: [
-          {name: "apps", chain: "darwinia"},
+          {name: "apps", chain: "pangolin"},
           {name: "bridger", chain: "darwinia"},
           {name: "mmr", chain: "darwinia"},
         ]
