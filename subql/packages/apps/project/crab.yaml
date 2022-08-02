@@ -15,10 +15,11 @@ schema:
 network:
   chainId: '0x34f61bfda344b3fad3c3e38832a91448b3c613b199eb23e5110a635d71c13c65'
   endpoint: 'wss://crab-rpc.darwinia.network'
+  dictionary: "https://api.subquery.network/sq/darwinia-network/crab-dictionary"
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 10784800
+    startBlock: 10733500
     mapping:
       file: ./dist/index.js
       handlers:
@@ -28,27 +29,41 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
-        ## bridge s2s
+        ################# Staking Event #################
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: grandpa
-            method: NewAuthorities
+            module: staking
+            method: Rewarded
+
+        ################# Fee Market Event #################
+        # Order Create
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgeCrabParachainMessages
-            method: MessageAccepted
+            method: OrderCreated
+        # Order Finish
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgeCrabParachainDispatch
+            method: MessagesDelivered
+        # Order Reward
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgeDarwiniaMessages
-            method: MessageAccepted
+            method: OrderReward
+        # Order Slash
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgeDarwiniaDispatch
+            method: FeeMarketSlash
+        # Fee Update
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            method: UpdateRelayFee
+        # Fee Init
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            method: Enroll
