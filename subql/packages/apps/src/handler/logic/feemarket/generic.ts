@@ -1,5 +1,5 @@
 
-import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
+import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
 
 import {
   handleOrderCreateEvent,

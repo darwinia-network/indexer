@@ -1,6 +1,6 @@
 import {BridgeS2SEventHandler, BridgeS2SOnDemandType, BridgeS2SRelayBlockOrigin} from "../types";
 import {NeedRelayBlockStorage} from "../storage";
-import {FastEvent} from "index-common";
+import {FastEvent} from "@darwinia/index-common";
 
 export class ChainCrabEventHandler implements BridgeS2SEventHandler {
   async handle(event: FastEvent, section: string, method: string): Promise<void> {

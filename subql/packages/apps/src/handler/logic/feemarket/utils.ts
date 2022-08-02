@@ -1,5 +1,5 @@
 import { SubstrateEvent } from "@subql/types";
-import { FastEvent } from "index-common";
+import { FastEvent } from "@darwinia/index-common";
 
 import { Destination, FeeMarketEntity, OrderEntity, OrderStatus } from "../../../types";
 

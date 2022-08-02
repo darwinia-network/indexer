@@ -1,7 +1,7 @@
 /**
  * store need relay block
  */
-import {FastBlock, FastEvent} from "index-common";
+import {FastBlock, FastEvent} from "@darwinia/index-common";
 import {BridgeS2SOnDemandType, BridgeS2SRelayBlockOrigin, BridgeS2SRelayBlockType} from "./types";
 // @ts-ignore
 import {JustificationMapping, NeedRelayBlock} from "../../../types";

@@ -1,4 +1,4 @@
-import {BRIDGE_START_BLOCK, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
+import {BRIDGE_START_BLOCK, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
 import {BridgeS2SEventHandler} from "./types";
 import {ChainCrabEventHandler} from "./chain/crab";
 import {ChainDarwiniaEventHandler} from "./chain/darwinia";

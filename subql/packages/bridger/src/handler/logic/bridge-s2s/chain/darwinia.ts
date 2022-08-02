@@ -1,5 +1,5 @@
 import {BridgeS2SEventHandler, BridgeS2SOnDemandType, BridgeS2SRelayBlockOrigin} from "../types";
-import {FastEvent} from "index-common";
+import {FastEvent} from "@darwinia/index-common";
 import {NeedRelayBlockStorage} from "../storage";
 
 export class ChainDarwiniaEventHandler implements BridgeS2SEventHandler {

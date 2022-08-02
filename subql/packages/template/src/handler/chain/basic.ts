@@ -1,5 +1,5 @@
 // @ts-ignore
-import {FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
+import {FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
 
 
 export abstract class BasicChainHandler implements IndexHandler {
