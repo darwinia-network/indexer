@@ -71,10 +71,11 @@ jobs:
   deploy-thegraph:
     name: Deploy thegraph
     runs-on: ubuntu-latest
-    matrix:
-      subgraph:
-        - bridge-ethv1
-        - mmr
+    strategy:
+      matrix:
+        subgraph:
+          - bridge-ethv1
+          - mmr
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
