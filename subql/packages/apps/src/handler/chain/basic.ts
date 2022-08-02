@@ -1,4 +1,4 @@
-import {FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
+import {FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "./index-common";
 
 
 export abstract class BasicChainHandler implements IndexHandler {

@@ -14,21 +14,7 @@ import {
   NewFeeEntity,
   OrderStatus,
 } from "../../../types";
-
-const getFeeMarketModule = (dest: Destination): string => {
-  switch (dest) {
-    case Destination.Darwinia:
-      return "darwiniaFeeMarket";
-    case Destination.Pangoro:
-      return "pangoroFeeMarket";
-    case Destination.CrabParachain:
-      return "crabParachainFeeMarket";
-    case Destination.PangolinParachain:
-      return "pangolinParachainFeeMarket";
-    default:
-      return "feeMarket";
-  }
-};
+import { getFeeMarketModule } from './utils';
 
 /**
  * Order Create

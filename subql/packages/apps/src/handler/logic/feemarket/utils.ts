@@ -20,6 +20,21 @@ export const dispatch = async (section: string, event: FastEvent, handler: (even
   }
 }
 
+export const getFeeMarketModule = (dest: Destination): string => {
+  switch (dest) {
+    case Destination.Darwinia:
+      return "darwiniaFeeMarket";
+    case Destination.Pangoro:
+      return "pangoroFeeMarket";
+    case Destination.CrabParachain:
+      return "crabParachainFeeMarket";
+    case Destination.PangolinParachain:
+      return "pangolinParachainFeeMarket";
+    default:
+      return "feeMarket";
+  }
+};
+
 export const updateOutOfSlot = async (current: number, dest: Destination) => {
   const feeMarket = await FeeMarketEntity.get(dest);
 

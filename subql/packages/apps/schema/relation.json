@@ -3,9 +3,9 @@
     "generic"
   ],
   "special": {
-    "darwinia": [],
+    "darwinia": ["feemarket", "staking"],
     "pangolin": ["feemarket", "staking"],
-    "pangoro": [],
+    "pangoro": ["feemarket", "staking"],
     "crab": ["feemarket", "staking"],
     "pangolin-parachain": [],
     "crab-parachain": [],
