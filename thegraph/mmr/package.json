@@ -2,7 +2,7 @@
   "name": "mmr",
   "scripts": {
     "codegen": "graph codegen",
-    "build": "node scripts/build.js",
+    "build": "graph build",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/",
     "create-local": "graph create --node http://localhost:8020/ darwinia-network/ropsten-mmr",
     "remove-local": "graph remove --node http://localhost:8020/ darwinia-network/ropsten-mmr",
