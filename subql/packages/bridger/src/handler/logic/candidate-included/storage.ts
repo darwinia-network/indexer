@@ -1,4 +1,4 @@
-import {Chain, FastEvent} from "index-common";
+import {Chain, FastEvent} from "@darwinia/index-common";
 // @ts-ignore
 import {CandidateIncludedEvent} from "../../../types";
 

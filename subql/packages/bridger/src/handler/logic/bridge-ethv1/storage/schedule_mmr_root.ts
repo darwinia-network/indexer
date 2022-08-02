@@ -1,6 +1,6 @@
 // @ts-ignore
 import {ScheduleMMRRootEvent} from "../../../../types";
-import {FastEvent} from "index-common";
+import {FastEvent} from "@darwinia/index-common";
 
 export class ScheduleMMRRootStorage {
   private readonly event: FastEvent;

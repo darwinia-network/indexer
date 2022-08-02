@@ -1,5 +1,5 @@
 // @ts-ignore
-import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
+import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
 // @ts-ignore
 import {MMRNodeEntity} from "../../../types";
 import {merge, parent_offset, pos_height_in_tree, sibling_offset, leaf_index_to_pos} from "./helpers";

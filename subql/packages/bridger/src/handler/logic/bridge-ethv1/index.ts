@@ -1,5 +1,5 @@
 // @ts-ignore
-import {BRIDGE_START_BLOCK, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "index-common";
+import {BRIDGE_START_BLOCK, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
 import {
   AuthoritiesChangeSignedStorage,
   MMRRootSignedStorage,
