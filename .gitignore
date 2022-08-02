@@ -19,3 +19,6 @@ dist
 *.log
 
 _env.ts
+chain.json
+chain.ts
+build
