@@ -5,6 +5,9 @@ import { Destination, FeeMarketEntity, OrderEntity, OrderStatus } from "../../..
 
 export const dispatch = async (section: string, event: FastEvent, handler: (event: SubstrateEvent, dest: Destination) => Promise<void>) => {
   switch (section) {
+    case 'feeMarket':
+    case 'bridgeCrabMessages':
+      return handler(event.raw, Destination.Default);
     case 'darwiniaFeeMarket':
     case 'bridgeDarwiniaMessages':
       return handler(event.raw, Destination.Darwinia);
@@ -17,6 +20,9 @@ export const dispatch = async (section: string, event: FastEvent, handler: (even
     case 'pangolinParachainFeeMarket':
     case 'bridgePangolinParachainMessages':
       return handler(event.raw, Destination.PangolinParachain);
+    case 'pangolinFeeMarket':
+    case 'bridgePangolinMessages':
+      return handler(event.raw, Destination.Pangolin);
   }
 }
 
@@ -24,6 +30,8 @@ export const getFeeMarketModule = (dest: Destination): string => {
   switch (dest) {
     case Destination.Darwinia:
       return "darwiniaFeeMarket";
+    case Destination.Pangolin:
+      return 'pangolinFeeMarket';
     case Destination.Pangoro:
       return "pangoroFeeMarket";
     case Destination.CrabParachain:
