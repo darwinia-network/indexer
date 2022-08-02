@@ -25,7 +25,6 @@ jobs:
         run: |
           npm i
           npx lerna bootstrap
-          npm run build:common
 
       - name: deploy project
         working-directory: subql

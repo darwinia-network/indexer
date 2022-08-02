@@ -30,7 +30,6 @@ jobs:
         run: |
           npm i
           npx lerna bootstrap
-          npm run build:common
 
       - name: Check subql
         working-directory: subql
