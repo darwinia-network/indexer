@@ -1,4 +1,4 @@
-import {FastEvent} from "index-common";
+import {FastEvent} from "@darwinia/index-common";
 // @ts-ignore
 import {AuthoritiesChangeSignedEvent} from "../../../../types";
 import {SignatureStorage} from "./signature";

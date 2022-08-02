@@ -1,5 +1,5 @@
 import {BasicChainHandler} from "./basic";
-import {Chain, IndexHandler} from "index-common";
+import {Chain, IndexHandler} from "@darwinia/index-common";
 import {BridgeS2SHandler} from "../logic/bridge-s2s";
 import {GenericBlockHandler} from "../logic/block";
 import {CandidateIncludedHandler} from "../logic/candidate-included";

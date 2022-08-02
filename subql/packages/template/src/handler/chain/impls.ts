@@ -1,6 +1,6 @@
 import {BasicChainHandler} from "./basic";
 // @ts-ignore
-import {Chain, IndexHandler} from "index-common";
+import {Chain, IndexHandler} from "@darwinia/index-common";
 import {GenericBlockHandler} from "../logic/block";
 
 
