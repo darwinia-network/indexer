@@ -1,91 +1,91 @@
-import { BigInt, Bytes, json } from "@graphprotocol/graph-ts"
-import { mmr, Test } from "../generated/mmr/mmr"
-import { NodeEntity } from "../generated/schema"
-import { ethereum } from '@graphprotocol/graph-ts'
-import { blake2b } from './blake2b'
-
-const chain = require('./chain.json');
-const mmrInit = require('./mmr-init.json');
-
+import {BigInt, Bytes, ethereum, json} from "@graphprotocol/graph-ts"
+import {Test} from "../generated/mmr/mmr"
+import {NodeEntity} from "../generated/schema"
+import {blake2b} from './blake2b'
+import {mmrInitData} from './mmr_init'
+import {currentChain} from './chain';
 
 export function handleTest(event: Test): void {
 }
 
 function hash(block: ethereum.Block): Bytes {
-    return block.hash;
+  return block.hash;
 }
 
 function toU64(dec: BigInt): u64 {
-    let decimalString = dec.toString();
-    return json.toU64(decimalString);
+  let decimalString = dec.toString();
+  return json.toU64(decimalString);
 }
 
 export function handleBlock(block: ethereum.Block): void {
-    const minit = mmrInit[chain.chain];
-    const beginBlock = minit.startBlock;
-    let blocknumber = toU64(block.number);
-    if (blocknumber < beginBlock) {
-        return;
-    }
-    if (blocknumber == beginBlock) {
-        init();
-    }
-    let block_position = leaf_index_to_pos(blocknumber);
-    let record = new NodeEntity(block_position.toString());
+  let data = mmrInitData();
+  let minit = data.get(currentChain());
+  let beginBlock = minit.startBlock;
+  let blocknumber = toU64(block.number);
+  if (blocknumber < beginBlock) {
+    return;
+  }
+  if (blocknumber == beginBlock) {
+    init();
+  }
+  let block_position = leaf_index_to_pos(blocknumber);
+  let record = new NodeEntity(block_position.toString());
 
-    record.position = block_position.toString();
-    record.hash = hash(block);
-    record.save();
+  record.position = block_position.toString();
+  record.hash = hash(block);
+  record.save();
 
-    checkPeaks(block_position);
+  checkPeaks(block_position);
 }
 
 function checkPeaks(block_position: u64): void {
-    let height = 0;
-    let pos = block_position;
+  let height = 0;
+  let pos = block_position;
 
-    while (pos_height_in_tree(pos + 1) > height) {
-        pos += 1;
-        let left_pos = pos - parent_offset(height);
-        let  right_pos = left_pos + sibling_offset(height);
-        let left_elem = NodeEntity.load(left_pos.toString());
-        let right_elem = NodeEntity.load(right_pos.toString());
-        let record = new NodeEntity(pos.toString());
+  while (pos_height_in_tree(pos + 1) > height) {
+    pos += 1;
+    let left_pos = pos - parent_offset(height);
+    let right_pos = left_pos + sibling_offset(height);
+    let left_elem = NodeEntity.load(left_pos.toString());
+    let right_elem = NodeEntity.load(right_pos.toString());
+    let record = new NodeEntity(pos.toString());
 
-        record.position = pos.toString();
-        record.hash = merge(left_elem.hash, right_elem.hash);
-        record.save();
-        height += 1;
-    }
+    record.position = pos.toString();
+    record.hash = merge(left_elem.hash, right_elem.hash);
+    record.save();
+    height += 1;
+  }
 }
 
 function saveRecord(position: u64, hash: Bytes): void {
-    let record = new NodeEntity(position.toString());
-    record.position = position.toString();
-    record.hash = hash;
-    record.save();
+  let record = new NodeEntity(position.toString());
+  record.position = position.toString();
+  record.hash = hash;
+  record.save();
 }
 
 // we can select a checkpoint from subgraph/mmr/checkpoint.json to initialize this peaks.
 function init(): void {
-  const minit = mmrInit[chain.chain];
-  const records = minit.records;
-  for (const item of records) {
-    const position = item[0];
-    const hash = item[1];
+  let data = mmrInitData();
+  let minit = data.get(currentChain());
+  let records = minit.records;
+  for (let i = 0; i < records.length; i++) {
+    let item = records[i];
+    let position = item.position;
+    let hash = item.hash;
     saveRecord(position, Bytes.fromHexString(hash) as Bytes);
   }
 }
 
 /* ---------------------------------------helper fns-------------------------------------- */
 function merge(left: Bytes, right: Bytes): Bytes {
-    //let res = concatTypedArrays(left, right);
-    let res = new Uint8Array(left.length + right.length);
-    for (let i = 0; i < left.length; i++) {
-        res[i] = left[i];
-        res[i + left.length] = right[i];
-    }
-    return blake2b(res) as Bytes;
+  //let res = concatTypedArrays(left, right);
+  let res = new Uint8Array(left.length + right.length);
+  for (let i = 0; i < left.length; i++) {
+    res[i] = left[i];
+    res[i + left.length] = right[i];
+  }
+  return blake2b(res) as Bytes;
 }
 
 function leaf_index_to_pos(index: u64): u64 {
@@ -104,44 +104,44 @@ function leaf_index_to_mmr_size(index: u64): u64 {
 }
 
 function count_ones(dec: u64): u64 {
-    let ones = 0;
-    for (let i = 0; i < 64; i++) {
-        if ((dec & (1 << i)) > 0) {
-            ones += 1;
-        }
-   }
-    return ones;
+  let ones = 0;
+  for (let i = 0; i < 64; i++) {
+    if ((dec & (1 << i)) > 0) {
+      ones += 1;
+    }
+  }
+  return ones;
 }
 
 function trailing_zeros(dec: u64): u64 {
-    let zeros = 0;
-    for (let i = 0; i < 64; i++) {
-        if ((dec & (1 << i)) == 0) {
-            zeros += 1;
-        } else {
-            break;
-        }
+  let zeros = 0;
+  for (let i = 0; i < 64; i++) {
+    if ((dec & (1 << i)) == 0) {
+      zeros += 1;
+    } else {
+      break;
     }
-    return zeros;
+  }
+  return zeros;
 }
 
 function leading_zeros(dec: u64): i32 {
-    let zeros = 0;
+  let zeros = 0;
 
-    for (let i = 63; i >= 0; i--) {
-        if ((dec & (1 << i)) == 0) {
-            zeros += 1;
-        } else {
-            break;
-        }
+  for (let i = 63; i >= 0; i--) {
+    if ((dec & (1 << i)) == 0) {
+      zeros += 1;
+    } else {
+      break;
     }
+  }
 
-    return zeros;
+  return zeros;
 }
 
 function all_ones(dec: u64): boolean {
-    let bit_length = 64 - leading_zeros(dec);
-    return ((1 << bit_length) - 1) == dec;
+  let bit_length = 64 - leading_zeros(dec);
+  return ((1 << bit_length) - 1) == dec;
 }
 
 function jump_left(pos: u64): u64 {

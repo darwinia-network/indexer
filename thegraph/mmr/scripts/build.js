@@ -28,7 +28,7 @@ function _env() {
 function processEnv() {
   const env = _env();
   const json = JSON.stringify(env, '', 2);
-  const code = `export const envar: {} = ${json}\n`;
+  const code = `export function currentChain(): string { return '${env.CHAIN}' }\n`;
 
   const savePath = _dir('src/chain.ts');
   fs.writeFileSync(savePath, code);
