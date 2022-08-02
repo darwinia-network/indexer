@@ -5,7 +5,9 @@
   ],
   "apps": [
     "darwinia",
-    "pangolin"
+    "crab",
+    "pangolin",
+    "pangoro"
   ],
   "bridger": [
     "darwinia",

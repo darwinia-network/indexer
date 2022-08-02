@@ -1,0 +1,10 @@
+{
+  "mmr": [
+    "ethereum",
+    "ropsten"
+  ],
+  "bridge-ethv1": [
+    "ethereum",
+    "ropsten"
+  ]
+}
