@@ -1,0 +1,140 @@
+type MsgOutOfSlot @jsonField {
+  nonce: String!
+  outOfSlot: Int! # block number
+}
+
+enum Destination {
+  Crab
+  Darwinia
+  Pangolin
+  Pangoro
+
+  CrabParachain
+  PangolinParachain
+
+  Default
+}
+
+enum OrderPhase {
+  Created
+  Delivered
+}
+
+enum OrderStatus {
+  Finished
+  InProgress
+  OutOfSlot
+}
+
+type NewFeeEntity @entity {
+  id: ID! # destination-blockNumber-eventIndex
+  fee: BigInt
+  relayer: RelayerEntity
+
+  newfeeTime: Date! # block timestamp
+  newfeeBlock: Int! # block number
+  newfeeExtrinsic: Int # extrinsic index
+  newfeeEvent: Int! # event index
+}
+
+type RelayerEntity @entity {
+  id: ID! # destination-address
+  feeHistory: [NewFeeEntity] @derivedFrom(field: "relayer")
+
+  totalSlashs: BigInt
+  slashs: [SlashEntity] @derivedFrom(field: "relayer")
+
+  totalRewards: BigInt
+  assignedRewards: [RewardEntity] @derivedFrom(field: "assignedRelayer")
+  deliveredRewards: [RewardEntity] @derivedFrom(field: "deliveredRelayer")
+  confirmedRewards: [RewardEntity] @derivedFrom(field: "confirmedRelayer")
+
+  totalOrders: Int
+  assignedOrders: [OrderEntity] @derivedFrom(field: "assignedRelayer")
+  deliveredOrders: [OrderEntity] @derivedFrom(field: "deliveredRelayer")
+  confirmedOrders: [OrderEntity] @derivedFrom(field: "confirmedRelayer")
+}
+
+type RewardEntity @entity {
+  id: ID! # destination-nonce
+  order: OrderEntity
+
+  rewardTime: Date! # block timestamp
+  rewardBlock: Int! # block number
+  rewardExtrinsic: Int # extrinsic index
+  rewardEvent: Int! # event index
+  rewardLaneId: String!
+
+  assignedRelayer: RelayerEntity
+  deliveredRelayer: RelayerEntity
+  confirmedRelayer: RelayerEntity
+
+  assignedAmount: BigInt
+  deliveredAmount: BigInt
+  confirmedAmount: BigInt
+  treasuryAmount: BigInt
+}
+
+type SlashEntity @entity {
+  id: ID! # destination-nonce-eventIndex
+  order: OrderEntity
+
+  slashTime: Date! # block timestamp
+  slashBlock: Int! # block number
+  slashExtrinsic: Int # extrinsic index
+  slashEvent: Int! # event index
+  slashLaneId: String!
+
+  confirmTime: Int # block number
+  sentTime: Int # block number
+  delayTime: Int # number of block
+  amount: BigInt
+  relayer: RelayerEntity
+}
+
+type OrderEntity @entity {
+  id: ID! # destination-nonce
+  fee: BigInt
+  sender: String
+  sourceTxHash: String
+  # targetTxHash: String
+
+  slashs: [SlashEntity] @derivedFrom(field: "order")
+  rewards: [RewardEntity] @derivedFrom(field: "order")
+
+  slotTime: Int # number of block
+  outOfSlot: Int # block number
+  confirmedSlotIndex: Int # -1: out of slot / 0: #1 / 1: #2 / 2: #3
+  phase: OrderPhase
+  status: OrderStatus
+
+  createTime: Date! # block timestamp
+  createBlock: Int! # block number
+  createExtrinsic: Int # extrinsic index
+  createEvent: Int! # event index
+  createLaneId: String!
+
+  finishTime: Date
+  finishBlock: Int
+  finishExtrinsic: Int
+  finishEvent: Int
+  finishLaneId: String
+
+  assignedRelayers: [String] # relayer address
+  assignedRelayer: RelayerEntity
+  deliveredRelayer: RelayerEntity
+  confirmedRelayer: RelayerEntity
+}
+
+type FeeMarketEntity @entity {
+  id: ID! # use the value of Destination
+  totalSlashs: BigInt # amount
+  totalRewards: BigInt # amount
+  totalOrders: Int # totalFinished + totalInProgress + totalOutOfSlot
+  totalFinished: Int # real time
+  totalInProgress: Int # real time
+  totalOutOfSlot: Int # real time
+  unfinishOrders: [MsgOutOfSlot]
+
+  averageSpeed: Int # millisecond
+}

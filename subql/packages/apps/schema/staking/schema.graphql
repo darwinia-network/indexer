@@ -1,0 +1,16 @@
+type StakingStash @entity {
+  id: ID! # account
+  totalRewarded: BigInt!
+  rewardeds: [StakingRewarded] @derivedFrom(field: "stash")
+}
+
+type StakingRewarded @entity {
+  id: ID! # blockNumber-eventIndex
+  blockTime: Date!
+  blockNumber: Int!
+  extrinsicIndex: Int
+  eventIndex: Int!
+
+  stash: StakingStash!
+  amount: BigInt!
+}
