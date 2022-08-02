@@ -10,7 +10,7 @@ function handleArg() {
   const args = _args.splice(3);
   const rets = [];
   if (args.indexOf(magicPrefix)) {
-    rets.push(...handleWithGitCommit(args[0]))
+    rets.push(...handleWithGitCommit(magicPrefix, args[0]))
   } else {
     rets.push(handleWithRawCommand(args));
   }
