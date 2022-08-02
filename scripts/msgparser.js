@@ -6,7 +6,7 @@
 
 function handleArg() {
   const _args = process.argv;
-  const magicPrefix = _args.splice(2);
+  const magicPrefix = _args[2];
   const args = _args.splice(3);
   const rets = [];
   if (args.indexOf(magicPrefix)) {
