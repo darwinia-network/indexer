@@ -6,6 +6,8 @@ on:
       - "v*"
   pull_request:
 
+env:
+  DOCKER_REGISTRY: ghcr.io
 
 jobs:
   package-subql:
@@ -27,7 +29,8 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
+          registry: ${{ env.DOCKER_REGISTRY }}
+      - uses: benjlevesque/short-sha@v1.2
 
       - name: install deps
         working-directory: subql
@@ -35,14 +38,28 @@ jobs:
           npm i
           npx lerna bootstrap
 
-      - name: deploy project
+      - name: build image
         working-directory: subql
         run: |
           BASE_PATH=$(pwd)
           PROJECT="${{ matrix.project }}"
+          REPO_NAME="${{ github.repository }}"
           FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subql-project-chain.json
           CHAINS=$(jq -r ".${PROJECT} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
           for CHAIN in ${CHAINS}; do
-            echo docker build . ${CHAIN}
+            echo ''
+            echo ''
+            echo ''
+            echo ''
+            echo "====== Build ${PROJECT} for ${CHAIN} ======"
+            cd ${BASE_PATH}/packages/${PROJECT}
+            npm run build -- ${CHAIN}
+
+            IMAGE_NAME_SHA=${{ env.DOCKER_REGISTRY }}/${REPO_NAME}:subql-${PROJECT}-${CHAIN}-${SHA}
+            docker build \
+              -t ${IMAGE_NAME_SHA} \
+              -f ${BASE_PATH}/Dockerfile \
+              .
+            docker push ${IMAGE_NAME_SHA}
           done
 
