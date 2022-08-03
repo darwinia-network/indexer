@@ -3,7 +3,7 @@
     "ethereum",
     "ropsten"
   ],
-  "bridge-ethv1": [
+  "ethv1": [
     "ethereum",
     "ropsten"
   ]
