@@ -43,6 +43,6 @@ jobs:
           FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subql-project-chain.json
           CHAINS=$(jq -r ".${PROJECT} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
           for CHAIN in ${CHAINS}; do
-            echo docker build .
+            echo docker build . ${CHAIN}
           done
 
