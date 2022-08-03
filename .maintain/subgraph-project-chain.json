@@ -1,0 +1,10 @@
+{
+  "mmr": [
+    "ethereum",
+    "ropsten"
+  ],
+  "ethv1": [
+    "ethereum",
+    "ropsten"
+  ]
+}

@@ -1,0 +1,116 @@
+name: Deploy Index
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  SUBQUERY_ORG: darwinia-network
+  SUBQL_ACCESS_TOKEN: ${{ secrets.SUBQUERY_TOKEN }}
+  SUBQL_INDEXER_VERSION: v1.0.0
+  SUBQL_QUERY_VERSION: v1.0.0
+
+jobs:
+  deploy-subql:
+    name: Deploy subql
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: install deps
+        working-directory: subql
+        if: ${{ contains(github.event.head_commit.message, '[deploy-subql]') }}
+        run: |
+          npm i
+          npx lerna bootstrap
+
+      - name: deploy project
+        working-directory: subql
+        if: ${{ contains(github.event.head_commit.message, '[deploy-subql]') }}
+        run: |
+          COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
+          JSON_ARGS=$(node ../scripts/msgparser.js "[deploy-subql]" "${COMMIT_MESSAGE}")
+          ITEMS=$(echo $JSON_ARGS | jq -c '.[]')
+          BASE_PATH=$(pwd)
+          FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subql-project-chain.json
+
+          for ITEM in ${ITEMS}; do
+            PROJECT=$(echo $ITEM | jq -r '.project')
+            CHAINS=$(echo $ITEM | jq -r '.chains[]')
+            DEPLOY_ALL_CHAIN=$(echo $ITEM | jq -r '.all')
+            if [ "${DEPLOY_ALL_CHAIN}" == "true" ]; then
+              CHAINS=$(jq -r ".${PROJECT} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
+            fi
+
+            for CHAIN in ${CHAINS}; do
+              echo ''
+              echo ''
+              echo ''
+              echo ''
+              echo "====== Deploy ${PROJECT} for ${CHAIN} ======"
+
+              cd ${BASE_PATH}/packages/${PROJECT}
+              npm run build -- ${CHAIN}
+              npm run publish -- ${CHAIN}
+
+              DICT=$(cat project.yaml | yq '.network.dictionary')
+              npx subql deployment:deploy -d \
+                --type stage \
+                --indexerVersion=${{ env.SUBQL_INDEXER_VERSION }} \
+                --queryVersion=${{ env.SUBQL_QUERY_VERSION }} \
+                --org ${{ env.SUBQUERY_ORG }} \
+                --projectName subql-${PROJECT}-${CHAIN} \
+                --endpoint $(cat project.yaml | yq '.network.endpoint') \
+                --ipfsCID $(cat .project-cid) \
+                ${DICT:+--dict $DICT}
+            done
+          done
+
+#  deploy-thegraph:
+#    name: Deploy thegraph
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 16
+#
+#      - name: deploy project
+#        working-directory: thegraph
+#        if: ${{ contains(github.event.head_commit.message, '[deploy-subgraph]') }}
+#        run: |
+#          COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
+#          JSON_ARGS=$(node ../scripts/msgparser.js "[deploy-subgraph]" "${COMMIT_MESSAGE}")
+#          ITEMS=$(echo $JSON_ARGS | jq -c '.[]')
+#          BASE_PATH=$(pwd)
+#          FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subgraph-project-chain.json
+#
+#          for ITEM in ${ITEMS}; do
+#            PROJECT=$(echo $ITEM | jq -r '.project')
+#            CHAINS=$(echo $ITEM | jq -r '.chains[]')
+#            DEPLOY_ALL_CHAIN=$(echo $ITEM | jq -r '.all')
+#            if [ "${DEPLOY_ALL_CHAIN}" == "true" ]; then
+#              CHAINS=$(jq -r ".${PROJECT} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
+#            fi
+#
+#            for CHAIN in ${CHAINS}; do
+#              echo ''
+#              echo ''
+#              echo ''
+#              echo ''
+#              echo "====== Deploy ${PROJECT} for ${CHAIN} ======"
+#
+#              cd ${BASE_PATH}/${PROJECT}
+#              npm i
+#              npm run codegen -- subgraph-${CHAIN}.yaml
+#              npm run build -- subgraph-${CHAIN}.yaml
+#              npm run deploy -- --access-token ${{ secrets.THEGRAPH_TOKEN_PROD }} \
+#                darwinia-network/bridge-${{ matrix.chain }} \
+#                subgraph-${{ matrix.chain }}.yaml
+#
+#            done
+#          done
+

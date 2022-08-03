@@ -14,11 +14,11 @@ schema:
   file: ./schema.graphql
 network:
   chainId: '0xeac895d7768b17837a9c3a9f0280c01502c3ef40193df923490a0fa9c60ea076'
-  endpoint: 'https://crab-parachain-rpc.darwinia.network'
+  endpoint: 'wss://crab-parachain-rpc.darwinia.network'
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 1
+    startBlock: 585853
     mapping:
       file: ./dist/index.js
       handlers:
