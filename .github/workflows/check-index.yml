@@ -41,7 +41,7 @@ jobs:
     strategy:
       matrix:
         project:
-          - name: bridge-ethv1
+          - name: ethv1
             chain: ethereum
           - name: mmr
             chain: ethereum
