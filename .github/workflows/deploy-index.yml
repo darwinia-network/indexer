@@ -2,7 +2,7 @@ name: Deploy Index
 
 on:
   push:
-    branches: [ fewensa-release ]
+    branches: [ main ]
 
 env:
   SUBQUERY_ORG: darwinia-network
@@ -69,46 +69,48 @@ jobs:
             done
           done
 
-  deploy-thegraph:
-    name: Deploy thegraph
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: deploy project
-        working-directory: thegraph
-        if: ${{ contains(github.event.head_commit.message, '[deploy-subgraph]') }}
-        run: |
-          COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
-          JSON_ARGS=$(node ../scripts/msgparser.js "[deploy-subgraph]" "${COMMIT_MESSAGE}")
-          ITEMS=$(echo $JSON_ARGS | jq -c '.[]')
-          BASE_PATH=$(pwd)
-          FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subgraph-project-chain.json
-
-          for ITEM in ${ITEMS}; do
-            PROJECT=$(echo $ITEM | jq -r '.project')
-            CHAINS=$(echo $ITEM | jq -r '.chains[]')
-            DEPLOY_ALL_CHAIN=$(echo $ITEM | jq -r '.all')
-            if [ "${DEPLOY_ALL_CHAIN}" == "true" ]; then
-              CHAINS=$(jq -r ".${PROJECT} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
-            fi
-
-            for CHAIN in ${CHAINS}; do
-              echo ''
-              echo ''
-              echo ''
-              echo ''
-              echo "====== Deploy ${PROJECT} for ${CHAIN} ======"
-
-              cd ${BASE_PATH}/${PROJECT}
-              npm i
-              npm run codegen -- subgraph-${CHAIN}.yaml
-              npm run build -- subgraph-${CHAIN}.yaml
-              echo npm run deploy -- subgraph-${CHAIN}.yaml
-
-            done
-          done
+#  deploy-thegraph:
+#    name: Deploy thegraph
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 16
+#
+#      - name: deploy project
+#        working-directory: thegraph
+#        if: ${{ contains(github.event.head_commit.message, '[deploy-subgraph]') }}
+#        run: |
+#          COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
+#          JSON_ARGS=$(node ../scripts/msgparser.js "[deploy-subgraph]" "${COMMIT_MESSAGE}")
+#          ITEMS=$(echo $JSON_ARGS | jq -c '.[]')
+#          BASE_PATH=$(pwd)
+#          FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subgraph-project-chain.json
+#
+#          for ITEM in ${ITEMS}; do
+#            PROJECT=$(echo $ITEM | jq -r '.project')
+#            CHAINS=$(echo $ITEM | jq -r '.chains[]')
+#            DEPLOY_ALL_CHAIN=$(echo $ITEM | jq -r '.all')
+#            if [ "${DEPLOY_ALL_CHAIN}" == "true" ]; then
+#              CHAINS=$(jq -r ".${PROJECT} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
+#            fi
+#
+#            for CHAIN in ${CHAINS}; do
+#              echo ''
+#              echo ''
+#              echo ''
+#              echo ''
+#              echo "====== Deploy ${PROJECT} for ${CHAIN} ======"
+#
+#              cd ${BASE_PATH}/${PROJECT}
+#              npm i
+#              npm run codegen -- subgraph-${CHAIN}.yaml
+#              npm run build -- subgraph-${CHAIN}.yaml
+#              npm run deploy -- --access-token ${{ secrets.THEGRAPH_TOKEN_PROD }} \
+#                darwinia-network/bridge-${{ matrix.chain }} \
+#                subgraph-${{ matrix.chain }}.yaml
+#
+#            done
+#          done
 
