@@ -55,7 +55,7 @@ jobs:
             cd ${BASE_PATH}/packages/${PROJECT}
             npm run build -- ${CHAIN}
 
-            IMAGE_NAME_SHA=${{ env.DOCKER_REGISTRY }}/${REPO_NAME}:subql-${PROJECT}-${CHAIN}-${SHA}
+            IMAGE_NAME_SHA=${{ env.DOCKER_REGISTRY }}/${REPO_NAME}/subql-${PROJECT}-${CHAIN}:sha-${SHA}
             docker build \
               -t ${IMAGE_NAME_SHA} \
               -f ${BASE_PATH}/Dockerfile \
