@@ -1,9 +1,7 @@
 name: Subgraph production
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
 
 jobs:
   thegraph-ethereum:
