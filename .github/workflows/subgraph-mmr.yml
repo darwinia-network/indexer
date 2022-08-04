@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  thegraph-ethereum:
+  thegraph-mmr:
     name: Subgraph MMR
     runs-on: ubuntu-latest
     strategy:
