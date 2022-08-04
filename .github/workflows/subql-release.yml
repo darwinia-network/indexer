@@ -31,6 +31,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ${{ env.DOCKER_REGISTRY }}
       - uses: benjlevesque/short-sha@v1.2
+      - uses: olegtarasov/get-tag@v2.1
 
       - name: install deps
         working-directory: subql
@@ -55,11 +56,25 @@ jobs:
             cd ${BASE_PATH}/packages/${PROJECT}
             npm run build -- ${CHAIN}
 
-            IMAGE_NAME_SHA=${{ env.DOCKER_REGISTRY }}/${REPO_NAME}/subql-${PROJECT}-${CHAIN}:sha-${SHA}
+            IMAGE_NAME_BASE=${{ env.DOCKER_REGISTRY }}/${REPO_NAME}/subql-${PROJECT}-${CHAIN}
+            IMAGE_NAME_SHA=${IMAGE_NAME_BASE}:sha-${SHA}
+            IMAGE_NAME_TAG=${IMAGE_NAME_BASE}:${GIT_TAG_NAME}
+            echo "${IMAGE_NAME_SHA}" >> ${BASE_PATH}/images.txt
             docker build \
               -t ${IMAGE_NAME_SHA} \
+              ${GIT_TAG_NAME:+-t $IMAGE_NAME_TAG} \
               -f ${BASE_PATH}/Dockerfile \
               .
             docker push ${IMAGE_NAME_SHA}
+            if [ -n "${GIT_TAG_NAME}" ]; then
+              echo "${IMAGE_NAME_TAG}" >> ${BASE_PATH}/images.txt
+              docker push ${IMAGE_NAME_TAG}
+            fi
           done
 
+          OUTPUT_CONTENT=$(cat ${BASE_PATH}/images.txt)
+          OUTPUT_CONTENT="${OUTPUT_CONTENT//'%'/'%25'}"
+          OUTPUT_CONTENT="${OUTPUT_CONTENT//$'\n'/'%0A'}"
+          OUTPUT_CONTENT="${OUTPUT_CONTENT//$'\r'/'%0D'}"
+          echo ''
+          echo "::set-output name=OUTPUT_CONTENT::$OUTPUT_CONTENT"
