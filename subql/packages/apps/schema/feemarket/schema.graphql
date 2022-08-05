@@ -1,3 +1,9 @@
+type FeeHistoryData @jsonField {
+  fee: String! # It is an error to use BigInt here, so use String
+  timestamp: Date!
+  blockNumber: Int!
+}
+
 type MsgOutOfSlot @jsonField {
   nonce: String!
   outOfSlot: Int! # block number
@@ -124,6 +130,13 @@ type OrderEntity @entity {
   assignedRelayer: RelayerEntity
   deliveredRelayer: RelayerEntity
   confirmedRelayer: RelayerEntity
+}
+
+type FeeHistory @entity {
+  id: ID! # use the value of Destination
+
+  lastTime: Int! # block number
+  data: [FeeHistoryData]!
 }
 
 type FeeMarketEntity @entity {

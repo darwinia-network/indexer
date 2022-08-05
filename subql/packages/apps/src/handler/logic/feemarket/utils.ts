@@ -1,7 +1,9 @@
 import { SubstrateEvent } from "@subql/types";
 import { FastEvent } from "@darwinia/index-common";
+import type { Option, Vec } from '@polkadot/types';
 
-import { Destination, FeeMarketEntity, OrderEntity, OrderStatus } from "../../../types";
+import { PalletFeeMarketRelayer } from './types';
+import { Destination, FeeMarketEntity, OrderEntity, OrderStatus, FeeHistory } from "../../../types";
 
 export const dispatch = async (section: string, event: FastEvent, handler: (event: SubstrateEvent, dest: Destination) => Promise<void>) => {
   switch (section) {
@@ -65,3 +67,20 @@ export const updateOutOfSlot = async (current: number, dest: Destination) => {
     await feeMarket.save();
   }
 };
+
+const THRESHOLD_FEEHISTORY = 300; // number of blocks, about every 30 minutes
+
+export const updateFeeHistory = async (blockNumber: number, timestamp: Date, dest: Destination) => {
+  const record = await FeeHistory.get(dest) || new FeeHistory(dest);
+
+  if ((record.lastTime || 0) + THRESHOLD_FEEHISTORY <= blockNumber && api.query[getFeeMarketModule(dest)]?.assignedRelayers) {
+    const assignedRelayers = await api.query[getFeeMarketModule(dest)].assignedRelayers<Option<Vec<PalletFeeMarketRelayer>>>();
+
+    if (assignedRelayers.isSome) {
+      const fee = assignedRelayers.unwrap().pop().fee.toString();
+      record.lastTime = blockNumber;
+      record.data = (record.data || []).concat({ fee, timestamp, blockNumber });
+      await record.save();
+    }
+  }
+}
