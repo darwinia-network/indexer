@@ -22,7 +22,7 @@ export const handlerStakingRewarded = async (event: SubstrateEvent): Promise<voi
   stashRecord.totalRewarded = (stashRecord.totalRewarded || BigInt(0)) + amount;
   await stashRecord.save();
 
-  const rewardedRecord = new StakingRewarded(`${blockNumber - eventIndex}`);
+  const rewardedRecord = new StakingRewarded(`${blockNumber}-${eventIndex}`);
   rewardedRecord.blockNumber = blockNumber;
   rewardedRecord.extrinsicIndex = extrinsicIndex;
   rewardedRecord.blockTime = blockTime;
