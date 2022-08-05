@@ -30,6 +30,8 @@ export const getFeeMarketModule = (dest: Destination): string => {
   switch (dest) {
     case Destination.Darwinia:
       return "darwiniaFeeMarket";
+    case Destination.Crab:
+      return "crabFeeMarket";
     case Destination.Pangolin:
       return 'pangolinFeeMarket';
     case Destination.Pangoro:
@@ -38,6 +40,7 @@ export const getFeeMarketModule = (dest: Destination): string => {
       return "crabParachainFeeMarket";
     case Destination.PangolinParachain:
       return "pangolinParachainFeeMarket";
+    case Destination.Default:
     default:
       return "feeMarket";
   }
