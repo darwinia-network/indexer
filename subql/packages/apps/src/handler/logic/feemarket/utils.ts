@@ -1,7 +1,7 @@
 import { SubstrateEvent } from "@subql/types";
 import { FastEvent } from "@darwinia/index-common";
 
-import { Destination, FeeMarketEntity, OrderEntity, OrderStatus } from "../../../types";
+import { Destination } from "../../../types";
 
 export const dispatch = async (section: string, event: FastEvent, handler: (event: SubstrateEvent, dest: Destination) => Promise<void>) => {
   switch (section) {
@@ -30,6 +30,8 @@ export const getFeeMarketModule = (dest: Destination): string => {
   switch (dest) {
     case Destination.Darwinia:
       return "darwiniaFeeMarket";
+    case Destination.Crab:
+      return "crabFeeMarket";
     case Destination.Pangolin:
       return 'pangolinFeeMarket';
     case Destination.Pangoro:
@@ -38,30 +40,8 @@ export const getFeeMarketModule = (dest: Destination): string => {
       return "crabParachainFeeMarket";
     case Destination.PangolinParachain:
       return "pangolinParachainFeeMarket";
+    case Destination.Default:
     default:
       return "feeMarket";
-  }
-};
-
-export const updateOutOfSlot = async (current: number, dest: Destination) => {
-  const feeMarket = await FeeMarketEntity.get(dest);
-
-  if (feeMarket) {
-    const msgs = feeMarket.unfinishOrders || [];
-
-    for (let msg of msgs) {
-      if (current >= msg.outOfSlot) {
-        const order = await OrderEntity.get(`${dest}-${msg.nonce}`);
-        if (order && order.status === OrderStatus.InProgress) {
-          order.status = OrderStatus.OutOfSlot;
-          await order.save();
-
-          feeMarket.totalOutOfSlot = (feeMarket.totalOutOfSlot || 0) + 1;
-          feeMarket.totalInProgress = (feeMarket.totalInProgress || 0) - 1;
-        }
-      }
-    }
-
-    await feeMarket.save();
   }
 };

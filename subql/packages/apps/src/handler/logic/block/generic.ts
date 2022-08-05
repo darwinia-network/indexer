@@ -24,10 +24,14 @@ export class GenericBlockHandler implements IndexHandler {
 
   async handleBlock(block: FastBlock): Promise<void> {
     const id = block.hash;
-    const savedBlock = await Block.get(id);
-    if (!savedBlock) {
-      await new Block(id).save();
-    }
+    const record = await Block.get(id) || new Block(id);
+
+    record.number = block.number;
+    record.timestamp = block.raw.timestamp;
+    record.specVersion = block.specVersion;
+    record.parentHash = block.parentHash;
+
+    await record.save();
   }
 
   async handleCall(call: FastExtrinsic): Promise<void> {
