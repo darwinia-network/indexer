@@ -1,4 +1,4 @@
-import { SubstrateEvent } from "@subql/types";
+import { SubstrateEvent, SubstrateBlock } from "@subql/types";
 import { Option, Vec, u128, u64, u32, U8aFixed } from "@polkadot/types";
 import { AccountId, AccountId32, Balance, BlockNumber, H256 } from "@polkadot/types/interfaces";
 import { ITuple } from "@polkadot/types-codec/types";
@@ -13,8 +13,10 @@ import {
   OrderEntity,
   NewFeeEntity,
   OrderStatus,
+  FeeHistory,
 } from "../../../types";
 import { getFeeMarketModule } from './utils';
+import type { PalletFeeMarketRelayer } from './types';
 
 /**
  * Order Create
@@ -371,3 +373,53 @@ export const handleFeeInitEvent = async (event: SubstrateEvent, dest: Destinatio
   newFeeRecord.newfeeEvent = eventIndex;
   await newFeeRecord.save();
 };
+
+/**
+ * Out of Slot Orders
+ */
+export const handleOutOfSlotUpdate = async (block: SubstrateBlock, dest: Destination): Promise<void> => {
+  const feeMarket = await FeeMarketEntity.get(dest);
+  const blockNumber = block.block.header.number.toNumber();
+
+  if (feeMarket) {
+    const msgs = feeMarket.unfinishOrders || [];
+
+    for (let msg of msgs) {
+      if (blockNumber >= msg.outOfSlot) {
+        const order = await OrderEntity.get(`${dest}-${msg.nonce}`);
+        if (order && order.status === OrderStatus.InProgress) {
+          order.status = OrderStatus.OutOfSlot;
+          await order.save();
+
+          feeMarket.totalOutOfSlot = (feeMarket.totalOutOfSlot || 0) + 1;
+          feeMarket.totalInProgress = (feeMarket.totalInProgress || 0) - 1;
+        }
+      }
+    }
+
+    await feeMarket.save();
+  }
+}
+
+const THRESHOLD_FEEHISTORY = 300; // number of blocks, about every 30 minutes
+
+/**
+ * Fee History
+ */
+export const handleFeeHistory = async (block: SubstrateBlock, dest: Destination): Promise<void> => {
+  const timestamp = block.timestamp;
+  const blockNumber = block.block.header.number.toNumber();
+
+  const record = await FeeHistory.get(dest) || new FeeHistory(dest);
+
+  if ((record.lastTime || 0) + THRESHOLD_FEEHISTORY <= blockNumber && api.query[getFeeMarketModule(dest)]?.assignedRelayers) {
+    const assignedRelayers = await api.query[getFeeMarketModule(dest)].assignedRelayers<Option<Vec<PalletFeeMarketRelayer>>>();
+
+    if (assignedRelayers.isSome) {
+      const fee = assignedRelayers.unwrap().pop().fee.toString();
+      record.lastTime = blockNumber;
+      record.data = (record.data || []).concat({ fee, timestamp, blockNumber });
+      await record.save();
+    }
+  }
+}

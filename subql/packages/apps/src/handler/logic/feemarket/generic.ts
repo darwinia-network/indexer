@@ -8,9 +8,11 @@ import {
   handleOrderSlashEvent,
   handleFeeUpdateEvent,
   handleFeeInitEvent,
+  handleFeeHistory,
+  handleOutOfSlotUpdate,
 } from './handlers';
 import { Destination } from "../../../types";
-import { dispatch, updateOutOfSlot, updateFeeHistory } from './utils';
+import { dispatch } from './utils';
 
 export class GenericFeeMarketHandler implements IndexHandler {
 
@@ -26,12 +28,10 @@ export class GenericFeeMarketHandler implements IndexHandler {
 
   async handleBlock(block: FastBlock): Promise<void> {
     const destinations = Object.values(Destination);
-    const current = block.number;
-    const timestamp = block.raw.timestamp;
 
     for (const destination of destinations) {
-      await updateOutOfSlot(current, destination);
-      await updateFeeHistory(current, timestamp, destination);
+      await handleOutOfSlotUpdate(block.raw, destination);
+      await handleFeeHistory(block.raw, destination);
     }
   }
 
