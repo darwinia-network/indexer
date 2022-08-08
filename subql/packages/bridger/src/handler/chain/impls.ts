@@ -96,6 +96,7 @@ export class PangoroHandler extends BasicChainHandler {
     return [
       new GenericBlockHandler(Chain.Pangoro),
       new BridgeS2SHandler(Chain.Pangoro),
+      new BridgeEthV1Handler(Chain.Pangoro),
     ];
   }
 }

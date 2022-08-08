@@ -1,3 +1,66 @@
 
+type EcdsaSignature @entity {
+  id: ID!
+  blockNumber: Int!
+  blockHash: String!
+  address: String!
+  signature: String!
 
+  authoritiesChangeSignatures: CollectedEnoughAuthoritiesChangeSignaturesEvent
+  newMessageRootSignatures: CollectedEnoughNewMessageRootSignaturesEvent
+}
 
+type EcdsaCommitment @entity {
+  id: ID!
+  blockNumber: Int!
+  message_root: String!
+  nonce: Int!
+}
+
+type CollectingAuthoritiesChangeSignaturesEvent @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+
+  message: String!
+
+  timestamp: Date
+}
+
+type CollectedEnoughAuthoritiesChangeSignaturesEvent @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+
+  operation: String!
+  message: String!
+  signatures: [EcdsaSignature]! @derivedFrom(field: "authoritiesChangeSignatures")
+
+  timestamp: Date
+}
+
+type CollectingNewMessageRootSignaturesEvent @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+
+  message: String!
+
+  timestamp: Date
+}
+
+type CollectedEnoughNewMessageRootSignaturesEvent @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+
+  commitment: EcdsaCommitment!
+  message: String!
+  signatures: [EcdsaSignature]! @derivedFrom(field: "newMessageRootSignatures")
+
+  timestamp: Date
+}
