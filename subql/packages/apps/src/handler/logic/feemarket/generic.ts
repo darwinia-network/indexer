@@ -8,7 +8,7 @@ import {
   handleOrderSlashEvent,
   handleFeeUpdateEvent,
   handleFeeInitEvent,
-  handleFeeHistory,
+  handleMarketFeeHistory,
   handleOutOfSlotUpdate,
 } from './handlers';
 import { Destination } from "../../../types";
@@ -31,7 +31,7 @@ export class GenericFeeMarketHandler implements IndexHandler {
 
     for (const destination of destinations) {
       await handleOutOfSlotUpdate(block.raw, destination);
-      await handleFeeHistory(block.raw, destination);
+      await handleMarketFeeHistory(block.raw, destination);
     }
   }
 

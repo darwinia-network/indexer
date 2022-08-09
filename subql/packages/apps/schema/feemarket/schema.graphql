@@ -132,7 +132,7 @@ type OrderEntity @entity {
   confirmedRelayer: RelayerEntity
 }
 
-type FeeHistory @entity {
+type MarketFeeHistory @entity {
   id: ID! # use the value of Destination
 
   lastTime: Int! # block number
