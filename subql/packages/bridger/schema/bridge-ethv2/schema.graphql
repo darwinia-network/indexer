@@ -1,5 +1,5 @@
 
-type EcdsaSignature @entity {
+type XEcdsaSignature @entity {
   id: ID!
   blockNumber: Int!
   blockHash: String!
@@ -8,13 +8,6 @@ type EcdsaSignature @entity {
 
   authoritiesChangeSignatures: CollectedEnoughAuthoritiesChangeSignaturesEvent
   newMessageRootSignatures: CollectedEnoughNewMessageRootSignaturesEvent
-}
-
-type EcdsaCommitment @entity {
-  id: ID!
-  blockNumber: Int!
-  message_root: String!
-  nonce: Int!
 }
 
 type CollectingAuthoritiesChangeSignaturesEvent @entity {
@@ -36,7 +29,7 @@ type CollectedEnoughAuthoritiesChangeSignaturesEvent @entity {
 
   operation: String!
   message: String!
-  signatures: [EcdsaSignature]! @derivedFrom(field: "authoritiesChangeSignatures")
+  signatures: [XEcdsaSignature!]! @derivedFrom(field: "authoritiesChangeSignatures")
 
   timestamp: Date
 }
@@ -58,9 +51,12 @@ type CollectedEnoughNewMessageRootSignaturesEvent @entity {
   blockNumber: Int!
   blockHash: String!
 
-  commitment: EcdsaCommitment!
+  commitmentBlockNumber: Int!
+  commitmentMessageRoot: String!
+  commitmentNonce: Int!
+
   message: String!
-  signatures: [EcdsaSignature]! @derivedFrom(field: "newMessageRootSignatures")
+  signatures: [XEcdsaSignature!]! @derivedFrom(field: "newMessageRootSignatures")
 
   timestamp: Date
 }

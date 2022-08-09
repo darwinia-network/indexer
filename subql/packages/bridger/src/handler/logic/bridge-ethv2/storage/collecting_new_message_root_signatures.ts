@@ -23,5 +23,4 @@ export class CollectingNewMessageRootSignaturesStorage {
     await _event.save();
   }
 
-
 }

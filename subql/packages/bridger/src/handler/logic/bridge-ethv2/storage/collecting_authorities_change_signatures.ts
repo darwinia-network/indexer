@@ -1,4 +1,5 @@
 import {FastEvent} from "@darwinia/index-common";
+// @ts-ignore
 import {CollectingAuthoritiesChangeSignaturesEvent} from "../../../../types";
 
 
