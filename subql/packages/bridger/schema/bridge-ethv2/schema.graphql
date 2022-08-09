@@ -1,0 +1,62 @@
+
+type XEcdsaSignature @entity {
+  id: ID!
+  blockNumber: Int!
+  blockHash: String!
+  address: String!
+  signature: String!
+
+  authoritiesChangeSignatures: CollectedEnoughAuthoritiesChangeSignaturesEvent
+  newMessageRootSignatures: CollectedEnoughNewMessageRootSignaturesEvent
+}
+
+type CollectingAuthoritiesChangeSignaturesEvent @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+
+  message: String!
+
+  timestamp: Date
+}
+
+type CollectedEnoughAuthoritiesChangeSignaturesEvent @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+
+  operation: String!
+  message: String!
+  signatures: [XEcdsaSignature!]! @derivedFrom(field: "authoritiesChangeSignatures")
+
+  timestamp: Date
+}
+
+type CollectingNewMessageRootSignaturesEvent @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+
+  message: String!
+
+  timestamp: Date
+}
+
+type CollectedEnoughNewMessageRootSignaturesEvent @entity {
+  id: ID!
+
+  blockNumber: Int!
+  blockHash: String!
+
+  commitmentBlockNumber: Int!
+  commitmentMessageRoot: String!
+  commitmentNonce: Int!
+
+  message: String!
+  signatures: [XEcdsaSignature!]! @derivedFrom(field: "newMessageRootSignatures")
+
+  timestamp: Date
+}

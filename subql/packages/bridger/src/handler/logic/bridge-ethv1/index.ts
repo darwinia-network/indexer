@@ -42,22 +42,27 @@ export class BridgeEthV1Handler implements IndexHandler {
     const eventKey = `${eventSection}:${eventMethod}`;
     logger.info(`[event] Received event: [${eventKey}] [${eventId}] in block ${blockNumber}`);
     switch (eventKey) {
+      case 'ecdsaRelayAuthorities:SlashOnMisbehavior':
       case 'ethereumRelayAuthorities:SlashOnMisbehavior': {
         await new ScheduleMMRRootEmittedStorage(event).store();
         return;
       }
+      case 'ecdsaRelayAuthorities:MMRRootSigned':
       case 'ethereumRelayAuthorities:MMRRootSigned': {
         await new MMRRootSignedStorage(event).store();
         return;
       }
+      case 'ecdsaRelayAuthorities:ScheduleMMRRoot':
       case 'ethereumRelayAuthorities:ScheduleMMRRoot': {
         await new ScheduleMMRRootStorage(event).store();
         return;
       }
+      case 'ecdsaRelayAuthorities:ScheduleAuthoritiesChange':
       case 'ethereumRelayAuthorities:ScheduleAuthoritiesChange': {
         await new ScheduleAuthoritiesChangeStorage(event).store();
         return;
       }
+      case 'ecdsaRelayAuthorities:AuthoritiesChangeSigned':
       case 'ethereumRelayAuthorities:AuthoritiesChangeSigned': {
         await new AuthoritiesChangeSignedStorage(event).store();
         return;

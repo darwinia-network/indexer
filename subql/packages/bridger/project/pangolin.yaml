@@ -76,4 +76,25 @@ dataSources:
           filter:
             module: ethereumRelayAuthorities
             method: AuthoritiesChangeSigned
+        ### bridge ethv1 name changed
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaRelayAuthorities
+            method: MMRRootSigned
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaRelayAuthorities
+            method: ScheduleMMRRoot
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaRelayAuthorities
+            method: ScheduleAuthoritiesChange
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaRelayAuthorities
+            method: AuthoritiesChangeSigned
 

@@ -4,6 +4,7 @@ import {BridgeS2SHandler} from "../logic/bridge-s2s";
 import {GenericBlockHandler} from "../logic/block";
 import {CandidateIncludedHandler} from "../logic/candidate-included";
 import {BridgeEthV1Handler} from "../logic/bridge-ethv1";
+import {BridgeEthV2Handler} from "../logic/bridge-ethv2";
 
 
 export class CrabHandler extends BasicChainHandler {
@@ -96,6 +97,8 @@ export class PangoroHandler extends BasicChainHandler {
     return [
       new GenericBlockHandler(Chain.Pangoro),
       new BridgeS2SHandler(Chain.Pangoro),
+      new BridgeEthV1Handler(Chain.Pangoro),
+      new BridgeEthV2Handler(Chain.Pangoro),
     ];
   }
 }
