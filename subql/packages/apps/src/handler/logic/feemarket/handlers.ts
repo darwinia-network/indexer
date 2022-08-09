@@ -13,7 +13,7 @@ import {
   OrderEntity,
   NewFeeEntity,
   OrderStatus,
-  FeeHistory,
+  MarketFeeHistory,
 } from "../../../types";
 import { getFeeMarketModule } from './utils';
 import type { PalletFeeMarketRelayer } from './types';
@@ -406,11 +406,11 @@ const THRESHOLD_FEEHISTORY = 300; // number of blocks, about every 30 minutes
 /**
  * Fee History
  */
-export const handleFeeHistory = async (block: SubstrateBlock, dest: Destination): Promise<void> => {
+export const handleMarketFeeHistory = async (block: SubstrateBlock, dest: Destination): Promise<void> => {
   const timestamp = block.timestamp;
   const blockNumber = block.block.header.number.toNumber();
 
-  const record = await FeeHistory.get(dest) || new FeeHistory(dest);
+  const record = await MarketFeeHistory.get(dest) || new MarketFeeHistory(dest);
 
   if ((record.lastTime || 0) + THRESHOLD_FEEHISTORY <= blockNumber && api.query[getFeeMarketModule(dest)]?.assignedRelayers) {
     const assignedRelayers = await api.query[getFeeMarketModule(dest)].assignedRelayers<Option<Vec<PalletFeeMarketRelayer>>>();
