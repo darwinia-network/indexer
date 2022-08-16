@@ -3,7 +3,8 @@ import {CollectingNewMessageRootSignaturesStorage} from "./storage/collecting_ne
 import {CollectingAuthoritiesChangeSignaturesStorage} from "./storage/collecting_authorities_change_signatures";
 import {
   CollectedEnoughAuthoritiesChangeSignaturesStorage
-} from "./storage/collecting_enough_authorities_change_signatures";
+} from "./storage/collected_enough_authorities_change_signatures";
+import {CollectedEnoughNewMessageRootSignaturesStorage} from "./storage/collected_enough_new_message_root_signatures";
 
 
 export class BridgeEthV2Handler implements IndexHandler {
@@ -38,7 +39,7 @@ export class BridgeEthV2Handler implements IndexHandler {
         return;
       }
       case 'ecdsaAuthority:CollectedEnoughNewMessageRootSignatures': {
-        await new CollectingNewMessageRootSignaturesStorage(event).store();
+        await new CollectedEnoughNewMessageRootSignaturesStorage(event).store();
         return;
       }
       case 'ecdsaAuthority:CollectingAuthoritiesChangeSignatures': {

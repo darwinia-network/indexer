@@ -17,6 +17,13 @@ export class CollectedEnoughAuthoritiesChangeSignaturesStorage {
     const message = data[1].toString();
     const signatures = data[2].toJSON() as unknown as Array<Array<string>>;
 
+    const _event = new CollectedEnoughAuthoritiesChangeSignaturesEvent(this.event.id);
+    _event.blockNumber = this.event.blockNumber;
+    _event.blockHash = this.event.blockHash;
+    _event.operation = operation;
+    _event.message = message;
+    await _event.save();
+
     for (let i = 0; i < signatures.length; i++) {
       const item = signatures[i];
       const id = `ac-${this.event.id}-${i}`;
@@ -29,13 +36,6 @@ export class CollectedEnoughAuthoritiesChangeSignaturesStorage {
       xecdsaSignature.newMessageRootSignaturesId = this.event.id;
       await xecdsaSignature.save();
     }
-
-    const _event = new CollectedEnoughAuthoritiesChangeSignaturesEvent(this.event.id);
-    _event.blockNumber = this.event.blockNumber;
-    _event.blockHash = this.event.blockHash;
-    _event.operation = operation;
-    _event.message = message;
-    await _event.save();
   }
 
 }
