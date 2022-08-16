@@ -32,6 +32,8 @@ type CollectedEnoughAuthoritiesChangeSignaturesEvent @entity {
   operation_old: String
   operation_new: String
 
+  threshold: Int,
+
   message: String!
   signatures: [XEcdsaSignature!]! @derivedFrom(field: "authoritiesChangeSignatures")
 
