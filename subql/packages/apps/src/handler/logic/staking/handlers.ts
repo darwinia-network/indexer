@@ -15,10 +15,10 @@ export const handlerStakingRewarded = async (event: SubstrateEvent): Promise<voi
   const extrinsicIndex = event.extrinsic?.idx;
   const eventIndex = event.idx;
 
-  const stash = (paramStash as AccountId).toString();
   const amount = (paramAmount as Balance).toBigInt();
+  const stashId = (paramStash as AccountId).toString();
 
-  const stashRecord = (await StakingStash.get(stash)) || new StakingStash(stash);
+  const stashRecord = (await StakingStash.get(stashId)) || new StakingStash(stashId);
   stashRecord.totalRewarded = (stashRecord.totalRewarded || BigInt(0)) + amount;
   await stashRecord.save();
 
@@ -27,7 +27,7 @@ export const handlerStakingRewarded = async (event: SubstrateEvent): Promise<voi
   rewardedRecord.extrinsicIndex = extrinsicIndex;
   rewardedRecord.blockTime = blockTime;
   rewardedRecord.eventIndex = eventIndex;
-  rewardedRecord.stashId = stash;
+  rewardedRecord.stashId = stashId;
   rewardedRecord.amount = amount;
   await rewardedRecord.save();
 };
