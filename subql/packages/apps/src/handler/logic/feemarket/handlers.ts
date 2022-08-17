@@ -180,7 +180,7 @@ export const handleOrderRewardEvent = async (event: SubstrateEvent, dest: Destin
 
     // 1. save relayers record
 
-    if (toSlotRelayer?.isSome || toAssignedRelayers.isEmpty !== true) {
+    if (toSlotRelayer?.isSome || toAssignedRelayers?.isEmpty !== true) {
       let assigned: AccountId;
       let assignedReward: Balance;
 
