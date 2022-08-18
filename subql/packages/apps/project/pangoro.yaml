@@ -3,23 +3,25 @@ name: index-subql
 version: 1.0.0
 runner:
   node:
-    name: '@subql/node'
-    version: '*'
+    name: "@subql/node"
+    version: "*"
   query:
-    name: '@subql/query'
-    version: '*'
+    name: "@subql/query"
+    version: "*"
 description: Pangoro index
-repository: 'https://github.com/darwinia-network/indexer'
+repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0xf37f31c4481e3c937ad40b672c561d0c0b1fb70b40e51a0d56dad30d60e4db58'
-  endpoint: 'wss://pangoro-rpc.darwinia.network'
-  dictionary: 'https://api.subquery.network/sq/darwinia-network/pangoro-dictionary'
+  chainId: "0xf37f31c4481e3c937ad40b672c561d0c0b1fb70b40e51a0d56dad30d60e4db58"
+  endpoint: "wss://pangoro-rpc.darwinia.network"
+  dictionary: "https://api.subquery.network/sq/darwinia-network/pangoro-dictionary"
+  chaintypes:
+    file: chaintypes/pangoro.yaml
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 2054700
+    startBlock: 11890
     mapping:
       file: ./dist/index.js
       handlers:
@@ -42,11 +44,6 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             method: OrderCreated
-        # Order Finish
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            method: MessagesDelivered
         # Order Reward
         - handler: handleEvent
           kind: substrate/EventHandler
@@ -57,12 +54,12 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             method: FeeMarketSlash
-        # Fee Update
+        # Quote Update
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             method: UpdateRelayFee
-        # Fee Init
+        # Quote Init
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:

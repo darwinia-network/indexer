@@ -1,21 +1,24 @@
-
-import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
+import {
+  Chain,
+  FastBlock,
+  FastEvent,
+  FastExtrinsic,
+  IndexHandler,
+} from "@darwinia/index-common";
 
 import {
   handleOrderCreateEvent,
-  handleOrderFinishEvent,
   handleOrderRewardEvent,
   handleOrderSlashEvent,
   handleFeeUpdateEvent,
-  handleFeeInitEvent,
+  handleEnrollEvent,
   handleMarketFeeHistory,
-  handleOutOfSlotUpdate,
-} from './handlers';
-import { Destination } from "../../../types";
-import { dispatch } from './utils';
+  handleCheckOutOfSlot,
+} from "./handlers";
+import { DarwiniaChain } from "./types";
+import { dispatch } from "./utils";
 
 export class GenericFeeMarketHandler implements IndexHandler {
-
   private readonly chain: Chain;
 
   constructor(chain: Chain) {
@@ -27,32 +30,28 @@ export class GenericFeeMarketHandler implements IndexHandler {
   }
 
   async handleBlock(block: FastBlock): Promise<void> {
-    const destinations = Object.values(Destination);
+    const destinations = Object.values(DarwiniaChain);
 
     for (const destination of destinations) {
-      await handleOutOfSlotUpdate(block.raw, destination);
+      await handleCheckOutOfSlot(block.raw, destination);
       await handleMarketFeeHistory(block.raw, destination);
     }
   }
 
-  async handleCall(call: FastExtrinsic): Promise<void> {
-  }
+  async handleCall(call: FastExtrinsic): Promise<void> {}
 
   async handleEvent(event: FastEvent): Promise<void> {
-    switch(event.method) {
-      case 'OrderCreated': // Order Create
+    switch (event.method) {
+      case "OrderCreated":
         return await dispatch(event.section, event, handleOrderCreateEvent);
-      case 'MessagesDelivered': // Order Finish
-        return await dispatch(event.section, event, handleOrderFinishEvent);
-      case 'OrderReward': // Order Reward
+      case "OrderReward":
         return await dispatch(event.section, event, handleOrderRewardEvent);
-      case 'FeeMarketSlash': // Order Slash
+      case "FeeMarketSlash":
         return await dispatch(event.section, event, handleOrderSlashEvent);
-      case 'UpdateRelayFee': // Fee Update
+      case "UpdateRelayFee":
         return await dispatch(event.section, event, handleFeeUpdateEvent);
-      case 'Enroll': // Fee Init
-        return await dispatch(event.section, event, handleFeeInitEvent);
+      case "Enroll":
+        return await dispatch(event.section, event, handleEnrollEvent);
     }
   }
-
 }
