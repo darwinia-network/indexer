@@ -12,7 +12,6 @@ export class CollectedEnoughAuthoritiesChangeSignaturesStorage {
   }
 
   public async store() {
-
     /*
     [
       {
@@ -22,26 +21,33 @@ export class CollectedEnoughAuthoritiesChangeSignaturesStorage {
           "new": "0x4cdc1dbbd754ea539f1ffaea91f1b6c4b8dd14bd"
         }
       },
-      "0x2ff7ff32a7c9b8aa9e993bbd0b566a07d610af4df95cf92b451e076362b41349",
+      null,
+      "0xa6313876e73c7f5af3101c08be90e8f9345812945060d3a735a711a7073ce371",
       [
         [
           "0x68898db1012808808c903f390909c52d9f706749",
-          "0x725715396d5ae57174ee2ff8b0d5a5ec5b0c9c4af53287192e99c2c3c874ae03610b46c53366c09f9f2a3a3b33f4b1113012686704fd0d9ba1d008820a8f39b200"
+          "0x0c08b0686e445ce03d549a99464080474781124e74ec596978eb81a35c3abb563cebb50931efa818952308cb93fbc05806537585546d4447869552d7dee30b5f00"
         ]
       ]
-    ]
+     ]
      */
+
 
     const data = this.event.data;
     const operation = data[0].toJSON() as unknown as AuthorityOperation;
-    const message = data[1].toString();
-    const signatures = data[2].toJSON() as unknown as Array<Array<string>>;
+    const threshold = data[1];
+    const message = data[2].toString();
+    const signatures = data[3].toJSON() as unknown as Array<Array<string>>;
 
     const _event = new CollectedEnoughAuthoritiesChangeSignaturesEvent(this.event.id);
     _event.blockNumber = this.event.blockNumber;
     _event.blockHash = this.event.blockHash;
     // _event.operation = operation;
     _event.message = message;
+    if (threshold) {
+      logger.info(Number(threshold));
+      _event.threshold = Number(threshold);
+    }
 
     const addMember = operation.addMember;
     const removeMember = operation.removeMember;
