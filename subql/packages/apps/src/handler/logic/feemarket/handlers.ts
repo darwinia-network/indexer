@@ -1,5 +1,5 @@
 import { SubstrateEvent, SubstrateBlock } from "@subql/types";
-import { Option, Vec, u128, u64, u32, U8aFixed } from "@polkadot/types";
+import { Option, Vec, u128, u64, u32, U8aFixed, BTreeMap } from "@polkadot/types";
 import { AccountId, AccountId32, Balance, BlockNumber, H256 } from "@polkadot/types/interfaces";
 import { ITuple } from "@polkadot/types-codec/types";
 
@@ -159,8 +159,13 @@ export const handleOrderRewardEvent = async (event: SubstrateEvent, dest: Destin
     },
   } = event;
 
-  const { toSlotRelayer, toMessageRelayer, toConfirmRelayer, toTreasury } = rewards as unknown as {
-    toSlotRelayer: Option<ITuple<[AccountId, Balance]>>;
+  // Remove RewardBook: https://github.com/darwinia-network/darwinia-messages-substrate/pull/169
+  // const { specVersion } = api.consts.system.version;
+  // toAssignedRelayers: for Pangolin, specVersion.toNumber() >= 29000
+
+  const { toSlotRelayer, toAssignedRelayers, toMessageRelayer, toConfirmRelayer, toTreasury } = rewards as unknown as {
+    toSlotRelayer?: Option<ITuple<[AccountId, Balance]>>;
+    toAssignedRelayers?: BTreeMap<AccountId, Balance>;
     toMessageRelayer: Option<ITuple<[AccountId, Balance]>>;
     toConfirmRelayer: Option<ITuple<[AccountId, Balance]>>;
     toTreasury: Option<Balance>;
@@ -175,8 +180,18 @@ export const handleOrderRewardEvent = async (event: SubstrateEvent, dest: Destin
 
     // 1. save relayers record
 
-    if (toSlotRelayer.isSome) {
-      const [assigned, assignedReward] = toSlotRelayer.unwrap();
+    if (toSlotRelayer?.isSome || toAssignedRelayers?.isEmpty !== true) {
+      let assigned: AccountId;
+      let assignedReward: Balance;
+
+      if (toSlotRelayer?.isSome) {
+        [assigned, assignedReward] = toSlotRelayer.unwrap();
+      } else {
+        for (const [acc, balance] of toAssignedRelayers.entries()) {
+          [assigned, assignedReward] = [acc, balance];
+        }
+      }
+
       const assignedAmount = assignedReward.toBigInt();
 
       const assignedRelayerRecordId = `${dest}-${assigned.toString()}`;
