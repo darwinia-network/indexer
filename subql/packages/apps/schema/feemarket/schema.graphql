@@ -56,6 +56,7 @@ type Market @entity {
   inProgressOutOfSlotOrders: Int # real time
 
   orders: [Order] @derivedFrom(field: "market")
+  slashs: [Slash] @derivedFrom(field: "market")
   rewards: [Reward] @derivedFrom(field: "market")
   relayers: [Relayer] @derivedFrom(field: "market")
 
@@ -131,6 +132,7 @@ type Slash @entity {
   id: ID! # destination-laneId-nonce-eventIndex
 
   order: Order
+  market: Market
 
   blockTime: Date
   blockNumber: Int

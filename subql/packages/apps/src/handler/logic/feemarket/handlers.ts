@@ -362,8 +362,10 @@ export const handleOrderSlashEvent = async (
     await relayerRecord.save();
 
     // 2. save slash
+
     const slashRecord = new Slash(slashId);
     slashRecord.orderId = orderId;
+    slashRecord.marketId = marketId;
     slashRecord.blockTime = blockTime;
     slashRecord.blockNumber = blockNumber;
     slashRecord.extrinsicIndex = extrinsicIndex;
@@ -406,11 +408,13 @@ const updateRelayerQuote = async (
   const relayerQuoteId = `${destination}-${blockNumber}-${eventIndex}`;
 
   // 1. save market
+
   if (!(await Market.get(marketId))) {
     await new Market(marketId).save();
   }
 
   // 2. save relayer
+
   if (!(await Relayer.get(relayerId))) {
     const orderRecord = new Relayer(relayerId);
     orderRecord.marketId = marketId;
@@ -419,6 +423,7 @@ const updateRelayerQuote = async (
   }
 
   // 3. save relayer quote
+
   const relayerQuoteRecord = new RelayerQuote(relayerQuoteId);
   relayerQuoteRecord.blockTime = blockTime;
   relayerQuoteRecord.blockNumber = blockNumber;
