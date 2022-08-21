@@ -91,7 +91,18 @@ export const handleOrderCreateEvent = async (
     }
   }
 
-  // 2. save order
+  // 2. update market
+
+  const marketRecord = (await Market.get(marketId)) || new Market(marketId);
+  marketRecord.inProgressInSlotOrders =
+    (marketRecord.inProgressInSlotOrders || 0) + 1;
+  marketRecord.inProgressOrders = (marketRecord.inProgressOrders || []).concat({
+    orderId,
+    outOfSlotBlock,
+  });
+  await marketRecord.save();
+
+  // 3. save order
 
   const orderRecord = new Order(orderId);
   orderRecord.sender = event.extrinsic?.extrinsic.signer.toString();
@@ -107,18 +118,8 @@ export const handleOrderCreateEvent = async (
   orderRecord.createExtrinsicIndex = extrinsicIndex;
   orderRecord.createEventIndex = eventIndex;
   orderRecord.assignedRelayersId = assignedRelayersId;
+  orderRecord.marketId = marketId;
   await orderRecord.save();
-
-  // 3. update market
-
-  const marketRecord = (await Market.get(marketId)) || new Market(marketId);
-  marketRecord.inProgressInSlotOrders =
-    (marketRecord.inProgressInSlotOrders || 0) + 1;
-  marketRecord.inProgressOrders = (marketRecord.inProgressOrders || []).concat({
-    orderId,
-    outOfSlotBlock,
-  });
-  await marketRecord.save();
 };
 
 /**

@@ -52,6 +52,8 @@ type Market @entity {
   inProgressInSlotOrders: Int # real time
   inProgressOutOfSlotOrders: Int # real time
 
+  orders: [Order] @derivedFrom(field: "market")
+
   feeHistoryLastTime: Int # block number
   feeHistory: [MarketFee] @derivedFrom(field: "market")
 }
@@ -91,6 +93,8 @@ type Order @entity {
   assignedRelayersId: [String]
   deliveredRelayersId: [String]
   confirmedRelayersId: [String]
+
+  market: Market
 
   slashs: [Slash] @derivedFrom(field: "order")
   rewards: [Reward] @derivedFrom(field: "order")
