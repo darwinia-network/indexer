@@ -201,6 +201,7 @@ export const handleOrderRewardEvent = async (
 
     const rewardRecord = new Reward(rewardId);
     rewardRecord.orderId = orderId;
+    rewardRecord.marketId = marketId;
     rewardRecord.blockTime = blockTime;
     rewardRecord.blockNumber = blockNumber;
     rewardRecord.extrinsicIndex = extrinsicIndex;
