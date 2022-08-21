@@ -411,7 +411,10 @@ const updateRelayerQuote = async (
 
   // 2. save relayer
   if (!(await Relayer.get(relayerId))) {
-    await new Relayer(relayerId).save();
+    const orderRecord = new Relayer(relayerId);
+    orderRecord.marketId = marketId;
+    orderRecord.address = relayer;
+    await orderRecord.save();
   }
 
   // 3. save relayer quote

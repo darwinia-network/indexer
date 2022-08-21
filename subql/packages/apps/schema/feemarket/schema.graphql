@@ -11,6 +11,9 @@ type OrderOutOfSlot @jsonField {
 type Relayer @entity {
   id: ID! # destination-address
 
+  market: Market
+  address: String
+
   quoteHistory: [RelayerQuote] @derivedFrom(field: "relayer")
 
   totalSlashs: BigInt
@@ -53,6 +56,7 @@ type Market @entity {
   inProgressOutOfSlotOrders: Int # real time
 
   orders: [Order] @derivedFrom(field: "market")
+  relayers: [Relayer] @derivedFrom(field: "market")
 
   feeHistoryLastTime: Int # block number
   feeHistory: [MarketFee] @derivedFrom(field: "market")
