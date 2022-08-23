@@ -36,6 +36,11 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: staking
+            method: Reward
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: staking
             method: Rewarded
 
         ################# Fee Market Event #################
