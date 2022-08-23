@@ -45,6 +45,7 @@ type RelayerQuote @entity {
 type Market @entity {
   id: ID! # destination
 
+  totalOrders: Int
   totalSlash: BigInt
   totalReward: BigInt
 

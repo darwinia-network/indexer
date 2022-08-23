@@ -100,6 +100,7 @@ export const handleOrderCreateEvent = async (
     orderId,
     outOfSlotBlock,
   });
+  marketRecord.totalOrders = (marketRecord.totalOrders || 0) + 1;
   await marketRecord.save();
 
   // 3. save order
