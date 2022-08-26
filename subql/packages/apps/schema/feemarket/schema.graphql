@@ -3,6 +3,18 @@ enum OrderStatus {
   InProgress
 }
 
+type FeeTime @jsonField {
+  fee: BigInt
+  timestamp: Date
+}
+
+type FeeHistory @entity {
+  id: ID! # destination
+
+  lastTime: Int # block number
+  data: [FeeTime]
+}
+
 type OrderOutOfSlot @jsonField {
   orderId: String
   outOfSlotBlock: Int
@@ -60,18 +72,6 @@ type Market @entity {
   slashs: [Slash] @derivedFrom(field: "market")
   rewards: [Reward] @derivedFrom(field: "market")
   relayers: [Relayer] @derivedFrom(field: "market")
-
-  feeHistoryLastTime: Int # block number
-  feeHistory: [MarketFee] @derivedFrom(field: "market")
-}
-
-type MarketFee @entity {
-  id: ID! # destination-blockNumber
-
-  fee: BigInt
-  timestamp: Date
-
-  market: Market
 }
 
 type Order @entity {

@@ -12,7 +12,7 @@ import {
   handleOrderSlashEvent,
   handleFeeUpdateEvent,
   handleEnrollEvent,
-  handleMarketFeeHistory,
+  handleFeeHistory,
   handleCheckOutOfSlot,
 } from "./handlers";
 import { DarwiniaChain } from "./types";
@@ -34,7 +34,7 @@ export class GenericFeeMarketHandler implements IndexHandler {
 
     for (const destination of destinations) {
       await handleCheckOutOfSlot(block.raw, destination);
-      await handleMarketFeeHistory(block.raw, destination);
+      await handleFeeHistory(block.raw, destination);
     }
   }
 

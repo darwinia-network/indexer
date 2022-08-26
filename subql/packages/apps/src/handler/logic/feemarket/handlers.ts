@@ -12,11 +12,11 @@ import {
   Relayer,
   RelayerQuote,
   Market,
-  MarketFee,
   Order,
   OrderStatus,
   Reward,
   Slash,
+  FeeHistory,
 } from "../../../types";
 import { getApiSection } from "./utils";
 import type {
@@ -509,43 +509,37 @@ export const handleCheckOutOfSlot = async (
   }
 };
 
-const THRESHOLD_FEEHISTORY = 300; // number of blocks, about every 30 minutes
+const FEEHISTORY_INTERVAL = 300; // number of blocks, about every 30 minutes
 
 /**
- * Market Fee History
+ * Fee History
  */
-export const handleMarketFeeHistory = async (
+export const handleFeeHistory = async (
   block: SubstrateBlock,
   destination: DarwiniaChain
 ): Promise<void> => {
   const timestamp = block.timestamp;
   const blockNumber = block.block.header.number.toNumber();
 
-  const marketId = destination;
-  const marketFeeId = `${destination}-${blockNumber}`;
-
   const apiSection = getApiSection(destination);
-  const marketRecord = await Market.get(marketId);
+  const record =
+    (await FeeHistory.get(destination)) || new FeeHistory(destination);
 
   if (
-    marketRecord &&
-    (marketRecord.feeHistoryLastTime || 0) + THRESHOLD_FEEHISTORY <=
-      blockNumber &&
-    apiSection
+    apiSection &&
+    (record.lastTime || 0) + FEEHISTORY_INTERVAL <= blockNumber
   ) {
     const assignedRelayers = await api.query[apiSection].assignedRelayers<
       Option<Vec<PalletFeeMarketRelayer>>
     >();
 
     if (assignedRelayers.isSome) {
-      marketRecord.feeHistoryLastTime = blockNumber;
-      await marketRecord.save();
-
-      const marketFeeRecord = new MarketFee(marketFeeId);
-      marketFeeRecord.fee = assignedRelayers.unwrap().pop().fee.toBigInt();
-      marketFeeRecord.timestamp = timestamp;
-      marketFeeRecord.marketId = marketId;
-      await marketFeeRecord.save();
+      record.lastTime = blockNumber;
+      record.data = (record.data || []).concat({
+        timestamp,
+        fee: assignedRelayers.unwrap().pop().fee.toBigInt(),
+      });
+      await record.save();
     }
   }
 };
