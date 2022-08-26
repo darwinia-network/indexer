@@ -9,15 +9,14 @@ import type { Struct } from "@polkadot/types-codec";
 import type { ITuple } from "@polkadot/types-codec/types";
 
 // The value is the specName
-export enum DarwiniaChain {
-  Crab = "Crab",
-  Darwinia = "Darwinia",
-  Pangolin = "Pangolin",
-  Pangoro = "Pangoro",
-  CrabParachain = "Crab Parachain",
-  DarwiniaParachain = "Darwinia Parachain",
-  PangolinParachain = "Pangolin Parachain",
-}
+export type DarwiniaChain =
+  | "Crab"
+  | "Darwinia"
+  | "Pangolin"
+  | "Pangoro"
+  | "Crab Parachain"
+  | "Darwinia Parachain"
+  | "Pangolin Parachain";
 
 export type FeeMarketApiSection =
   | "feeMarket"
@@ -27,6 +26,11 @@ export type FeeMarketApiSection =
   | "pangoroFeeMarket"
   | "crabParachainFeeMarket"
   | "pangolinParachainFeeMarket";
+
+export type RewardData = {
+  amount: Balance;
+  relayer: AccountId;
+};
 
 export type MessageNonce = u64;
 
