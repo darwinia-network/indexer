@@ -273,7 +273,7 @@ export const handleOrderRewardEvent = async (
 
     orderRecord.status = OrderStatus.Finished;
     if (blockNumber < orderRecord.outOfSlotBlock) {
-      for (let i; i < 20; i++) {
+      for (let i = 0; i < 20; i++) {
         // suppose there are at most 20 slots
         if (
           blockNumber <=
