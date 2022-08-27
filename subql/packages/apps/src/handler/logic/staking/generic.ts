@@ -1,9 +1,14 @@
-import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
+import {
+  Chain,
+  FastBlock,
+  FastEvent,
+  FastExtrinsic,
+  IndexHandler,
+} from "@darwinia/index-common";
 
-import { handlerStakingRewarded } from './handlers';
+import { handlerStakingRewarded } from "./handlers";
 
 export class GenericStakingHandler implements IndexHandler {
-
   private readonly chain: Chain;
 
   constructor(chain: Chain) {
@@ -14,18 +19,18 @@ export class GenericStakingHandler implements IndexHandler {
     return `${this.chain}-block`;
   }
 
-  async handleBlock(block: FastBlock): Promise<void> {
-  }
+  async handleBlock(block: FastBlock): Promise<void> {}
 
-  async handleCall(call: FastExtrinsic): Promise<void> {
-  }
+  async handleCall(call: FastExtrinsic): Promise<void> {}
 
   async handleEvent(event: FastEvent): Promise<void> {
     const { section, method } = event;
 
-    if (section === 'staking' && method === 'Rewarded') {
+    if (
+      section === "staking" &&
+      (method === "Reward" || method === "Rewarded")
+    ) {
       await handlerStakingRewarded(event.raw);
     }
   }
-
 }

@@ -21,7 +21,9 @@ network:
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 8118000
+    # staking (Reward)   8179749
+    # feemarket (Enroll) 8118033
+    startBlock: 8118030
     mapping:
       file: ./dist/index.js
       handlers:
@@ -32,6 +34,11 @@ dataSources:
           kind: substrate/CallHandler
 
         ################# Staking Event #################
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Reward
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:

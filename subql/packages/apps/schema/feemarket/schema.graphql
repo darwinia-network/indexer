@@ -3,32 +3,46 @@ enum OrderStatus {
   InProgress
 }
 
-type OrderOutOfSlot @jsonField {
+enum RelayerRole {
+  Assigned
+  Delivery
+  Confirmation
+}
+
+type AmountIndex @jsonField {
+  amount: String # !! don't use BigInt in @jsonField
+  blockTime: Date
+  blockNumber: Int
+  extrinsicIndex: Int
+  eventIndex: Int
+}
+
+type OrderOutOfSlotBclok @jsonField {
   orderId: String
   outOfSlotBlock: Int
 }
 
-type Relayer @entity {
-  id: ID! # destination-address
+type QuoteHistory @entity {
+  id: ID! # relayerId
 
-  quoteHistory: [RelayerQuote] @derivedFrom(field: "relayer")
-
-  totalSlashs: BigInt
-  slashs: [Slash] @derivedFrom(field: "relayer")
-
-  totalRewards: BigInt
-  assignedRelayerRewardsId: [String]
-  deliveredRelayerRewardsId: [String]
-  confirmedRelayerRewardsId: [String]
-
-  totalOrders: Int
-  assignedRelayerOrdersId: [String]
-  deliveredRelayerOrdersId: [String]
-  confirmedRelayerOrdersId: [String]
+  relayer: Relayer
+  data: [AmountIndex]
 }
 
-type RelayerQuote @entity {
-  id: ID! # destination-blockNumber-eventIndex
+type FeeHistory @entity {
+  id: ID! # marketId
+
+  market: Market
+  data: [AmountIndex]
+  lastTime: Int # block number
+}
+
+type Reward @entity {
+  id: ID! # blockNumber-eventIndex-customIndex
+
+  order: Order
+  market: Market
+  relayer: Relayer
 
   blockTime: Date
   blockNumber: Int
@@ -36,37 +50,76 @@ type RelayerQuote @entity {
   eventIndex: Int
 
   amount: BigInt
+  relayerRole: RelayerRole
+}
+
+type Slash @entity {
+  id: ID! # blockNumber-eventIndex-customIndex
+
+  order: Order
+  market: Market
   relayer: Relayer
+
+  blockTime: Date
+  blockNumber: Int
+  extrinsicIndex: Int
+  eventIndex: Int
+
+  amount: BigInt
+  relayerRole: RelayerRole
+
+  sentTime: Int # block number
+  confirmTime: Int # block number
+  delayTime: Int # number of blocks
 }
 
 type Market @entity {
   id: ID! # destination
 
+  totalOrders: Int
   totalSlash: BigInt
   totalReward: BigInt
 
   averageSpeed: Int # millisecond
-  inProgressOrders: [OrderOutOfSlot]
+  unfinishedOrders: [OrderOutOfSlotBclok] # real time
 
   finishedOrders: Int # real time
-  inProgressInSlotOrders: Int # real time
-  inProgressOutOfSlotOrders: Int # real time
+  unfinishedInSlotOrders: Int # real time
+  unfinishedOutOfSlotOrders: Int # real time
 
-  feeHistoryLastTime: Int # block number
-  feeHistory: [MarketFee] @derivedFrom(field: "market")
+  orders: [Order] @derivedFrom(field: "market")
+  slashes: [Slash] @derivedFrom(field: "market")
+  rewards: [Reward] @derivedFrom(field: "market")
+  relayers: [Relayer] @derivedFrom(field: "market")
+  feeHistory: [FeeHistory] @derivedFrom(field: "market")
 }
 
-type MarketFee @entity {
-  id: ID! # destination-blockNumber
-
-  fee: BigInt
-  timestamp: Date
+type Relayer @entity {
+  id: ID! # destination-address
 
   market: Market
+  address: String
+
+  totalOrders: Int
+  totalSlashes: BigInt
+  totalRewards: BigInt
+  totalOrdersId: [String]
+
+  assignedOrders: [OrderRelayer] @derivedFrom(field: "assignedRelayer")
+  deliveryOrders: [OrderRelayer] @derivedFrom(field: "deliveryRelayer")
+  confirmationOrders: [OrderRelayer] @derivedFrom(field: "confirmationRelayer")
+
+  slashes: [Slash] @derivedFrom(field: "relayer")
+  rewards: [Reward] @derivedFrom(field: "relayer")
+  quoteHistory: [QuoteHistory] @derivedFrom(field: "relayer")
 }
 
 type Order @entity {
-  id: ID! # destination-laneId-nonce
+  id: ID! # destination-lane-nonce
+
+  lane: String
+  nonce: String
+  market: Market
 
   sender: String
   sourceTxHash: String
@@ -76,7 +129,7 @@ type Order @entity {
 
   slotTime: Int # number of blocks
   outOfSlotBlock: Int # block number
-  confirmedSlotIndex: Int # -1: out of slot / 0: #1 / 1: #2 / 2: #3
+  slotIndex: Int # -1: out of slot / 0: #1 / 1: #2 / 2: #3
 
   createBlockTime: Date
   createBlockNumber: Int
@@ -88,49 +141,25 @@ type Order @entity {
   finishExtrinsicIndex: Int
   finishEventIndex: Int
 
-  assignedRelayersId: [String]
-  deliveredRelayersId: [String]
-  confirmedRelayersId: [String]
+  treasuryAmount: BigInt
+  assignedRelayersAddress: [String]
 
-  slashs: [Slash] @derivedFrom(field: "order")
+  assignedRelayers: [OrderRelayer] @derivedFrom(field: "assignedOrder")
+  deliveryRelayers: [OrderRelayer] @derivedFrom(field: "deliveryOrder")
+  confirmationRelayers: [OrderRelayer] @derivedFrom(field: "confirmationOrder")
+
+  slashes: [Slash] @derivedFrom(field: "order")
   rewards: [Reward] @derivedFrom(field: "order")
 }
 
-type Reward @entity {
-  id: ID! # destination-laneId-nonce-eventIndex
+type OrderRelayer @entity {
+  id: ID! # orderId-relayerId-relayerRole
 
-  order: Order
+  assignedOrder: Order
+  deliveryOrder: Order
+  confirmationOrder: Order
 
-  blockTime: Date
-  blockNumber: Int
-  extrinsicIndex: Int
-  eventIndex: Int
-
-  assignedRelayersId: [String]
-  deliveredRelayersId: [String]
-  confirmedRelayersId: [String]
-
-  assignedAmounts: [BigInt]
-  deliveredAmounts: [BigInt]
-  confirmedAmounts: [BigInt]
-
-  treasuryAmount: BigInt
-}
-
-type Slash @entity {
-  id: ID! # destination-laneId-nonce-eventIndex
-
-  order: Order
-
-  blockTime: Date
-  blockNumber: Int
-  extrinsicIndex: Int
-  eventIndex: Int
-
-  amount: BigInt
-  relayer: Relayer
-
-  sentTime: Int # block number
-  confirmTime: Int # block number
-  delayTime: Int # number of blocks
+  assignedRelayer: Relayer
+  deliveryRelayer: Relayer
+  confirmationRelayer: Relayer
 }

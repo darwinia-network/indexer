@@ -12,11 +12,10 @@ import {
   handleOrderSlashEvent,
   handleFeeUpdateEvent,
   handleEnrollEvent,
-  handleMarketFeeHistory,
+  handleFeeHistory,
   handleCheckOutOfSlot,
 } from "./handlers";
-import { DarwiniaChain } from "./types";
-import { dispatch } from "./utils";
+import { dispatch, getDestinations } from "./utils";
 
 export class GenericFeeMarketHandler implements IndexHandler {
   private readonly chain: Chain;
@@ -30,11 +29,11 @@ export class GenericFeeMarketHandler implements IndexHandler {
   }
 
   async handleBlock(block: FastBlock): Promise<void> {
-    const destinations = Object.values(DarwiniaChain);
+    const destinations = getDestinations();
 
     for (const destination of destinations) {
       await handleCheckOutOfSlot(block.raw, destination);
-      await handleMarketFeeHistory(block.raw, destination);
+      await handleFeeHistory(block.raw, destination);
     }
   }
 

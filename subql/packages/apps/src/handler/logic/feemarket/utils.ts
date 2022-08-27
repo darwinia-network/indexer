@@ -4,6 +4,17 @@ import { FastEvent } from "@darwinia/index-common";
 import { marketApiSections } from "./config";
 import type { FeeMarketApiSection, DarwiniaChain } from "./types";
 
+export const getDestinations = () => {
+  const { specName } = api.consts.system.version;
+  const source = specName.toString() as DarwiniaChain;
+
+  if (marketApiSections[source]) {
+    return Object.keys(marketApiSections[source]) as DarwiniaChain[];
+  }
+
+  return [];
+};
+
 export const dispatch = async (
   section: string,
   event: FastEvent,
