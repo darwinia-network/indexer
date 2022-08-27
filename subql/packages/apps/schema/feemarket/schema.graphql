@@ -105,11 +105,9 @@ type Relayer @entity {
   totalRewards: BigInt
   totalOrdersId: [String]
 
-  assigned1Orders: [Order] @derivedFrom(field: "assignedRelayer1")
-  assigned2Orders: [Order] @derivedFrom(field: "assignedRelayer2")
-  assigned3Orders: [Order] @derivedFrom(field: "assignedRelayer3")
-  deliveryOrders: [Order] @derivedFrom(field: "deliveryRelayer")
-  confirmationOrders: [Order] @derivedFrom(field: "confirmationRelayer")
+  assignedOrders: [OrderRelayer] @derivedFrom(field: "assignedRelayer")
+  deliveryOrders: [OrderRelayer] @derivedFrom(field: "deliveryRelayer")
+  confirmationOrders: [OrderRelayer] @derivedFrom(field: "confirmationRelayer")
 
   slashes: [Slash] @derivedFrom(field: "relayer")
   rewards: [Reward] @derivedFrom(field: "relayer")
@@ -144,14 +142,24 @@ type Order @entity {
   finishEventIndex: Int
 
   treasuryAmount: BigInt
-  assignedRelayers: [String]
+  assignedRelayersAddress: [String]
 
-  assignedRelayer1: Relayer
-  assignedRelayer2: Relayer
-  assignedRelayer3: Relayer
-  deliveryRelayer: Relayer
-  confirmationRelayer: Relayer
+  assignedRelayers: [OrderRelayer] @derivedFrom(field: "assignedOrder")
+  deliveryRelayers: [OrderRelayer] @derivedFrom(field: "deliveryOrder")
+  confirmationRelayers: [OrderRelayer] @derivedFrom(field: "confirmationOrder")
 
   slashes: [Slash] @derivedFrom(field: "order")
   rewards: [Reward] @derivedFrom(field: "order")
+}
+
+type OrderRelayer @entity {
+  id: ID! # orderId-relayerId-relayerRole
+
+  assignedOrder: Order
+  deliveryOrder: Order
+  confirmationOrder: Order
+
+  assignedRelayer: Relayer
+  deliveryRelayer: Relayer
+  confirmationRelayer: Relayer
 }

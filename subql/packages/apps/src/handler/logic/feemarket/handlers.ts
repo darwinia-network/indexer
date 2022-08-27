@@ -19,6 +19,7 @@ import {
   RelayerRole,
   FeeHistory,
   QuoteHistory,
+  OrderRelayer,
 } from "../../../types";
 import { getApiSection } from "./utils";
 import type {
@@ -127,7 +128,7 @@ export const handleOrderCreateEvent = async (
   orderRecord.createBlockNumber = blockNumber;
   orderRecord.createExtrinsicIndex = extrinsicIndex;
   orderRecord.createEventIndex = eventIndex;
-  orderRecord.assignedRelayers = assignedRelayers;
+  orderRecord.assignedRelayersAddress = assignedRelayers;
   await orderRecord.save();
 };
 
@@ -276,27 +277,32 @@ export const handleOrderRewardEvent = async (
     orderRecord.finishExtrinsicIndex = extrinsicIndex;
     orderRecord.finishEventIndex = eventIndex;
     orderRecord.treasuryAmount = treasuryAmount;
-    for (let i = 0; i < assignedRelayersReward.length; i++) {
-      const reward = assignedRelayersReward[i];
+    for (const reward of assignedRelayersReward) {
       const relayerId = `${destination}-${reward.relayer.toString()}`;
-
-      if (i === 0) {
-        orderRecord.assignedRelayer1Id = relayerId;
-      } else if (i === 1) {
-        orderRecord.assignedRelayer2Id = relayerId;
-      } else if (i === 2) {
-        orderRecord.assignedRelayer3Id = relayerId;
-      }
+      const record = new OrderRelayer(
+        `${orderId}-${relayerId}-${RelayerRole.Assigned}`
+      );
+      record.assignedOrderId = orderId;
+      record.assignedRelayerId = relayerId;
+      await record.save();
     }
     for (const reward of deliveryRelayersReward) {
       const relayerId = `${destination}-${reward.relayer.toString()}`;
-      orderRecord.deliveryRelayerId = relayerId;
-      break;
+      const record = new OrderRelayer(
+        `${orderId}-${relayerId}-${RelayerRole.Delivery}`
+      );
+      record.deliveryOrderId = orderId;
+      record.deliveryRelayerId = relayerId;
+      await record.save();
     }
     for (const reward of confirmationRelayersReward) {
       const relayerId = `${destination}-${reward.relayer.toString()}`;
-      orderRecord.confirmationRelayerId = relayerId;
-      break;
+      const record = new OrderRelayer(
+        `${orderId}-${relayerId}-${RelayerRole.Confirmation}`
+      );
+      record.confirmationOrderId = orderId;
+      record.confirmationRelayerId = relayerId;
+      await record.save();
     }
     await orderRecord.save();
 
