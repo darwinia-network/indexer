@@ -26,7 +26,6 @@ export function handleMessagesDelivered(event: MessagesDelivered): void {
   }
   message_delivered.begin = event.params.begin
   message_delivered.end = event.params.end
-  message_delivered.results = event.params.results
   message_delivered.block_number = event.block.number
   message_delivered.save()
 }

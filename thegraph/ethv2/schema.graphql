@@ -12,13 +12,5 @@ type MessagesDeliveredEntity @entity(immutable: true) {
   block_number: BigInt!
   begin: BigInt!
   end: BigInt!
-  results: BigInt!
-}
-
-type MessageDispatchedEntity @entity(immutable: true) {
-  id: Bytes!
-  block_number: BigInt!
-  nonce: BigInt!
-  result: Boolean!
 }
 
