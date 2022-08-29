@@ -31,6 +31,25 @@ import type {
   RewardData,
 } from "./types";
 
+const recordOrderRelayer = async (
+  items: RewardData[],
+  role: RelayerRole,
+  destination: DarwiniaChain,
+  orderId: string
+) => {
+  for (const item of items) {
+    const relayerId = `${destination}-${item.relayer.toString()}`;
+    const recordId = `${orderId}-${relayerId}-${role}`;
+    if (!(await OrderRelayer.get(recordId))) {
+      const record = new OrderRelayer(recordId);
+      record.orderId = orderId;
+      record.relayerId = relayerId;
+      record.relayerRole = role;
+      await record.save();
+    }
+  }
+};
+
 /**
  * Order Create
  * https://github.com/darwinia-network/darwinia-bridges-substrate/pull/89
@@ -277,36 +296,30 @@ export const handleOrderRewardEvent = async (
     orderRecord.finishExtrinsicIndex = extrinsicIndex;
     orderRecord.finishEventIndex = eventIndex;
     orderRecord.treasuryAmount = treasuryAmount;
-    for (const reward of assignedRelayersReward) {
-      const relayerId = `${destination}-${reward.relayer.toString()}`;
-      const record = new OrderRelayer(
-        `${orderId}-${relayerId}-${RelayerRole.Assigned}`
-      );
-      record.assignedOrderId = orderId;
-      record.assignedRelayerId = relayerId;
-      await record.save();
-    }
-    for (const reward of deliveryRelayersReward) {
-      const relayerId = `${destination}-${reward.relayer.toString()}`;
-      const record = new OrderRelayer(
-        `${orderId}-${relayerId}-${RelayerRole.Delivery}`
-      );
-      record.deliveryOrderId = orderId;
-      record.deliveryRelayerId = relayerId;
-      await record.save();
-    }
-    for (const reward of confirmationRelayersReward) {
-      const relayerId = `${destination}-${reward.relayer.toString()}`;
-      const record = new OrderRelayer(
-        `${orderId}-${relayerId}-${RelayerRole.Confirmation}`
-      );
-      record.confirmationOrderId = orderId;
-      record.confirmationRelayerId = relayerId;
-      await record.save();
-    }
     await orderRecord.save();
 
-    // 4. update market
+    // 4. save order relayer
+
+    await recordOrderRelayer(
+      assignedRelayersReward,
+      RelayerRole.Assigned,
+      destination,
+      orderId
+    );
+    await recordOrderRelayer(
+      deliveryRelayersReward,
+      RelayerRole.Delivery,
+      destination,
+      orderId
+    );
+    await recordOrderRelayer(
+      confirmationRelayersReward,
+      RelayerRole.Confirmation,
+      destination,
+      orderId
+    );
+
+    // 5. update market
 
     const speed =
       blockTime.getTime() - new Date(orderRecord.createBlockTime).getTime();
@@ -400,6 +413,15 @@ export const handleOrderSlashEvent = async (
       slashRecord.delayTime = delayTime.unwrap().toNumber();
     }
     await slashRecord.save();
+
+    // 4. save order relayer
+
+    await recordOrderRelayer(
+      [{ amount, relayer: accountId }],
+      RelayerRole.Assigned,
+      destination,
+      orderId
+    );
   }
 };
 
