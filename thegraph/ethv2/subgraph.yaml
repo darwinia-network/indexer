@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0xbf5123f4ff58E28f23EDE9Ce098f05708A717818"
       abi: outbound
-      startBlock: 3757071
+      startBlock: 3887520
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -22,7 +22,7 @@ dataSources:
       eventHandlers:
         - event: MessageAccepted(indexed uint64,address,address,bytes)
           handler: handleMessageAccepted
-        - event: MessagesDelivered(indexed uint64,indexed uint64,uint256)
+        - event: MessagesDelivered(indexed uint64,indexed uint64)
           handler: handleMessagesDelivered
       file: ./src/outbound.ts
 

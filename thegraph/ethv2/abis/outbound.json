@@ -108,12 +108,6 @@
         "internalType": "uint64",
         "name": "end",
         "type": "uint64"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "results",
-        "type": "uint256"
       }
     ],
     "name": "MessagesDelivered",
@@ -125,6 +119,19 @@
     "outputs": [
       {
         "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "VERIFIER",
+    "outputs": [
+      {
+        "internalType": "contract IVerifier",
         "name": "",
         "type": "address"
       }
@@ -185,52 +192,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "encoded",
-        "type": "uint256"
-      }
-    ],
-    "name": "decodeMessageKey",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint32",
-            "name": "this_chain_id",
-            "type": "uint32"
-          },
-          {
-            "internalType": "uint32",
-            "name": "this_lane_id",
-            "type": "uint32"
-          },
-          {
-            "internalType": "uint32",
-            "name": "bridged_chain_id",
-            "type": "uint32"
-          },
-          {
-            "internalType": "uint32",
-            "name": "bridged_lane_id",
-            "type": "uint32"
-          },
-          {
-            "internalType": "uint64",
-            "name": "nonce",
-            "type": "uint64"
-          }
-        ],
-        "internalType": "struct SourceChain.MessageKey",
-        "name": "key",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint64",
         "name": "nonce",
         "type": "uint64"
@@ -270,19 +231,6 @@
         "internalType": "uint32",
         "name": "",
         "type": "uint32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "lightClient",
-    "outputs": [
-      {
-        "internalType": "contract ILightClient",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -365,11 +313,6 @@
                     "internalType": "uint64",
                     "name": "end",
                     "type": "uint64"
-                  },
-                  {
-                    "internalType": "uint256",
-                    "name": "dispatch_results",
-                    "type": "uint256"
                   }
                 ],
                 "internalType": "struct TargetChain.DeliveredMessages",
