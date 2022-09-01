@@ -6,7 +6,7 @@ dataSources:
     name: outbound
     network: pangoro
     source:
-      address: "0xbf5123f4ff58E28f23EDE9Ce098f05708A717818"
+      address: "0x50D831c94b7be724aE6D82e3ED50BA1eb403e992"
       abi: outbound
       startBlock: 3887520
     mapping:
