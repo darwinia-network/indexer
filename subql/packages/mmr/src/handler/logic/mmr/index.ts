@@ -4,7 +4,6 @@ import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwini
 import {MMRNodeEntity} from "../../../types";
 import {merge, parent_offset, pos_height_in_tree, sibling_offset, leaf_index_to_pos} from "./helpers";
 
-
 export class MMRHandler implements IndexHandler {
 
   private readonly chain: Chain;
