@@ -15,7 +15,7 @@ schema:
 network:
   chainId: "0x46720335bb0a5c81a29777a9ad81afcda36b70f34103ebea42fb55332a1b79b4"
   endpoint: "wss://pangolin-rpc.darwinia.network"
-  dictionary: "https://api.subquery.network/sq/darwinia-network/pangolin-dictionary"
+  # dictionary: "https://api.subquery.network/sq/darwinia-network/pangolin-dictionary"
   chaintypes:
     file: chaintypes/pangolin.yaml
 dataSources:
