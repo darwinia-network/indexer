@@ -1,0 +1,43 @@
+specVersion: 1.0.0
+name: index-subql
+version: 1.0.0
+runner:
+  node:
+    name: '@subql/node'
+    version: '*'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: Rococo index
+repository: 'https://github.com/darwinia-network/indexer'
+schema:
+  file: ./schema.graphql
+network:
+  chainId: '0xfec093d01f993fced7be5f7222bdc15f354fb92357b4b90ec5ee8cbc7d69037a'
+  endpoint: 'ws://g2.dev.darwinia.network:9944'
+#  dictionary: 'https://api.subquery.network/sq/subquery/kusama-dictionary'
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 1151834
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+
+        - handler: handleCall
+          kind: substrate/CallHandler
+
+        ## bridge s2s (parachain)
+
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: grandpa
+            method: NewAuthorities
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: paraInclusion
+            method: CandidateIncluded
