@@ -126,19 +126,16 @@ const PEAKS_DARWINIA: [number, string][] = [
 ];
 
 
-/*
-  let mmr_size = support_mmr::mmr::leaf_index_to_mmr_size(2);
-  let peaks = support_mmr::mmr::get_peaks(mmr_size);
-  assert_eq!(peaks, vec![2, 3]);
- */
+// assert_eq!(get_peaks(leaf_index_to_mmr_size(10)), vec![14, 17, 18]);
 const PEAKS_PANGOLIN: [number, string][] = [
-  [2, "0x9b26785f05d0dbbfef7b1d8b25349dcf9011ee8d228a26828352e3bd57127d13"],
-  [3, "0x553b72e374af467a61b78f90c8d4ea5703916309526d1284cbcd5eb2d2220280"],
+  [14, "0xd94ceaf1c65fa93c03339e2d69fddf5e00a8ef20cc9a96ef2573f09f2b7d210c"],
+  [17, "0x678a0d154c05e7d6b58555c3ca59b3460f03f2944119e8a89030e96a04fffd10"],
+  [18, "0x38b95bbb42655277f4383b8c3f5ed6cc6eb036687e8b2354a697613e5ef2dbee"],
 ];
 
 
 // beginBlock should be last leaf_index + 1
 const BEGIN_BLOCK_DARWINIA = 4440001;
-const BEGIN_BLOCK_PANGOLIN = 3;
+const BEGIN_BLOCK_PANGOLIN = 11;
 
 
