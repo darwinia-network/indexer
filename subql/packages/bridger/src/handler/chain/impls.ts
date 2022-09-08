@@ -116,3 +116,48 @@ export class RococoHandler extends BasicChainHandler {
     ];
   }
 }
+
+
+// ############ dev
+
+
+export class DevPangolinHandler extends BasicChainHandler {
+  constructor() {
+    super('dev-pangolin');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.DevPangolin),
+      new BridgeS2SHandler(Chain.DevPangolin),
+      new BridgeEthV1Handler(Chain.DevPangolin),
+    ];
+  }
+}
+
+export class DevPangolinParachainHandler extends BasicChainHandler {
+  constructor() {
+    super('dev-pangolin-parachain');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.DevPangolinParachain),
+      new BridgeS2SHandler(Chain.DevPangolinParachain),
+    ];
+  }
+}
+
+export class DevRococoHandler extends BasicChainHandler {
+  constructor() {
+    super('dev-rococo');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.DevRococo),
+      new BridgeS2SHandler(Chain.DevRococo),
+      new CandidateIncludedHandler(Chain.DevRococo),
+    ];
+  }
+}
