@@ -3,7 +3,7 @@
     "generic"
   ],
   "special": {
-    "darwinia": ["bridge-ethv1", "bridge-s2s"],
+    "darwinia": ["bridge-ethv1", "bridge-ethv2", ,"bridge-s2s"],
     "crab": ["bridge-s2s"],
     "crab-parachain": ["bridge-s2s"],
     "pangoro": ["bridge-ethv2" ,"bridge-s2s"],
