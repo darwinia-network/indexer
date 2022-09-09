@@ -8,7 +8,7 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Pangolin index
+description: Dev Pangolin index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql

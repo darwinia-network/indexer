@@ -8,7 +8,7 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Rococo index
+description: Dev Rococo index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
@@ -19,7 +19,7 @@ network:
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 1151834
+    startBlock: 1
     mapping:
       file: ./dist/index.js
       handlers:
