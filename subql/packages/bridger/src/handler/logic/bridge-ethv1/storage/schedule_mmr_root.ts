@@ -21,6 +21,7 @@ export class ScheduleMMRRootStorage {
 
     _event.timestamp = this.event.timestamp;
     await _event.save();
+    logger.info('schedule mmr root event stored');
   }
 
 

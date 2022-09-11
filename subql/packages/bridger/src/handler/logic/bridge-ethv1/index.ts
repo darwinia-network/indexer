@@ -32,38 +32,31 @@ export class BridgeEthV1Handler implements IndexHandler {
     const eventId = event.id;
     const eventSection = event.section;
     const eventMethod = event.method;
-    const eventKey = `${eventSection}:${eventMethod}`;
-    logger.info(`[event] Received event: [${eventKey}] [${eventId}] in block ${blockNumber}`);
-    switch (eventKey) {
-      case 'ecdsaRelayAuthority:SlashOnMisbehavior':
-      case 'ethereumRelayAuthorities:SlashOnMisbehavior': {
+    if (['ecdsaRelayAuthority', 'ethereumRelayAuthorities'].indexOf(eventSection) === -1) {
+      return;
+    }
+    logger.info(`[event] Received event: [${eventSection}:${eventMethod}] [${eventId}] in block ${blockNumber}`);
+
+    switch (eventMethod) {
+      case 'SlashOnMisbehavior':
         await new ScheduleMMRRootEmittedStorage(event).store();
         return;
-      }
-      case 'ecdsaRelayAuthority:MMRRootSigned':
-      case 'ethereumRelayAuthorities:MMRRootSigned': {
+      case 'MMRRootSigned':
+      case 'MmrRootSigned':
         await new MMRRootSignedStorage(event).store();
         return;
-      }
-      case 'ecdsaRelayAuthority:ScheduleMMRRoot':
-      case 'ethereumRelayAuthorities:ScheduleMMRRoot': {
+      case 'ScheduleMMRRoot':
+      case 'ScheduleMmrRoot':
         await new ScheduleMMRRootStorage(event).store();
         return;
-      }
-      case 'ecdsaRelayAuthority:ScheduleAuthoritiesChange':
-      case 'ethereumRelayAuthorities:ScheduleAuthoritiesChange': {
+      case 'ScheduleAuthoritiesChange':
         await new ScheduleAuthoritiesChangeStorage(event).store();
         return;
-      }
-      case 'ecdsaRelayAuthority:AuthoritiesChangeSigned':
-      case 'ethereumRelayAuthorities:AuthoritiesChangeSigned': {
+      case 'AuthoritiesChangeSigned':
         await new AuthoritiesChangeSignedStorage(event).store();
         return;
-      }
-      default: {
-        // logger.info(`[event] Discard event: ${eventMethod} in block ${blockNumber}`);
-      }
     }
+
   }
 
 }

@@ -71,12 +71,12 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: ecdsaRelayAuthority
-            method: MMRRootSigned
+            method: MmrRootSigned
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: ecdsaRelayAuthority
-            method: ScheduleMMRRoot
+            method: ScheduleMmrRoot
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:

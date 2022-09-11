@@ -31,12 +31,9 @@ export class BridgeS2SHandler implements IndexHandler {
 
   async handleEvent(event: FastEvent): Promise<void> {
     const blockNumber = event.blockNumber;
-
     const eventId = event.id;
     const eventSection = event.section;
     const eventMethod = event.method;
-    const eventKey = `${eventSection}:${eventMethod}`;
-    logger.info(`[${this.chain}] [event] Received event: [${eventKey}] [${eventId}] in block ${blockNumber}`);
     let handler: BridgeS2SEventHandler;
     switch (this.chain) {
       case Chain.Crab:
