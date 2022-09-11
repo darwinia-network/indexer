@@ -19,7 +19,7 @@ network:
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 9341772
+    startBlock: 10190714
     mapping:
       file: ./dist/index.js
       handlers:
@@ -70,22 +70,22 @@ dataSources:
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: ecdsaRelayAuthorities
+            module: ecdsaRelayAuthority
             method: MMRRootSigned
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: ecdsaRelayAuthorities
+            module: ecdsaRelayAuthority
             method: ScheduleMMRRoot
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: ecdsaRelayAuthorities
+            module: ecdsaRelayAuthority
             method: ScheduleAuthoritiesChange
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: ecdsaRelayAuthorities
+            module: ecdsaRelayAuthority
             method: AuthoritiesChangeSigned
 
         ## bridge ethv2
