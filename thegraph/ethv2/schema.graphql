@@ -1,5 +1,5 @@
 type MessageAcceptedEntity @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   block_number: BigInt!
   nonce: BigInt!
   source: Bytes!
@@ -8,7 +8,7 @@ type MessageAcceptedEntity @entity(immutable: true) {
 }
 
 type MessagesDeliveredEntity @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   block_number: BigInt!
   begin: BigInt!
   end: BigInt!

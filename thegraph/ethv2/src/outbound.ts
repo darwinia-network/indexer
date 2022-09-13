@@ -1,11 +1,10 @@
-import { Bytes } from "@graphprotocol/graph-ts"
 import {
   MessageAccepted, MessagesDelivered
 } from "../generated/outbound/outbound"
 import { MessageAcceptedEntity, MessagesDeliveredEntity } from "../generated/schema"
 
 export function handleMessageAccepted(event: MessageAccepted): void {
-  let id = Bytes.fromHexString(event.block.number.toHexString())
+  let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   let message_accpeted = MessageAcceptedEntity.load(id)
   if (!message_accpeted) {
     message_accpeted = new MessageAcceptedEntity(id)
@@ -19,7 +18,7 @@ export function handleMessageAccepted(event: MessageAccepted): void {
 }
 
 export function handleMessagesDelivered(event: MessagesDelivered): void {
-  let id = Bytes.fromHexString(event.block.number.toHexString())
+  let id = event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   let message_delivered = MessagesDeliveredEntity.load(id)
   if (!message_delivered) {
     message_delivered = new MessagesDeliveredEntity(id)
