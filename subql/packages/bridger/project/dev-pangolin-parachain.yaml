@@ -14,7 +14,7 @@ schema:
   file: ./schema.graphql
 network:
   chainId: '0x92450e36080e06e046d81c3f3f2d551c873aaf13e1ffd60b151349d8378a9299'
-  endpoint: 'ws://g2.dev.darwinia.network:8845'
+  endpoint: 'ws://g2.dev.darwinia.network:2245'
 dataSources:
   - name: main
     kind: substrate/Runtime

@@ -14,7 +14,7 @@ schema:
   file: ./schema.graphql
 network:
   chainId: '0xfec093d01f993fced7be5f7222bdc15f354fb92357b4b90ec5ee8cbc7d69037a'
-  endpoint: 'ws://g2.dev.darwinia.network:9944'
+  endpoint: 'ws://g2.dev.darwinia.network:4245'
 #  dictionary: 'https://api.subquery.network/sq/subquery/kusama-dictionary'
 dataSources:
   - name: main
