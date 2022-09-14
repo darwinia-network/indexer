@@ -80,21 +80,21 @@ dataSources:
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: ecdsaRelayAuthorities
+            module: ecdsaRelayAuthority
             method: MMRRootSigned
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: ecdsaRelayAuthorities
+            module: ecdsaRelayAuthority
             method: ScheduleMMRRoot
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: ecdsaRelayAuthorities
+            module: ecdsaRelayAuthority
             method: ScheduleAuthoritiesChange
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: ecdsaRelayAuthorities
+            module: ecdsaRelayAuthority
             method: AuthoritiesChangeSigned
 

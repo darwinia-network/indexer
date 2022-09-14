@@ -43,6 +43,7 @@ export class DarwiniaHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Darwinia),
       new BridgeS2SHandler(Chain.Darwinia),
       new BridgeEthV1Handler(Chain.Darwinia),
+      new BridgeEthV2Handler(Chain.Darwinia)
     ];
   }
 }
