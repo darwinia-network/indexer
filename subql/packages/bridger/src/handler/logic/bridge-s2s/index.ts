@@ -42,12 +42,14 @@ export class BridgeS2SHandler implements IndexHandler {
       case Chain.Darwinia:
         handler = new ChainDarwiniaEventHandler();
         break;
+      case Chain.DevPangolin:
       case Chain.Pangolin:
         handler = new ChainPangolinEventHandler();
         break;
       case Chain.Pangoro:
         handler = new ChainPangoroEventHandler();
         break;
+      case Chain.DevPangolinParachain:
       case Chain.PangolinParachain:
         handler = new ChainPangolinParachainEventHandler();
         break;
@@ -57,6 +59,7 @@ export class BridgeS2SHandler implements IndexHandler {
       case Chain.Kusama:
         handler = new ChainKusamaEventHandler();
         break;
+      case Chain.DevRococo:
       case Chain.Rococo:
         handler = new ChainRococoEventHandler();
         break;
