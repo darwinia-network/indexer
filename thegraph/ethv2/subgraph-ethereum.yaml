@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: outbound
-    network: pangoro
+    network: darwinia
     source:
       address: "0xcA3749C8C3aF04278D596a3fBe461481B6aa1b01"
       abi: outbound
