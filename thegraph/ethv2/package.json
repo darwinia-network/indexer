@@ -1,5 +1,5 @@
 {
-  "name": "bridger.the-graph",
+  "name": "bridger-ethv2",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
