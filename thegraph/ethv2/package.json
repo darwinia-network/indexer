@@ -1,0 +1,16 @@
+{
+  "name": "bridger-ethv2",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "create": "graph create --node https://thegraph.darwinia.network/ethv2/deploy/",
+    "deploy": "graph deploy --node https://thegraph.darwinia.network/ethv2/deploy/ --ipfs https://thegraph.darwinia.network/ethv2/ipfs/",
+    "create-local": "graph create --node http://localhost:8020/",
+    "remove-local": "graph remove --node http://localhost:8020/",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.33.0",
+    "@graphprotocol/graph-ts": "0.27"
+  }
+}

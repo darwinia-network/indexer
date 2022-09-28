@@ -1,0 +1,16 @@
+type MessageAcceptedEntity @entity(immutable: true) {
+  id: String!
+  block_number: BigInt!
+  nonce: BigInt!
+  source: Bytes!
+  target: Bytes!
+  encoded: Bytes!
+}
+
+type MessagesDeliveredEntity @entity(immutable: true) {
+  id: String!
+  block_number: BigInt!
+  begin: BigInt!
+  end: BigInt!
+}
+
