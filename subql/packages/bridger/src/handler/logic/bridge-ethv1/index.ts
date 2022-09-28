@@ -1,5 +1,5 @@
 // @ts-ignore
-import {BRIDGE_START_BLOCK, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
+import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
 import {
   AuthoritiesChangeSignedStorage,
   MMRRootSignedStorage,
@@ -29,48 +29,34 @@ export class BridgeEthV1Handler implements IndexHandler {
   async handleEvent(event: FastEvent): Promise<void> {
     const blockNumber = event.blockNumber;
 
-    if (this.chain === Chain.Darwinia && blockNumber < BRIDGE_START_BLOCK.darwinia) {
-      return;
-    }
-    if (this.chain === Chain.Pangolin && blockNumber < BRIDGE_START_BLOCK.pangolin) {
-      return;
-    }
-
     const eventId = event.id;
     const eventSection = event.section;
     const eventMethod = event.method;
-    const eventKey = `${eventSection}:${eventMethod}`;
-    logger.info(`[event] Received event: [${eventKey}] [${eventId}] in block ${blockNumber}`);
-    switch (eventKey) {
-      case 'ecdsaRelayAuthorities:SlashOnMisbehavior':
-      case 'ethereumRelayAuthorities:SlashOnMisbehavior': {
+    if (['ecdsaRelayAuthority', 'ethereumRelayAuthorities'].indexOf(eventSection) === -1) {
+      return;
+    }
+    logger.info(`[event] Received event: [${eventSection}:${eventMethod}] [${eventId}] in block ${blockNumber}`);
+
+    switch (eventMethod) {
+      case 'SlashOnMisbehavior':
         await new ScheduleMMRRootEmittedStorage(event).store();
         return;
-      }
-      case 'ecdsaRelayAuthorities:MMRRootSigned':
-      case 'ethereumRelayAuthorities:MMRRootSigned': {
+      case 'MMRRootSigned':
+      case 'MmrRootSigned':
         await new MMRRootSignedStorage(event).store();
         return;
-      }
-      case 'ecdsaRelayAuthorities:ScheduleMMRRoot':
-      case 'ethereumRelayAuthorities:ScheduleMMRRoot': {
+      case 'ScheduleMMRRoot':
+      case 'ScheduleMmrRoot':
         await new ScheduleMMRRootStorage(event).store();
         return;
-      }
-      case 'ecdsaRelayAuthorities:ScheduleAuthoritiesChange':
-      case 'ethereumRelayAuthorities:ScheduleAuthoritiesChange': {
+      case 'ScheduleAuthoritiesChange':
         await new ScheduleAuthoritiesChangeStorage(event).store();
         return;
-      }
-      case 'ecdsaRelayAuthorities:AuthoritiesChangeSigned':
-      case 'ethereumRelayAuthorities:AuthoritiesChangeSigned': {
+      case 'AuthoritiesChangeSigned':
         await new AuthoritiesChangeSignedStorage(event).store();
         return;
-      }
-      default: {
-        // logger.info(`[event] Discard event: ${eventMethod} in block ${blockNumber}`);
-      }
     }
+
   }
 
 }

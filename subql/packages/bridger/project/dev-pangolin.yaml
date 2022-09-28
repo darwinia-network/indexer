@@ -8,14 +8,14 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Pangoro index
+description: Dev Pangolin index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0x1fe062d52429523226af0570f59dcc19fa0b0b841377d9f530b618deedf2eef5'
-  endpoint: 'wss://pangoro-rpc.darwinia.network'
-  # dictionary: 'https://api.subquery.network/sq/darwinia-network/pangoro-dictionary'
+  chainId: '0x2216d6120b51b6536478aaeb1584db6be568df67a13873ab9e21d689589f2dd7'
+  endpoint: 'ws://g2.dev.darwinia.network:1245'
+  # dictionary: 'https://api.subquery.network/sq/darwinia-network/pangolin-dictionary'
 dataSources:
   - name: main
     kind: substrate/Runtime
@@ -30,6 +30,7 @@ dataSources:
           kind: substrate/CallHandler
 
         ## bridge s2s
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
@@ -38,31 +39,19 @@ dataSources:
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinMessages
+            module: bridgePangoroMessages
             method: MessageAccepted
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinDispatch
+            module: bridgePangolinParachainMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangoroDispatch
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangolinParachainDispatch
 
-        ## bridge ethv2
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaAuthority
-            method: CollectingNewMessageRootSignatures
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaAuthority
-            method: CollectedEnoughNewMessageRootSignatures
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaAuthority
-            method: CollectingAuthoritiesChangeSignatures
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaAuthority
-            method: CollectedEnoughAuthoritiesChangeSignatures

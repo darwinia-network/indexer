@@ -3,25 +3,25 @@ name: index-subql
 version: 1.0.0
 runner:
   node:
-    name: '@subql/node'
-    version: '*'
+    name: "@subql/node"
+    version: "*"
   query:
-    name: '@subql/query'
-    version: '*'
+    name: "@subql/query"
+    version: "*"
 description: Pangolin index
-repository: 'https://github.com/darwinia-network/indexer'
+repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0xce44bd16fc276f9e457b452577b6c2678e57768260012af127479fed806da7e7'
-  endpoint: 'wss://pangolin-rpc.darwinia.network'
-  dictionary: 'https://api.subquery.network/sq/darwinia-network/pangolin-dictionary'
+  chainId: "0x46720335bb0a5c81a29777a9ad81afcda36b70f34103ebea42fb55332a1b79b4"
+  endpoint: "wss://pangolin-rpc.darwinia.network"
+  # dictionary: "https://api.subquery.network/sq/darwinia-network/pangolin-dictionary"
   chaintypes:
     file: chaintypes/pangolin.yaml
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 1905600
+    startBlock: 1
     mapping:
       file: ./dist/index.js
       handlers:
@@ -36,6 +36,11 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: staking
+            method: Reward
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: staking
             method: Rewarded
 
         ################# Fee Market Event #################
@@ -44,11 +49,6 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             method: OrderCreated
-        # Order Finish
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            method: MessagesDelivered
         # Order Reward
         - handler: handleEvent
           kind: substrate/EventHandler
@@ -59,12 +59,12 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             method: FeeMarketSlash
-        # Fee Update
+        # Quote Update
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             method: UpdateRelayFee
-        # Fee Init
+        # Quote Init
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:

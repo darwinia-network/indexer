@@ -43,6 +43,7 @@ export class DarwiniaHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Darwinia),
       new BridgeS2SHandler(Chain.Darwinia),
       new BridgeEthV1Handler(Chain.Darwinia),
+      new BridgeEthV2Handler(Chain.Darwinia)
     ];
   }
 }
@@ -113,6 +114,51 @@ export class RococoHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Rococo),
       new BridgeS2SHandler(Chain.Rococo),
       new CandidateIncludedHandler(Chain.Rococo),
+    ];
+  }
+}
+
+
+// ############ dev
+
+
+export class DevPangolinHandler extends BasicChainHandler {
+  constructor() {
+    super('dev-pangolin');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.DevPangolin),
+      new BridgeS2SHandler(Chain.DevPangolin),
+      new BridgeEthV1Handler(Chain.DevPangolin),
+    ];
+  }
+}
+
+export class DevPangolinParachainHandler extends BasicChainHandler {
+  constructor() {
+    super('dev-pangolin-parachain');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.DevPangolinParachain),
+      new BridgeS2SHandler(Chain.DevPangolinParachain),
+    ];
+  }
+}
+
+export class DevRococoHandler extends BasicChainHandler {
+  constructor() {
+    super('dev-rococo');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.DevRococo),
+      new BridgeS2SHandler(Chain.DevRococo),
+      new CandidateIncludedHandler(Chain.DevRococo),
     ];
   }
 }

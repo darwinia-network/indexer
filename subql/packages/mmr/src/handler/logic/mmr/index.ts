@@ -4,7 +4,6 @@ import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwini
 import {MMRNodeEntity} from "../../../types";
 import {merge, parent_offset, pos_height_in_tree, sibling_offset, leaf_index_to_pos} from "./helpers";
 
-
 export class MMRHandler implements IndexHandler {
 
   private readonly chain: Chain;
@@ -129,9 +128,9 @@ const PEAKS_DARWINIA: [number, string][] = [
 
 // assert_eq!(get_peaks(leaf_index_to_mmr_size(10)), vec![14, 17, 18]);
 const PEAKS_PANGOLIN: [number, string][] = [
-  [14, "0x0fd08918c7f06e049b78c9a7a247786d48529c72ed8ce76f35430c272e4c93f5"],
-  [17, "0xc21a0937a25282d56ba3801dc3d46ba374e549050463c64e6989800f10cce147"],
-  [18, "0x5a1c9a86f4009afd9f5945898e3f27722d727df60ac3190c8a924fa46b0d7291"]
+  [14, "0xd94ceaf1c65fa93c03339e2d69fddf5e00a8ef20cc9a96ef2573f09f2b7d210c"],
+  [17, "0x678a0d154c05e7d6b58555c3ca59b3460f03f2944119e8a89030e96a04fffd10"],
+  [18, "0x38b95bbb42655277f4383b8c3f5ed6cc6eb036687e8b2354a697613e5ef2dbee"],
 ];
 
 

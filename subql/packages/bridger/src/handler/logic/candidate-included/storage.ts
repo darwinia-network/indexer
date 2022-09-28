@@ -10,7 +10,11 @@ export const ALLOW_PARA_IDS_MAP = {
   rococo: [
     // pangolin parachain
     2105,
-  ]
+  ],
+  'dev-rococo': [
+    // dev pangolin parachain
+    2105,
+  ],
 };
 
 export class CandidateIncludedStorage {

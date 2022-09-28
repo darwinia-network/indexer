@@ -8,20 +8,17 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Pangolin index
+description: Dev Pangolin parachain index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0x46720335bb0a5c81a29777a9ad81afcda36b70f34103ebea42fb55332a1b79b4'
-  endpoint: 'wss://pangolin-rpc.darwinia.network'
-  # dictionary: 'https://api.subquery.network/sq/darwinia-network/pangolin-dictionary'
-  chaintypes:
-    file: chaintypes/pangolin.yaml
+  chainId: '0x92450e36080e06e046d81c3f3f2d551c873aaf13e1ffd60b151349d8378a9299'
+  endpoint: 'ws://g2.dev.darwinia.network:2245'
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 9
+    startBlock: 1
     mapping:
       file: ./dist/index.js
       handlers:
@@ -30,3 +27,14 @@ dataSources:
 
         - handler: handleCall
           kind: substrate/CallHandler
+
+        ## bridge s2s
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangolinMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangolinDispatch

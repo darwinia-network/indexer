@@ -3,7 +3,8 @@ import {CollectingNewMessageRootSignaturesStorage} from "./storage/collecting_ne
 import {CollectingAuthoritiesChangeSignaturesStorage} from "./storage/collecting_authorities_change_signatures";
 import {
   CollectedEnoughAuthoritiesChangeSignaturesStorage
-} from "./storage/collecting_enough_authorities_change_signatures";
+} from "./storage/collected_enough_authorities_change_signatures";
+import {CollectedEnoughNewMessageRootSignaturesStorage} from "./storage/collected_enough_new_message_root_signatures";
 
 
 export class BridgeEthV2Handler implements IndexHandler {
@@ -30,22 +31,25 @@ export class BridgeEthV2Handler implements IndexHandler {
     const eventId = event.id;
     const eventSection = event.section;
     const eventMethod = event.method;
-    const eventKey = `${eventSection}:${eventMethod}`;
-    logger.info(`[event] Received event: [${eventKey}] [${eventId}] in block ${blockNumber}`);
-    switch (eventKey) {
-      case 'ecdsaAuthority:CollectingNewMessageRootSignatures': {
+    if ('ecdsaAuthority' !== eventSection) {
+      return;
+    }
+
+    logger.info(`[event] Received event: [${eventSection}:${eventMethod}] [${eventId}] in block ${blockNumber}`);
+    switch (eventMethod) {
+      case 'CollectingNewMessageRootSignatures': {
         await new CollectingNewMessageRootSignaturesStorage(event).store();
         return;
       }
-      case 'ecdsaAuthority:CollectedEnoughNewMessageRootSignatures': {
-        await new CollectingNewMessageRootSignaturesStorage(event).store();
+      case 'CollectedEnoughNewMessageRootSignatures': {
+        await new CollectedEnoughNewMessageRootSignaturesStorage(event).store();
         return;
       }
-      case 'ecdsaAuthority:CollectingAuthoritiesChangeSignatures': {
+      case 'CollectingAuthoritiesChangeSignatures': {
         await new CollectingAuthoritiesChangeSignaturesStorage(event).store();
         return;
       }
-      case 'ecdsaAuthority:CollectedEnoughAuthoritiesChangeSignatures': {
+      case 'CollectedEnoughAuthoritiesChangeSignatures': {
         await new CollectedEnoughAuthoritiesChangeSignaturesStorage(event).store();
         return;
       }

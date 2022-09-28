@@ -17,6 +17,9 @@
     "pangolin-parachain",
     "crab-parachain",
     "kusama",
-    "rococo"
+    "rococo",
+    "dev-pangolin",
+    "dev-pangolin-parachain",
+    "dev-rococo"
   ]
 }
