@@ -9,7 +9,7 @@
     "build": "tsc -b"
   },
   "devDependencies": {
-    "@polkadot/api": "^8",
+    "@polkadot/api": "^9",
     "@subql/types": "latest",
     "typescript": "^4.2.4"
   }

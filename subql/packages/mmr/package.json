@@ -21,7 +21,7 @@
     "@darwinia/index-common": "latest"
   },
   "devDependencies": {
-    "@polkadot/api": "^8",
+    "@polkadot/api": "^9",
     "@subql/cli": "latest",
     "@subql/types": "latest",
     "cross-env": "^7.0.3",
