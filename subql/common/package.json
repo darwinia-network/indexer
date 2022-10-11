@@ -1,6 +1,6 @@
 {
   "name": "@darwinia/index-common",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "author": "Darwinia Network",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "build": "tsc -b"
   },
   "devDependencies": {
-    "@polkadot/api": "^8",
+    "@polkadot/api": "^9",
     "@subql/types": "latest",
     "typescript": "^4.2.4"
   }

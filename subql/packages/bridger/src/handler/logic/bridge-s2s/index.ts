@@ -1,5 +1,6 @@
 import {Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
 import {BridgeS2SEventHandler} from "./types";
+import {JustificationStorage} from "./storage";
 import {ChainCrabEventHandler} from "./chain/crab";
 import {ChainDarwiniaEventHandler} from "./chain/darwinia";
 import {ChainPangolinEventHandler} from "./chain/pangolin";
@@ -8,7 +9,7 @@ import {ChainPangolinParachainEventHandler} from "./chain/pangolin_parachain";
 import {ChainCrabParachainEventHandler} from "./chain/crab_parachain";
 import {ChainKusamaEventHandler} from "./chain/kusama";
 import {ChainRococoEventHandler} from "./chain/rococo";
-import {JustificationStorage} from "./storage";
+import {ChainPangolinParachainAlphaEventHandler} from "./chain/pangolin_parachain_alpha";
 
 export class BridgeS2SHandler implements IndexHandler {
 
@@ -30,8 +31,6 @@ export class BridgeS2SHandler implements IndexHandler {
   }
 
   async handleEvent(event: FastEvent): Promise<void> {
-    const blockNumber = event.blockNumber;
-    const eventId = event.id;
     const eventSection = event.section;
     const eventMethod = event.method;
     let handler: BridgeS2SEventHandler;
@@ -62,6 +61,9 @@ export class BridgeS2SHandler implements IndexHandler {
       case Chain.DevRococo:
       case Chain.Rococo:
         handler = new ChainRococoEventHandler();
+        break;
+      case Chain.PangolinParachainAlpha:
+        handler = new ChainPangolinParachainAlphaEventHandler();
         break;
       default:
         logger.warn('Unsupported bridge s2s chain:', this.chain);

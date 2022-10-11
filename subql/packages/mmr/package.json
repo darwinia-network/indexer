@@ -18,10 +18,10 @@
   ],
   "author": "Darwinia Network",
   "dependencies": {
-    "@darwinia/index-common": "latest"
+    "@darwinia/index-common": "^1.0.3"
   },
   "devDependencies": {
-    "@polkadot/api": "^8",
+    "@polkadot/api": "^9",
     "@subql/cli": "latest",
     "@subql/types": "latest",
     "cross-env": "^7.0.3",
