@@ -22,6 +22,12 @@ export class ChainPangolinEventHandler implements BridgeS2SEventHandler {
         }).store();
         return;
       }
+      case 'bridgePangolinParachainAlphaMessages:MessageAccepted': {
+        await new NeedRelayBlockStorage(event, BridgeS2SRelayBlockOrigin.BridgePangolinParachainAlpha, {
+          onDemandType: BridgeS2SOnDemandType.SendMessage,
+        }).store();
+        return;
+      }
     }
 
     // dispatch
@@ -34,6 +40,13 @@ export class ChainPangolinEventHandler implements BridgeS2SEventHandler {
     }
     if (section === 'bridgePangolinParachainDispatch') {
       await new NeedRelayBlockStorage(event, BridgeS2SRelayBlockOrigin.BridgePangolinParachain, {
+        onDemandType: BridgeS2SOnDemandType.Dispatch,
+        additional: method,
+      }).store();
+      return;
+    }
+    if (section === 'bridgePangolinParachainAlphaDispatch') {
+      await new NeedRelayBlockStorage(event, BridgeS2SRelayBlockOrigin.BridgePangolinParachainAlpha, {
         onDemandType: BridgeS2SOnDemandType.Dispatch,
         additional: method,
       }).store();

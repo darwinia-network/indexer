@@ -29,13 +29,15 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
-        ## bridge s2s
+        ## bridge s2s -> common
 
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: grandpa
             method: NewAuthorities
+
+        ### bridge s2s -> pangoro
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
@@ -44,16 +46,29 @@ dataSources:
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
+            module: bridgePangoroDispatch
+
+        ### bridge s2s -> pangolinparachain
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
             module: bridgePangolinParachainMessages
             method: MessageAccepted
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangoroDispatch
+            module: bridgePangolinParachainDispatch
+
+        ### bridge s2s -> pangolinparachainalpha
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinParachainDispatch
+            module: bridgePangolinParachainAlphaMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangolinParachainAlphaDispatch
 
         ## bridge ethv1
         - handler: handleEvent

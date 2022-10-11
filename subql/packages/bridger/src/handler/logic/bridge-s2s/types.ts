@@ -36,4 +36,5 @@ export enum BridgeS2SRelayBlockOrigin {
   BridgePangolin = 'bridge-pangolin',
   BridgePangoro = 'bridge-pangoro',
   BridgePangolinParachain = 'bridge-pangolin-parachain',
+  BridgePangolinParachainAlpha = 'bridge-pangolin-parachainalpha',
 }

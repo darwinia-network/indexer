@@ -1,0 +1,40 @@
+specVersion: 1.0.0
+name: index-subql
+version: 1.0.0
+runner:
+  node:
+    name: '@subql/node'
+    version: '*'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: Pangolin parachain index
+repository: 'https://github.com/darwinia-network/indexer'
+schema:
+  file: ./schema.graphql
+network:
+  chainId: '0x5a03401438e8a588bab52e2291be612ac9e76fe1365f348b392cab3cfd4e9a63'
+  endpoint: 'wss://pangolin-parachain-alpha-rpc.darwinia.network'
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 461658
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+
+        - handler: handleCall
+          kind: substrate/CallHandler
+
+        ## bridge s2s
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangolinMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgePangolinDispatch
