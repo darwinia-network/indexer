@@ -1,0 +1,44 @@
+specVersion: 1.0.0
+name: index-subql
+version: 1.0.0
+runner:
+  node:
+    name: '@subql/node'
+    version: '*'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: Kusama index
+repository: 'https://github.com/darwinia-network/indexer'
+schema:
+  file: ./schema.graphql
+network:
+  chainId: '0xe1ea3ab1d46ba8f4898b6b4b9c54ffc05282d299f89e84bd0fd08067758c9443'
+  endpoint: 'wss://frag-moonbase-relay-rpc-ws.g.moonbase.moonbeam.network'
+#  dictionary: 'https://api.subquery.network/sq/subquery/kusama-dictionary'
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 7194709
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+
+        - handler: handleCall
+          kind: substrate/CallHandler
+
+        ## bridge s2s (parachain)
+
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: grandpa
+            method: NewAuthorities
+
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: paraInclusion
+            method: CandidateIncluded
