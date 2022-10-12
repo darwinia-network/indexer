@@ -118,6 +118,33 @@ export class RococoHandler extends BasicChainHandler {
   }
 }
 
+export class MoonbaseHandler extends BasicChainHandler {
+  constructor() {
+    super('moonbase');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.Moonbase),
+      new BridgeS2SHandler(Chain.Moonbase),
+      new CandidateIncludedHandler(Chain.Moonbase),
+    ];
+  }
+}
+
+export class PangolinParachainAlphaHandler extends BasicChainHandler {
+  constructor() {
+    super('pangolin-parachainalpha');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.PangolinParachainAlpha),
+      new BridgeS2SHandler(Chain.PangolinParachainAlpha),
+    ];
+  }
+}
+
 
 // ############ dev
 
