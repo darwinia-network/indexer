@@ -10,6 +10,7 @@ import {ChainCrabParachainEventHandler} from "./chain/crab_parachain";
 import {ChainKusamaEventHandler} from "./chain/kusama";
 import {ChainRococoEventHandler} from "./chain/rococo";
 import {ChainPangolinParachainAlphaEventHandler} from "./chain/pangolin_parachain_alpha";
+import {ChainMoonbaseEventHandler} from "./chain/moonbase";
 
 export class BridgeS2SHandler implements IndexHandler {
 
@@ -64,6 +65,9 @@ export class BridgeS2SHandler implements IndexHandler {
         break;
       case Chain.PangolinParachainAlpha:
         handler = new ChainPangolinParachainAlphaEventHandler();
+        break;
+      case Chain.Moonbase:
+        handler = new ChainMoonbaseEventHandler();
         break;
       default:
         logger.warn('Unsupported bridge s2s chain:', this.chain);
