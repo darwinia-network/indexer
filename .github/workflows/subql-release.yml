@@ -5,6 +5,7 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+  pull_request:
 
 env:
   DOCKER_REGISTRY: ghcr.io
@@ -52,14 +53,16 @@ jobs:
           npx lerna bootstrap
 
       - name: Build and push
-        working-directory: subql/packages/bridger
+        working-directory: subql
         run: |
+          BASE_PATH=$(pwd)
+          cd packages/bridger
           npm run build -- ${{ matrix.chain }}
           IMAGE_NAME=${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-bridger-${{ matrix.chain }}
           IMAGE_SHA=${IMAGE_NAME}:sha-${SHA}
           IMAGE_TAG=${IMAGE_NAME}:${GIT_TAG_NAME}
           docker build \
-            -f subql/Dockerfile
+            -f ${BASE_PATH}/Dockerfile
             -t ${IMAGE_SHA}
             ${GIT_TAG_NAME:+-t $IMAGE_TAG}
             .
@@ -103,14 +106,16 @@ jobs:
           npx lerna bootstrap
 
       - name: Build and push
-        working-directory: subql/packages/apps
+        working-directory: subql
         run: |
+          BASE_PATH=$(pwd)
+          cd packages/bridger
           npm run build -- ${{ matrix.chain }}
           IMAGE_NAME=${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-apps-${{ matrix.chain }}
           IMAGE_SHA=${IMAGE_NAME}:sha-${SHA}
           IMAGE_TAG=${IMAGE_NAME}:${GIT_TAG_NAME}
           docker build \
-            -f subql/Dockerfile
+            -f ${BASE_PATH}/Dockerfile
             -t ${IMAGE_SHA}
             ${GIT_TAG_NAME:+-t $IMAGE_TAG}
             .
