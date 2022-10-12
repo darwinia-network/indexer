@@ -4,8 +4,8 @@ import {
   CrabHandler,
   CrabParachainHandler,
   DarwiniaHandler, DevPangolinHandler, DevPangolinParachainHandler, DevRococoHandler,
-  KusamaHandler,
-  PangolinHandler,
+  KusamaHandler, MoonbaseHandler,
+  PangolinHandler, PangolinParachainAlphaHandler,
   PangolinParachainHandler,
   PangoroHandler,
   RococoHandler,
@@ -43,6 +43,10 @@ function indexHandler(): IndexHandler | undefined {
       return new KusamaHandler();
     case Chain.Rococo:
       return new RococoHandler();
+    case Chain.Moonbase:
+      return new MoonbaseHandler();
+    case Chain.PangolinParachainAlpha:
+      return new PangolinParachainAlphaHandler();
     case Chain.DevPangolin:
       return new DevPangolinHandler();
     case Chain.DevPangolinParachain:
