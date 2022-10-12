@@ -64,71 +64,70 @@ jobs:
           tags: |
             ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-bridger-${{ matrix.chain }}:sha-${{ env.SHA }}
 
-      - name: Build and push (tag)
-        uses: docker/build-push-action@v3
-        if: startsWith(github.ref, 'refs/tags/v')
-        with:
-          context: subql/packages/${{ matrix.chain }}
-          file: subql/Dockerfile
-          push: true
-          tags: |
-            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-bridger-${{ matrix.chain }}:sha-${{ env.SHA }}
-            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-bridger-${{ matrix.chain }}:${{ env.GIT_TAG_NAME }}
+#      - name: Build and push (tag)
+#        uses: docker/build-push-action@v3
+#        if: startsWith(github.ref, 'refs/tags/v')
+#        with:
+#          context: subql/packages/${{ matrix.chain }}
+#          file: subql/Dockerfile
+#          push: true
+#          tags: |
+#            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-bridger-${{ matrix.chain }}:sha-${{ env.SHA }}
+#            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-bridger-${{ matrix.chain }}:${{ env.GIT_TAG_NAME }}
 
 
-
-  package-subql-apps:
-    name: Build subql apps
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 6
-      matrix:
-        chain:
-          - darwinia
-          - crab
-          - pangolin
-          - pangoro
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Docker login
-        uses: docker/login-action@v1
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ${{ env.DOCKER_REGISTRY }}
-      - uses: benjlevesque/short-sha@v1.2
-      - uses: olegtarasov/get-tag@v2.1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Install deps
-        working-directory: subql
-        run: |
-          npm i
-          npx lerna bootstrap
-
-      - name: Build and push (sha)
-        uses: docker/build-push-action@v3
-        if: !startsWith(github.ref, 'refs/tags/v')
-        with:
-          context: subql/packages/${{ matrix.chain }}
-          file: subql/Dockerfile
-          push: true
-          tags: |
-            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-apps-${{ matrix.chain }}:sha-${{ env.SHA }}
-
-      - name: Build and push (tag)
-        uses: docker/build-push-action@v3
-        if: startsWith(github.ref, 'refs/tags/v')
-        with:
-          context: subql/packages/${{ matrix.chain }}
-          file: subql/Dockerfile
-          push: true
-          tags: |
-            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-apps-${{ matrix.chain }}:sha-${{ env.SHA }}
-            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-apps-${{ matrix.chain }}:${{ env.GIT_TAG_NAME }}
+#  package-subql-apps:
+#    name: Build subql apps
+#    runs-on: ubuntu-latest
+#    strategy:
+#      max-parallel: 6
+#      matrix:
+#        chain:
+#          - darwinia
+#          - crab
+#          - pangolin
+#          - pangoro
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v3
+#        with:
+#          node-version: 16
+#
+#      - name: Docker login
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ github.actor }}
+#          password: ${{ secrets.GITHUB_TOKEN }}
+#          registry: ${{ env.DOCKER_REGISTRY }}
+#      - uses: benjlevesque/short-sha@v1.2
+#      - uses: olegtarasov/get-tag@v2.1
+#      - name: Set up Docker Buildx
+#        uses: docker/setup-buildx-action@v2
+#
+#      - name: Install deps
+#        working-directory: subql
+#        run: |
+#          npm i
+#          npx lerna bootstrap
+#
+#      - name: Build and push (sha)
+#        uses: docker/build-push-action@v3
+#        if: !startsWith(github.ref, 'refs/tags/v')
+#        with:
+#          context: subql/packages/${{ matrix.chain }}
+#          file: subql/Dockerfile
+#          push: true
+#          tags: |
+#            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-apps-${{ matrix.chain }}:sha-${{ env.SHA }}
+#
+#      - name: Build and push (tag)
+#        uses: docker/build-push-action@v3
+#        if: startsWith(github.ref, 'refs/tags/v')
+#        with:
+#          context: subql/packages/${{ matrix.chain }}
+#          file: subql/Dockerfile
+#          push: true
+#          tags: |
+#            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-apps-${{ matrix.chain }}:sha-${{ env.SHA }}
+#            ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-apps-${{ matrix.chain }}:${{ env.GIT_TAG_NAME }}
 
