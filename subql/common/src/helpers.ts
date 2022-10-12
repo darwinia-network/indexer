@@ -51,6 +51,10 @@ export function activeChain(envChain): Chain {
       return Chain.DevPangolinParachain;
     case 'dev-rococo':
       return Chain.DevRococo;
+    case 'pangolin-parachainalpha':
+      return Chain.PangolinParachainAlpha;
+    case 'moonbase':
+      return Chain.Moonbase;
     default:
       throw new Error(`Unsupported chain: ${envChain}`)
   }
