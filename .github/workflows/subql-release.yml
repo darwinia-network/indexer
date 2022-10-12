@@ -44,8 +44,6 @@ jobs:
           registry: ${{ env.DOCKER_REGISTRY }}
       - uses: benjlevesque/short-sha@v1.2
       - uses: olegtarasov/get-tag@v2.1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
 
       - name: Install deps
         working-directory: subql
@@ -97,8 +95,6 @@ jobs:
           registry: ${{ env.DOCKER_REGISTRY }}
       - uses: benjlevesque/short-sha@v1.2
       - uses: olegtarasov/get-tag@v2.1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
 
       - name: Install deps
         working-directory: subql
