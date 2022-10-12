@@ -62,9 +62,9 @@ jobs:
           IMAGE_SHA=${IMAGE_NAME}:sha-${SHA}
           IMAGE_TAG=${IMAGE_NAME}:${GIT_TAG_NAME}
           docker build \
-            -f ${BASE_PATH}/Dockerfile
-            -t ${IMAGE_SHA}
-            ${GIT_TAG_NAME:+-t $IMAGE_TAG}
+            -f ${BASE_PATH}/Dockerfile \
+            -t ${IMAGE_SHA} \
+            ${GIT_TAG_NAME:+-t $IMAGE_TAG} \
             .
 
           docker push ${IMAGE_SHA}
@@ -115,9 +115,9 @@ jobs:
           IMAGE_SHA=${IMAGE_NAME}:sha-${SHA}
           IMAGE_TAG=${IMAGE_NAME}:${GIT_TAG_NAME}
           docker build \
-            -f ${BASE_PATH}/Dockerfile
-            -t ${IMAGE_SHA}
-            ${GIT_TAG_NAME:+-t $IMAGE_TAG}
+            -f ${BASE_PATH}/Dockerfile \
+            -t ${IMAGE_SHA} \
+            ${GIT_TAG_NAME:+-t $IMAGE_TAG} \
             .
 
           docker push ${IMAGE_SHA}
