@@ -15,6 +15,10 @@ export const ALLOW_PARA_IDS_MAP = {
     // dev pangolin parachain
     2105,
   ],
+  moonbase: [
+    // pangolin parachain alpha
+    2105,
+  ]
 };
 
 export class CandidateIncludedStorage {
