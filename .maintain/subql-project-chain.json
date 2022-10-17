@@ -19,9 +19,6 @@
     "kusama",
     "rococo",
     "moonbase",
-    "pangolin-parachainalpha",
-    "dev-pangolin",
-    "dev-pangolin-parachain",
-    "dev-rococo"
+    "pangolin-parachainalpha"
   ]
 }
