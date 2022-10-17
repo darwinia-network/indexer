@@ -69,14 +69,14 @@ jobs:
 
       - name: Install deps
         working-directory: subql
-        if: steps.detect-build.outputs.ALLOW == "true"
+        if: steps.detect-build.outputs.ALLOW == 'true'
         run: |
           yarn install
           yarn boot
 
       - name: Build and push
         working-directory: subql
-        if: steps.detect-build.outputs.ALLOW == "true"
+        if: steps.detect-build.outputs.ALLOW == 'true'
         run: |
           BASE_PATH=$(pwd)
           yarn build:common
