@@ -349,7 +349,7 @@
   resolved "https://registry.yarnpkg.com/@scure/base/-/base-1.1.1.tgz#ebb651ee52ff84f420097055f4bf46cfba403938"
   integrity sha512-ZxOhsSyxYwLJj3pLZCefNitxsj093tb2vq90mp2txoYeBqbcjDjqFhyM8eUjq/uFm6zJ+mUuqxlS2FkuSY1MTA==
 
-"@subql/types@latest":
+"@subql/types@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@subql/types/-/types-1.5.1.tgz#0b73ae8af2c752ae775599fdcf4ee14da846dfb1"
   integrity sha512-gEvVnS9/+bWfZnFTGK58Ar5QqNqw7YueIXit7sbjwPsoZb78oaEJwA/eNonvJexu7Kray0nbcEekvnltONleew==
