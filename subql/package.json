@@ -12,12 +12,12 @@
   "scripts": {
     "boot": "yarn && lerna bootstrap",
     "build:common": "lerna run build --scope @darwinia/index-common",
-    "build:apps": "lerna run build --scope subql-apps",
-    "build:bridger": "lerna run build --scope subql-bridger",
-    "build:mmr": "lerna run build --scope subql-mmr",
-    "publish:apps": "lerna run publish --scope subql-apps",
-    "publish:bridger": "lerna run publish --scope subql-bridger",
-    "publish:mmr": "lerna run publish --scope subql-mmr"
+    "build:apps": "lerna run build --scope subql-apps --",
+    "build:bridger": "lerna run build --scope subql-bridger --",
+    "build:mmr": "lerna run build --scope subql-mmr --",
+    "publish:apps": "lerna run publish --scope subql-apps --",
+    "publish:bridger": "lerna run publish --scope subql-bridger --",
+    "publish:mmr": "lerna run publish --scope subql-mmr --"
   },
   "devDependencies": {
     "lerna": "^5.5.2",
