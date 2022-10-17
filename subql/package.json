@@ -5,13 +5,14 @@
   "author": "Darwinia Network",
   "license": "MIT",
   "scripts": {
-    "build:common": "cd common && npm run build",
-    "build:apps": "cd packages/apps && npm run build",
-    "build:bridger": "cd packages/bridger && npm run build",
-    "build:mmr": "cd packages/mmr && npm run build",
-    "publish:apps": "cd packages/apps && npm run publish",
-    "publish:bridger": "cd packages/bridger && npm run publish",
-    "publish:mmr": "cd packages/mmr && npm run publish"
+    "boot": "yarn && lerna bootstrap",
+    "build:common": "lerna run build --scope @darwinia/index-common",
+    "build:apps": "lerna run build --scope subql-apps --",
+    "build:bridger": "lerna run build --scope subql-bridger --",
+    "build:mmr": "lerna run build --scope subql-mmr --",
+    "publish:apps": "lerna run publish --scope subql-apps --",
+    "publish:bridger": "lerna run publish --scope subql-bridger --",
+    "publish:mmr": "lerna run publish --scope subql-mmr --"
   },
   "devDependencies": {
     "lerna": "^5.5.2",

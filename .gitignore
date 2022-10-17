@@ -8,7 +8,6 @@ scripts/**/*.local.sh
 scripts/**/package-lock.json
 
 package-lock.json
-yarn.lock
 node_modules
 
 generated

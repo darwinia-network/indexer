@@ -5,17 +5,21 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+  pull_request:
 
 env:
   DOCKER_REGISTRY: ghcr.io
 
 jobs:
-  package-subql-bridger:
-    name: Build subql bridger
+  package-subql:
+    name: Build subql
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 6
       matrix:
+        package:
+          - apps
+          - bridger
         chain:
           - darwinia
           - crab
@@ -45,82 +49,51 @@ jobs:
       - uses: benjlevesque/short-sha@v1.2
       - uses: olegtarasov/get-tag@v2.1
 
-      - name: Install deps
-        working-directory: subql
-        run: |
-          npm i
-          npx lerna bootstrap
-
-      - name: Build and push
+      - name: Detect if build is required
+        id: detect-build
         working-directory: subql
         run: |
           BASE_PATH=$(pwd)
-          cd packages/bridger
-          npm run build -- ${{ matrix.chain }}
-          IMAGE_NAME=${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-bridger-${{ matrix.chain }}
+          PACKAGE=${{ matrix.package }}
+          CHAIN=${{ matrix.chain }}
+          FILE_PROJECt_CHAIN_MAPPING=${BASE_PATH}/../.maintain/subql-project-chain.json
+          CHAINS=$(jq -r ".${PACKAGE} | .[]" $FILE_PROJECt_CHAIN_MAPPING)
+          ALLOW=false
+          for ALLOW_CHAIN in ${CHAINS}; do
+            if [ "${CHAIN}" == "${ALLOW_CHAIN}" ]; then
+              ALLOW=true
+            fi
+          done
+          echo "::set-output name=ALLOW::$ALLOW"
+
+
+      - name: Install deps
+        working-directory: subql
+        if: steps.detect-build.outputs.ALLOW == 'true'
+        run: |
+          yarn install
+          yarn boot
+
+      - name: Build and push
+        working-directory: subql
+        if: steps.detect-build.outputs.ALLOW == 'true'
+        run: |
+          BASE_PATH=$(pwd)
+          yarn build:common
+          yarn build:${{ matrix.package }} -- ${{ matrix.chain }}
+          rm -rf common/node_modules
+          rm -rf packages/${{ matrix.package }}/node_modules/@darwinia/index-common
+          mv common packages/${{ matrix.package }}/node_modules/@darwinia/index-common
+          IMAGE_NAME=${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-${{ matrix.package }}-${{ matrix.chain }}
           IMAGE_SHA=${IMAGE_NAME}:sha-${SHA}
           IMAGE_TAG=${IMAGE_NAME}:${GIT_TAG_NAME}
           docker build \
             -f ${BASE_PATH}/Dockerfile \
             -t ${IMAGE_SHA} \
             ${GIT_TAG_NAME:+-t $IMAGE_TAG} \
-            .
+            packages/${{ matrix.package }}
 
           docker push ${IMAGE_SHA}
           if [ -n "${GIT_TAG_NAME}" ]; then
             docker push ${IMAGE_TAG}
           fi
-
-
-  package-subql-apps:
-    name: Build subql apps
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 6
-      matrix:
-        chain:
-          - darwinia
-          - crab
-          - pangolin
-          - pangoro
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Docker login
-        uses: docker/login-action@v1
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ${{ env.DOCKER_REGISTRY }}
-      - uses: benjlevesque/short-sha@v1.2
-      - uses: olegtarasov/get-tag@v2.1
-
-      - name: Install deps
-        working-directory: subql
-        run: |
-          npm i
-          npx lerna bootstrap
-
-      - name: Build and push
-        working-directory: subql
-        run: |
-          BASE_PATH=$(pwd)
-          cd packages/bridger
-          npm run build -- ${{ matrix.chain }}
-          IMAGE_NAME=${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-apps-${{ matrix.chain }}
-          IMAGE_SHA=${IMAGE_NAME}:sha-${SHA}
-          IMAGE_TAG=${IMAGE_NAME}:${GIT_TAG_NAME}
-          docker build \
-            -f ${BASE_PATH}/Dockerfile \
-            -t ${IMAGE_SHA} \
-            ${GIT_TAG_NAME:+-t $IMAGE_TAG} \
-            .
-
-          docker push ${IMAGE_SHA}
-          if [ -n "${GIT_TAG_NAME}" ]; then
-            docker push ${IMAGE_TAG}
-          fi
-
