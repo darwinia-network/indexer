@@ -4,11 +4,6 @@
   "description": "subql index",
   "author": "Darwinia Network",
   "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "packages/*",
-    "common"
-  ],
   "scripts": {
     "boot": "yarn && lerna bootstrap",
     "build:common": "lerna run build --scope @darwinia/index-common",
