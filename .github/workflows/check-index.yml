@@ -29,11 +29,11 @@ jobs:
         working-directory: subql
         run: |
           yarn install
-          npx lerna bootstrap
+          yarn boot
 
       - name: Check subql
         working-directory: subql
-        run: npm run build:${{ matrix.project.name }} -- ${{ matrix.project.chain }}
+        run: yarn build:${{ matrix.project.name }} -- ${{ matrix.project.chain }}
 
   check-subgraph:
     name: Check subgraph
