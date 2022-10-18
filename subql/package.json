@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "boot": "yarn && lerna bootstrap",
+    "build:common": "lerna run build --scope @darwinia/index-common",
     "build:apps": "lerna run build --scope subql-apps --",
     "build:bridger": "lerna run build --scope subql-bridger --",
     "build:mmr": "lerna run build --scope subql-mmr --",
