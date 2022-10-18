@@ -7,8 +7,8 @@
     "pangolin": ["feemarket", "staking"],
     "pangoro": ["feemarket", "staking"],
     "crab": ["feemarket", "staking"],
-    "pangolin-parachain": [],
-    "crab-parachain": [],
+    "pangolin-parachain": ["feemarket", "staking"],
+    "crab-parachain": ["feemarket", "staking"],
     "kusama": [],
     "rococo": []
   }
