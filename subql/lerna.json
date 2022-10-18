@@ -1,7 +1,7 @@
 {
   "packages": [
     "packages/*",
-    "./common"
+    "common"
   ],
   "version": "0.0.1",
   "npmClient": "yarn",
