@@ -12,8 +12,8 @@
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*"],
-    "prod": ["!{projectRoot}/**/*.spec.tsx"]
+    "default": ["{projectRoot}/packages/**/*"],
+    "prod": ["!{projectRoot}/packages/**/*.spec.tsx"]
   },
   "targetDefaults": {
     "build": {
