@@ -27,6 +27,8 @@ export class CrabParachainHandler extends BasicChainHandler {
   handlers(): Array<IndexHandler> {
     return [
       new GenericBlockHandler(Chain.CrabParachain),
+      new GenericStakingHandler(Chain.CrabParachain),
+      new GenericFeeMarketHandler(Chain.CrabParachain),
     ];
   }
 }
@@ -79,6 +81,8 @@ export class PangolinParachainHandler extends BasicChainHandler {
   handlers(): Array<IndexHandler> {
     return [
       new GenericBlockHandler(Chain.PangolinParachain),
+      new GenericStakingHandler(Chain.PangolinParachain),
+      new GenericFeeMarketHandler(Chain.PangolinParachain),
     ];
   }
 }

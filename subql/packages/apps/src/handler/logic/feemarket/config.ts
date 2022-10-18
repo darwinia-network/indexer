@@ -15,4 +15,10 @@ export const marketApiSections = {
   Pangoro: {
     Pangolin: ["feeMarket", "pangolinFeeMarket"],
   },
+  "Crab Parachain": {
+    Crab: ["crabFeeMarket"]
+  },
+  "Pangolin Parachain": {
+    Pangolin: ["pangolinFeeMarket"]
+  },
 } as Record<DarwiniaChain, Record<DarwiniaChain, FeeMarketApiSection[]>>;
