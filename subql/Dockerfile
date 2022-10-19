@@ -1,2 +1,2 @@
-FROM onfinality/subql-node:v1.0.0
+FROM onfinality/subql-node:v1.10.2
 ADD . /app
