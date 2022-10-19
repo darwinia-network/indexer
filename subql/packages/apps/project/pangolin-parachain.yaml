@@ -3,22 +3,24 @@ name: index-subql
 version: 1.0.0
 runner:
   node:
-    name: '@subql/node'
-    version: '*'
+    name: "@subql/node"
+    version: "*"
   query:
-    name: '@subql/query'
-    version: '*'
+    name: "@subql/query"
+    version: "*"
 description: Pangolin parachain index
-repository: 'https://github.com/darwinia-network/indexer'
+repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0x9426ba4cc73993fc77e77221f797573dc5c63d418d0478a0a01fab9798fdcceb'
-  endpoint: 'wss://pangolin-parachain-rpc.darwinia.network'
+  chainId: "0x9426ba4cc73993fc77e77221f797573dc5c63d418d0478a0a01fab9798fdcceb"
+  endpoint: "wss://pangolin-parachain-rpc.darwinia.network"
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 231140
+    # staking (Reward)   -
+    # feemarket (Enroll) 767845
+    startBlock: 767840
     mapping:
       file: ./dist/index.js
       handlers:
@@ -28,13 +30,41 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
-        ## bridge s2s
+        ################# Staking Event #################
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinMessages
-            method: MessageAccepted
+            module: staking
+            method: Reward
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinDispatch
+            module: staking
+            method: Rewarded
+
+        ################# Fee Market Event #################
+        # Order Create
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            method: OrderCreated
+        # Order Reward
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            method: OrderReward
+        # Order Slash
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            method: FeeMarketSlash
+        # Quote Update
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            method: UpdateRelayFee
+        # Quote Init
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            method: Enroll

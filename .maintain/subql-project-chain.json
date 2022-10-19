@@ -7,7 +7,9 @@
     "darwinia",
     "crab",
     "pangolin",
-    "pangoro"
+    "pangoro",
+    "crab-parachain",
+    "pangolin-parachain"
   ],
   "bridger": [
     "darwinia",
