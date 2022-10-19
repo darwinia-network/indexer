@@ -1,9 +1,0 @@
-
-type Block @entity {
-  id: ID!
-
-  number: Int
-  timestamp: Date
-  parentHash: String
-  specVersion: Int
-}

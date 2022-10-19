@@ -1,9 +1,0 @@
-{
-  "common": [
-    "generic"
-  ],
-  "special": {
-    "darwinia": ["mmr"],
-    "pangolin": ["mmr"]
-  }
-}
