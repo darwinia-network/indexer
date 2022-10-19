@@ -41,10 +41,8 @@ jobs:
     strategy:
       matrix:
         project:
-          - name: ethv1
-            chain: ethereum
-          - name: mmr
-            chain: ethereum
+          - name: ethv2
+            chain: darwinia
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
