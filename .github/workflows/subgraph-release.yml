@@ -1,10 +1,19 @@
 ## todo: update ci
-#name: Release Subgraph
-#
-#on:
-#  workflow_dispatch:
-#
-#jobs:
+name: Release Subgraph
+
+on:
+  workflow_dispatch:
+
+jobs:
+  package-thegraph:
+    name: Package thegraph
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+
+
+
 #  thegraph-ethereum:
 #    name: Subgraph Ethereum like v1
 #    runs-on: ubuntu-latest
