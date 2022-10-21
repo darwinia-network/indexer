@@ -53,6 +53,6 @@ jobs:
       - name: Check subgraph
         run: |
           cd thegraph/${{ matrix.project.name }}
-          npm i
-          npm run codegen -- subgraph-${{ matrix.project.chain }}.yaml
-          npm run build -- subgraph-${{ matrix.project.chain }}.yaml
+          yarn install
+          yarn codegen -- subgraph-${{ matrix.project.chain }}.yaml
+          yarn build -- subgraph-${{ matrix.project.chain }}.yaml

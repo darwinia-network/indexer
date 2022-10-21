@@ -2,14 +2,12 @@
   "name": "feemarket",
   "license": "UNLICENSED",
   "scripts": {
-    "codegen": "graph codegen subgraph-darwinia.yaml",
-    "build": "graph build subgraph-darwinia.yaml",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ darwinia/feemarket-eth",
-    "create-local": "graph create --node http://localhost:8020/ darwinia/feemarket-eth subgraph-darwinia.yaml",
-    "remove-local": "graph remove --node http://localhost:8020/ darwinia/feemarket-eth subgraph-darwinia.yaml",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 darwinia/feemarket-eth subgraph-darwinia.yaml",
-    "dev": "yarn codegen && yarn build && yarn remove-local && yarn create-local && yarn deploy-local",
-    "docker": "rm -rf ./data && docker-compose up",
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ darwinia/feemarket",
+    "create-local": "graph create --node http://localhost:8020/ darwinia/feemarket",
+    "remove-local": "graph remove --node http://localhost:8020/ darwinia/feemarket",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 darwinia/feemarket",
     "test": "graph test"
   },
   "dependencies": {
