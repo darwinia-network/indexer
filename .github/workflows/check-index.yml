@@ -41,10 +41,8 @@ jobs:
         project:
           - name: ethv2
             chain: darwinia
-        project:
           - name: feemarket
-            chain: ethereum
-        project:
+            chain: mainnet
           - name: feemarket
             chain: darwinia
     steps:
