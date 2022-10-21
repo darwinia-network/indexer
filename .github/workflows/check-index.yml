@@ -41,6 +41,12 @@ jobs:
         project:
           - name: ethv2
             chain: darwinia
+        project:
+          - name: feemarket
+            chain: ethereum
+        project:
+          - name: feemarket
+            chain: darwinia
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
