@@ -1,0 +1,167 @@
+enum OrderStatus {
+  Finished
+  InProgress
+}
+
+enum RelayerRole {
+  Assigned
+  Delivery
+  Confirmation
+}
+
+type QuoteHistory @entity {
+  id: ID!
+
+  relayer: Relayer
+
+  amount: BigInt
+  blockTime: BigInt
+  blockNumber: BigInt
+  extrinsicIndex: Int
+  eventIndex: BigInt
+  txHash: String
+}
+
+type FeeHistory @entity {
+  id: ID! # destination-blockNumber
+
+  market: Market
+
+  amount: BigInt
+  blockTime: BigInt
+  blockNumber: BigInt
+}
+
+type Reward @entity {
+  id: ID!
+
+  order: Order
+  market: Market
+  relayer: Relayer
+
+  txHash: String
+  blockTime: BigInt
+  blockNumber: BigInt
+  extrinsicIndex: Int
+  eventIndex: BigInt
+
+  amount: BigInt
+  relayerRole: RelayerRole
+}
+
+type Slash @entity {
+  id: ID!
+
+  order: Order
+  market: Market
+  relayer: Relayer
+
+  txHash: String
+  blockTime: BigInt
+  blockNumber: BigInt
+  extrinsicIndex: Int
+  eventIndex: BigInt
+
+  amount: BigInt
+  relayerRole: RelayerRole
+
+  sentTime: BigInt # block number
+  confirmTime: BigInt # block number
+  delayTime: Int # number of blocks
+}
+
+type Market @entity {
+  id: ID! # destination
+
+  totalOrders: Int!
+  totalSlash: BigInt!
+  totalReward: BigInt!
+
+  averageSpeed: BigInt!
+  feeHistoryLastTime: BigInt!
+  contractAddress: String!
+
+  finishedOrders: Int! # real time
+  unfinishedInSlotOrders: Int! # real time
+  unfinishedOutOfSlotOrders: Int! # real time
+  unfinishedInSlotOrderIds: [String!]!
+
+  orders: [Order!] @derivedFrom(field: "market")
+  slashes: [Slash!] @derivedFrom(field: "market")
+  rewards: [Reward!] @derivedFrom(field: "market")
+  relayers: [Relayer!] @derivedFrom(field: "market")
+  feeHistory: [FeeHistory!] @derivedFrom(field: "market")
+}
+
+type Relayer @entity {
+  id: ID! # destination-address
+
+  market: Market!
+  address: String!
+
+  totalOrders: Int!
+  totalSlashes: BigInt!
+  totalRewards: BigInt!
+  totalOrdersId: [String!]!
+
+  assignedOrders: [OrderRelayer!] @derivedFrom(field: "assignedRelayer")
+  deliveryOrders: [OrderRelayer!] @derivedFrom(field: "deliveryRelayer")
+  confirmationOrders: [OrderRelayer!] @derivedFrom(field: "confirmationRelayer")
+
+  slashes: [Slash!] @derivedFrom(field: "relayer")
+  rewards: [Reward!] @derivedFrom(field: "relayer")
+  quoteHistory: [QuoteHistory!] @derivedFrom(field: "relayer")
+}
+
+type Order @entity {
+  id: ID! # marketId-lane-nonce
+
+  lane: String!
+  nonce: String!
+  market: Market!
+
+  sender: String
+  sourceTxHash: String
+
+  fee: BigInt!
+  collateral: BigInt!
+  status: OrderStatus!
+
+  slotTime: BigInt!
+  outOfSlotTime: BigInt!
+  slotIndex: Int! # -1: out of slot / 0: pending / 1: #1 / 2: #2 / 3: #3
+
+  createTxHash: String!
+  createBlockTime: BigInt!
+  createBlockNumber: BigInt!
+  createExtrinsicIndex: Int
+  createEventIndex: BigInt!
+
+  finishTxHash: String
+  finishBlockTime: BigInt
+  finishBlockNumber: BigInt
+  finishExtrinsicIndex: Int
+  finishEventIndex: BigInt
+
+  treasuryAmount: BigInt
+  assignedRelayersAddress: [String!]!
+
+  assignedRelayers: [OrderRelayer!] @derivedFrom(field: "assignedOrder")
+  deliveryRelayers: [OrderRelayer!] @derivedFrom(field: "deliveryOrder")
+  confirmationRelayers: [OrderRelayer!] @derivedFrom(field: "confirmationOrder")
+
+  slashes: [Slash!] @derivedFrom(field: "order")
+  rewards: [Reward!] @derivedFrom(field: "order")
+}
+
+type OrderRelayer @entity {
+  id: ID! # orderId-relayerId-relayerRole
+
+  assignedOrder: Order
+  deliveryOrder: Order
+  confirmationOrder: Order
+
+  assignedRelayer: Relayer
+  deliveryRelayer: Relayer
+  confirmationRelayer: Relayer
+}

@@ -1,0 +1,22 @@
+{
+  "mainnet": {
+    "Mainnet": {
+      "address": "0xCD97185B7d05f8ea91d241C8dfD51a2Cc9c0547a"
+    }
+  },
+  "goerli": {
+    "Goerli": {
+      "address": "0xdb5E16A6E25ABF29dbe26e701D1DDCad03180E92"
+    }
+  },
+  "darwinia": {
+    "Darwinia": {
+      "address": "0xcA927Df15afb7629b79dA4713a871190315c7409"
+    }
+  },
+  "pangoro": {
+    "Pangoro": {
+      "address": "0x25ee4212CfA2DC29E6a5e4A857b9656E439259c9"
+    }
+  }
+}
