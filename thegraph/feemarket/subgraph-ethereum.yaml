@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: Mainnet
-    network: mainnet
+    name: Ethereum
+    network: ethereum
     source:
       address: "0xCD97185B7d05f8ea91d241C8dfD51a2Cc9c0547a"
-      abi: Mainnet
+      abi: Ethereum
       startBlock: 15643460
     mapping:
       kind: ethereum/events
@@ -23,7 +23,7 @@ dataSources:
         - Order
         - OrderRelayer
       abis:
-        - name: Mainnet
+        - name: Ethereum
           file: ./abis/eth.json
       eventHandlers:
         - event: Assigned(indexed uint256,uint256,address,uint256,uint256)
@@ -52,4 +52,4 @@ dataSources:
           handler: handleWithdrawal
       blockHandlers:
         - handler: handleBlock
-      file: ./src/mainnet.ts
+      file: ./src/ethereum.ts

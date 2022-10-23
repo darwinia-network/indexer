@@ -1,6 +1,6 @@
 {
-  "mainnet": {
-    "Mainnet": {
+  "ethereum": {
+    "Ethereum": {
       "address": "0xCD97185B7d05f8ea91d241C8dfD51a2Cc9c0547a"
     }
   },

@@ -42,7 +42,7 @@ jobs:
           - name: ethv2
             chain: darwinia
           - name: feemarket
-            chain: mainnet
+            chain: ethereum
           - name: feemarket
             chain: darwinia
     steps:

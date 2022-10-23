@@ -1,6 +1,6 @@
 import { Address, ethereum } from "@graphprotocol/graph-ts";
 import {
-  Mainnet as Contract,
+  Ethereum as Contract,
   Assigned,
   Delist,
   Deposit,
@@ -13,7 +13,7 @@ import {
   Slash,
   UnLocked,
   Withdrawal,
-} from "../generated/Mainnet/Mainnet";
+} from "../generated/Ethereum/Ethereum";
 import {
   Market as MarketEntity,
   Order as OrderEntity,
