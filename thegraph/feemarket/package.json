@@ -4,6 +4,7 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
+    "remove": "graph remove --node https://thegraph.darwinia.network/feemarket/deploy/",
     "create": "graph create --node https://thegraph.darwinia.network/feemarket/deploy/",
     "deploy": "graph deploy --node https://thegraph.darwinia.network/feemarket/deploy/ --ipfs https://thegraph.darwinia.network/feemarket/ipfs/",
     "create-local": "graph create --node http://localhost:8020/ darwinia/feemarket",
