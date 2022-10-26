@@ -12,7 +12,7 @@ import {
   Settled,
   Slash,
   UnLocked,
-  Withdrawal,
+  Withdrawal
 } from "../generated/Ethereum/Ethereum";
 import {
   Market as MarketEntity,
@@ -22,7 +22,7 @@ import {
   Slash as SlashEntity,
   OrderRelayer as OrderRelayerEntity,
   QuoteHistory as QuoteHistoryEntity,
-  FeeHistory as FeeHistoryEntity,
+  FeeHistory as FeeHistoryEntity
 } from "../generated/schema";
 import { filter, isExist, ensureRelayer, ensureMarket } from "./utils";
 import {
@@ -37,7 +37,7 @@ import {
   BIG_ZEZO,
   BIG_HUNDRED,
   BIG_MILLION,
-  BIG_TWO,
+  BIG_TWO
 } from "./config";
 
 const lane = LANE_ID;
@@ -79,12 +79,17 @@ export function handleAssigned(event: Assigned): void {
 
   if (marketEntity && relayerEntity) {
     marketEntity.totalOrders = marketEntity.totalOrders + 1;
-    marketEntity.unfinishedInSlotOrderIds = marketEntity.unfinishedInSlotOrderIds.concat([orderEntityId]);
-    marketEntity.unfinishedInSlotOrders = marketEntity.unfinishedInSlotOrders + 1;
+    marketEntity.unfinishedInSlotOrderIds = marketEntity.unfinishedInSlotOrderIds.concat(
+      [orderEntityId]
+    );
+    marketEntity.unfinishedInSlotOrders =
+      marketEntity.unfinishedInSlotOrders + 1;
     marketEntity.save();
 
     if (!isExist(relayerEntity.totalOrdersId, orderEntityId)) {
-      relayerEntity.totalOrdersId = relayerEntity.totalOrdersId.concat([orderEntityId]);
+      relayerEntity.totalOrdersId = relayerEntity.totalOrdersId.concat([
+        orderEntityId
+      ]);
       relayerEntity.totalOrders = relayerEntity.totalOrders + 1;
       relayerEntity.save();
     }
@@ -107,7 +112,9 @@ export function handleAssigned(event: Assigned): void {
     orderEntity.assignedRelayersAddress = [relayerAddress.toHexString()];
     orderEntity.save();
 
-    const orderRelayerEntity = new OrderRelayerEntity(`${orderEntityId}-${relayerEntityId}-${ROLE_ASSIGNED}`);
+    const orderRelayerEntity = new OrderRelayerEntity(
+      `${orderEntityId}-${relayerEntityId}-${ROLE_ASSIGNED}`
+    );
     orderRelayerEntity.assignedOrder = orderEntityId;
     orderRelayerEntity.assignedRelayer = relayerEntityId;
     orderRelayerEntity.save();
@@ -144,7 +151,10 @@ export function handleEnrol(event: Enrol): void {
 
   // relayer
 
-  const relayerEntity = ensureRelayer(relayerAddress.toHexString(), destination);
+  const relayerEntity = ensureRelayer(
+    relayerAddress.toHexString(),
+    destination
+  );
   relayerEntity.save();
 
   // quote history
@@ -206,11 +216,16 @@ export function handleSettled(event: Settled): void {
       ? spendTime
       : marketEntity.averageSpeed.plus(spendTime).div(BIG_TWO);
     if (orderEntity.slotIndex == -1) {
-      marketEntity.unfinishedOutOfSlotOrders = marketEntity.unfinishedOutOfSlotOrders - 1;
+      marketEntity.unfinishedOutOfSlotOrders =
+        marketEntity.unfinishedOutOfSlotOrders - 1;
     } else {
-      marketEntity.unfinishedInSlotOrders = marketEntity.unfinishedInSlotOrders - 1;
+      marketEntity.unfinishedInSlotOrders =
+        marketEntity.unfinishedInSlotOrders - 1;
     }
-    marketEntity.unfinishedInSlotOrderIds = filter(marketEntity.unfinishedInSlotOrderIds, orderEntityId);
+    marketEntity.unfinishedInSlotOrderIds = filter(
+      marketEntity.unfinishedInSlotOrderIds,
+      orderEntityId
+    );
     marketEntity.finishedOrders = marketEntity.finishedOrders + 1;
 
     // order
@@ -227,7 +242,10 @@ export function handleSettled(event: Settled): void {
     const orderFee = orderEntity.fee;
     const orderCollateral = orderEntity.collateral;
     const assignedRelayerAddress = orderEntity.assignedRelayersAddress[0];
-    const assignedRelayerEntity = ensureRelayer(assignedRelayerAddress, destination);
+    const assignedRelayerEntity = ensureRelayer(
+      assignedRelayerAddress,
+      destination
+    );
 
     let slashFee = BIG_ZEZO;
     let rewardAssigned = BIG_ZEZO;
@@ -239,25 +257,35 @@ export function handleSettled(event: Settled): void {
       if (orderFee.gt(BIG_ZEZO)) {
         rewardAssigned = orderFee.times(DUTY_REWARD_RATIO).div(BIG_HUNDRED);
         const rewardOthers = orderFee.minus(rewardAssigned);
-        rewardDelivery = rewardOthers.times(PRICE_RATIO_NUMERATOR).div(BIG_MILLION);
+        rewardDelivery = rewardOthers
+          .times(PRICE_RATIO_NUMERATOR)
+          .div(BIG_MILLION);
         rewardConfirmation = rewardOthers.minus(rewardDelivery);
       }
     } else {
       // time out
       const timeOutTime = confirmTime.minus(orderEntity.outOfSlotTime);
-      slashFee = timeOutTime.ge(SLASH_TIME) ? orderCollateral : orderCollateral.times(timeOutTime).div(SLASH_TIME);
+      slashFee = timeOutTime.ge(SLASH_TIME)
+        ? orderCollateral
+        : orderCollateral.times(timeOutTime).div(SLASH_TIME);
       const totalReward = orderFee.plus(slashFee);
-      rewardDelivery = totalReward.times(PRICE_RATIO_NUMERATOR).div(BIG_MILLION);
+      rewardDelivery = totalReward
+        .times(PRICE_RATIO_NUMERATOR)
+        .div(BIG_MILLION);
       rewardConfirmation = totalReward.minus(rewardDelivery);
     }
 
     if (slashFee.gt(BIG_ZEZO)) {
       marketEntity.totalSlash = marketEntity.totalSlash.plus(slashFee);
-      assignedRelayerEntity.totalSlashes = assignedRelayerEntity.totalSlashes.plus(slashFee);
+      assignedRelayerEntity.totalSlashes = assignedRelayerEntity.totalSlashes.plus(
+        slashFee
+      );
       assignedRelayerEntity.save();
 
       const assignedRelayerEntityId = `${destination}-${assignedRelayerAddress}`;
-      const slashEntity = new SlashEntity(`${txHash.toHex()}-${logIndex.toString()}-${assignedRelayerAddress}`);
+      const slashEntity = new SlashEntity(
+        `${txHash.toHex()}-${logIndex.toString()}-${assignedRelayerAddress}`
+      );
       slashEntity.order = orderEntityId;
       slashEntity.market = destination;
       slashEntity.relayer = assignedRelayerEntityId;
@@ -268,7 +296,9 @@ export function handleSettled(event: Settled): void {
       slashEntity.relayerRole = ROLE_ASSIGNED;
       slashEntity.sentTime = orderEntity.createBlockNumber;
       slashEntity.confirmTime = orderEntity.finishBlockNumber;
-      slashEntity.delayTime = blockNumber.minus(orderEntity.createBlockNumber).toI32();
+      slashEntity.delayTime = blockNumber
+        .minus(orderEntity.createBlockNumber)
+        .toI32();
       slashEntity.save();
     }
 
@@ -277,7 +307,7 @@ export function handleSettled(event: Settled): void {
     const addreses = [
       assignedRelayerAddress,
       deliveryRelayerAddress.toHexString(),
-      confirmationRelayerAddress.toHexString(),
+      confirmationRelayerAddress.toHexString()
     ];
 
     for (let i = 0; i < rewards.length; i++) {
@@ -291,13 +321,17 @@ export function handleSettled(event: Settled): void {
         const relayerEntity = ensureRelayer(address, destination);
         relayerEntity.totalRewards = relayerEntity.totalRewards.plus(amount);
         if (!isExist(relayerEntity.totalOrdersId, orderEntityId)) {
-          relayerEntity.totalOrdersId = relayerEntity.totalOrdersId.concat([orderEntityId]);
+          relayerEntity.totalOrdersId = relayerEntity.totalOrdersId.concat([
+            orderEntityId
+          ]);
           relayerEntity.totalOrders = relayerEntity.totalOrders + 1;
         }
         relayerEntity.save();
 
         const relayerEntityId = `${destination}-${address}`;
-        const rewardEntity = new RewardEntity(`${txHash.toHex()}-${logIndex.toString()}-${role}-${address}`);
+        const rewardEntity = new RewardEntity(
+          `${txHash.toHex()}-${logIndex.toString()}-${role}-${address}`
+        );
         rewardEntity.order = orderEntityId;
         rewardEntity.market = destination;
         rewardEntity.relayer = relayerEntityId;
@@ -309,7 +343,9 @@ export function handleSettled(event: Settled): void {
         rewardEntity.relayerRole = role;
         rewardEntity.save();
 
-        const orderRelayerEntity = new OrderRelayerEntity(`${orderEntityId}-${relayerEntityId}-${role}`);
+        const orderRelayerEntity = new OrderRelayerEntity(
+          `${orderEntityId}-${relayerEntityId}-${role}`
+        );
         if (role == ROLE_ASSIGNED) {
           orderRelayerEntity.assignedOrder = orderEntityId;
           orderRelayerEntity.assignedRelayer = relayerEntityId;
@@ -354,15 +390,21 @@ function updateFeeHistory(block: ethereum.Block): void {
     marketEntity.contractAddress &&
     marketEntity.feeHistoryLastTime.plus(FEEHISTORY_INTERVAL).lt(blockTime)
   ) {
-    const contract = Contract.bind(Address.fromString(marketEntity.contractAddress));
+    const contract = Contract.bind(
+      Address.fromString(marketEntity.contractAddress)
+    );
 
     if (contract.relayerCount().gt(BIG_ZEZO)) {
       marketEntity.feeHistoryLastTime = blockTime;
       marketEntity.save();
 
-      const feesOf = contract.getOrderBook(BigInt.fromI32(1), false).getValue2();
+      const feesOf = contract
+        .getOrderBook(BigInt.fromI32(1), false)
+        .getValue2();
 
-      const feeHistoryEntity = new FeeHistoryEntity(`${destination}-${blockNumber.toString()}`);
+      const feeHistoryEntity = new FeeHistoryEntity(
+        `${destination}-${blockNumber.toString()}`
+      );
       feeHistoryEntity.market = destination;
       feeHistoryEntity.blockTime = blockTime;
       feeHistoryEntity.blockNumber = blockNumber;
@@ -389,13 +431,22 @@ function updateUnfinishedOrders(block: ethereum.Block): void {
     for (let i = 0; i < orderIds.length; i++) {
       const orderEntityId = orderIds[i];
       const orderEntity = OrderEntity.load(orderEntityId);
-      if (orderEntity && orderEntity.slotIndex == 0 && blockTime.ge(orderEntity.outOfSlotTime)) {
+      if (
+        orderEntity &&
+        orderEntity.slotIndex == 0 &&
+        blockTime.ge(orderEntity.outOfSlotTime)
+      ) {
         orderEntity.slotIndex = -1;
         orderEntity.save();
 
-        marketEntity.unfinishedInSlotOrders = marketEntity.unfinishedInSlotOrders - 1;
-        marketEntity.unfinishedOutOfSlotOrders = marketEntity.unfinishedOutOfSlotOrders + 1;
-        marketEntity.unfinishedInSlotOrderIds = filter(marketEntity.unfinishedInSlotOrderIds, orderEntityId);
+        marketEntity.unfinishedInSlotOrders =
+          marketEntity.unfinishedInSlotOrders - 1;
+        marketEntity.unfinishedOutOfSlotOrders =
+          marketEntity.unfinishedOutOfSlotOrders + 1;
+        marketEntity.unfinishedInSlotOrderIds = filter(
+          marketEntity.unfinishedInSlotOrderIds,
+          orderEntityId
+        );
       }
     }
 
