@@ -409,11 +409,16 @@ function updateFeeHistory(block: ethereum.Block): void {
       marketEntity.feeHistoryLastTime = blockTime;
       marketEntity.save();
 
+      const feesOf = contract.getOrderBook(BigInt.fromI32(1), false).getValue2();
+
       const feeHistoryEntity = new FeeHistoryEntity(`${destination}-${blockNumber.toString()}`);
       feeHistoryEntity.market = destination;
       feeHistoryEntity.blockTime = blockTime;
       feeHistoryEntity.blockNumber = blockNumber;
-      feeHistoryEntity.amount = contract.market_fee();
+      feeHistoryEntity.amount = BigInt.fromI32(0);
+      if (feesOf.length) {
+        feeHistoryEntity.amount = feesOf[0];
+      }
       feeHistoryEntity.save();
     }
   }
