@@ -1,4 +1,7 @@
-import { Market as MarketEntity, Relayer as RelayerEntity } from "../generated/schema";
+import {
+  Market as MarketEntity,
+  Relayer as RelayerEntity
+} from "../generated/schema";
 import { BIG_ZEZO } from "./config";
 
 export function ensureMarket(id: string, contract: string): MarketEntity {
@@ -21,7 +24,10 @@ export function ensureMarket(id: string, contract: string): MarketEntity {
   return entity;
 }
 
-export function ensureRelayer(relayerAddress: string, marketEntityId: string): RelayerEntity {
+export function ensureRelayer(
+  relayerAddress: string,
+  marketEntityId: string
+): RelayerEntity {
   const id = `${marketEntityId}-${relayerAddress}`;
   let entity = RelayerEntity.load(id);
 
