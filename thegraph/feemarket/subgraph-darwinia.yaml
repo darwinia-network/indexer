@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0xcA927Df15afb7629b79dA4713a871190315c7409"
       abi: Darwinia
-      startBlock: 10426170
+      startBlock: 10481650
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
