@@ -144,6 +144,7 @@ type Order @entity {
   finishEventIndex: BigInt
 
   treasuryAmount: BigInt
+  assignedRelayersFee: [BigInt!]!
   assignedRelayersAddress: [String!]!
 
   assignedRelayers: [OrderRelayer!] @derivedFrom(field: "assignedOrder")
