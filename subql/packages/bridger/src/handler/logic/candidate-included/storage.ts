@@ -18,6 +18,10 @@ export const ALLOW_PARA_IDS_MAP = {
   moonbase: [
     // pangolin parachain alpha
     2105,
+  ],
+  polkadot: [
+    // darwinia parachain
+    2046,
   ]
 };
 

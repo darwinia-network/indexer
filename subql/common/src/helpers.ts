@@ -33,6 +33,9 @@ export function activeChain(envChain): Chain {
       return Chain.Pangoro;
     case 'darwinia':
       return Chain.Darwinia;
+    case 'darwinia-parachain':
+    case 'darwiniaparachain':
+      return Chain.DarwiniaParachain;
     case 'crab':
       return Chain.Crab;
     case 'pangolin-parachain':
@@ -45,6 +48,8 @@ export function activeChain(envChain): Chain {
       return Chain.Kusama;
     case 'rococo':
       return Chain.Rococo;
+    case 'polkadot':
+      return Chain.Polkadot;
     case 'dev-pangolin':
       return Chain.DevPangolin;
     case 'dev-pangolin-parachain':

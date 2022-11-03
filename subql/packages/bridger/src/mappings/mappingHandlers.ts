@@ -9,6 +9,8 @@ import {
   PangolinParachainHandler,
   PangoroHandler,
   RococoHandler,
+  DarwiniaParachainHandler,
+  PolkadotHandler,
 } from "../handler/chain"
 import * as _env from "../_env"
 
@@ -31,6 +33,8 @@ function indexHandler(): IndexHandler | undefined {
       return new CrabHandler();
     case Chain.Darwinia:
       return new DarwiniaHandler();
+    case Chain.DarwiniaParachain:
+      return new DarwiniaParachainHandler();
     case Chain.Pangolin:
       return new PangolinHandler();
     case Chain.Pangoro:
@@ -43,6 +47,8 @@ function indexHandler(): IndexHandler | undefined {
       return new KusamaHandler();
     case Chain.Rococo:
       return new RococoHandler();
+    case Chain.Polkadot:
+      return new PolkadotHandler();
     case Chain.Moonbase:
       return new MoonbaseHandler();
     case Chain.PangolinParachainAlpha:

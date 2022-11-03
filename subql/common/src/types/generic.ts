@@ -10,6 +10,7 @@ export enum Chain {
   CrabParachain = 'crab-parachain',
   DarwiniaParachain = 'darwinia-parachain',
   Rococo = 'rococo',
+  Polkadot = 'polkadot',
   Kusama = 'kusama',
   Moonbase = 'moonbase',
 

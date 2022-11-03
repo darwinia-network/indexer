@@ -12,6 +12,7 @@
     "pangolin-parachain": ["bridge-s2s"],
     "kusama": ["bridge-s2s", "candidate-included"],
     "rococo": ["bridge-s2s", "candidate-included"],
+    "polkadot": ["bridge-s2s", "candidate-included"],
     "moonbase": ["bridge-s2s", "candidate-included"],
     "pangolin-parachainalpha": ["bridge-s2s"],
     "dev-pangolin": ["bridge-s2s"],

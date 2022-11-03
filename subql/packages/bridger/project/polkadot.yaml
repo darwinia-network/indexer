@@ -1,0 +1,42 @@
+specVersion: 1.0.0
+name: index-subql
+version: 1.0.0
+runner:
+  node:
+    name: '@subql/node'
+    version: '*'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: Polkadot index
+repository: 'https://github.com/darwinia-network/indexer'
+schema:
+  file: ./schema.graphql
+network:
+  chainId: ''
+  endpoint: 'wss://rpc.polkadot.io'
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 12762777
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+
+        - handler: handleCall
+          kind: substrate/CallHandler
+
+        ## bridge s2s (parachain)
+
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: grandpa
+            method: NewAuthorities
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: paraInclusion
+            method: CandidateIncluded

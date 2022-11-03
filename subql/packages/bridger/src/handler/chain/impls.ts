@@ -48,6 +48,19 @@ export class DarwiniaHandler extends BasicChainHandler {
   }
 }
 
+export class DarwiniaParachainHandler extends BasicChainHandler {
+  constructor() {
+    super('darwinia-parachain');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.DarwiniaParachain),
+      new BridgeS2SHandler(Chain.DarwiniaParachain),
+    ];
+  }
+}
+
 export class KusamaHandler extends BasicChainHandler {
   constructor() {
     super('kusama');
@@ -114,6 +127,20 @@ export class RococoHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Rococo),
       new BridgeS2SHandler(Chain.Rococo),
       new CandidateIncludedHandler(Chain.Rococo),
+    ];
+  }
+}
+
+export class PolkadotHandler extends BasicChainHandler {
+  constructor() {
+    super('polkadot');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.Polkadot),
+      new BridgeS2SHandler(Chain.Polkadot),
+      new CandidateIncludedHandler(Chain.Polkadot),
     ];
   }
 }
