@@ -13,7 +13,7 @@ repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: ''
+  chainId: '0xe71578b37a7c799b0ab4ee87ffa6f059a6b98f71f06fb8c84a8d88013a548ad6'
   endpoint: 'wss://parachain-rpc.darwinia.network'
 dataSources:
   - name: main
