@@ -1,7 +1,7 @@
 /**
  * bridge s2s handler
  */
-import {FastEvent} from "@darwinia/index-common";
+import { FastEvent } from "@darwinia/index-common";
 
 export interface BridgeS2SEventHandler {
   handle(event: FastEvent, section: string, method: string): Promise<void>;
@@ -37,4 +37,5 @@ export enum BridgeS2SRelayBlockOrigin {
   BridgePangoro = 'bridge-pangoro',
   BridgePangolinParachain = 'bridge-pangolin-parachain',
   BridgePangolinParachainAlpha = 'bridge-pangolin-parachainalpha',
+  BridgeDarwiniaParachain = 'bridge-darwinia-parachain',
 }

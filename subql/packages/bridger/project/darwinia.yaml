@@ -44,7 +44,16 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: bridgeCrabDispatch
-
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeDarwiniaParachainMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeDarwiniaParachainDispatch
+ 
         ## bridge ethv1
         - handler: handleEvent
           kind: substrate/EventHandler
