@@ -1,0 +1,39 @@
+specVersion: 1.0.0
+name: index-subql
+version: 1.0.0
+runner:
+  node:
+    name: '@subql/node'
+    version: '*'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: Darwinia parachain index
+repository: 'https://github.com/darwinia-network/indexer'
+schema:
+  file: ./schema.graphql
+network:
+  chainId: ''
+  endpoint: 'wss://parachain-rpc.darwinia.network'
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 330042
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+        - handler: handleCall
+          kind: substrate/CallHandler
+
+        ## bridge s2s
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeDarwiniaMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeDarwiniaDispatch
