@@ -6,6 +6,7 @@
 # build:
 $ cd subql
 $ yarn boot
+$ yarn build:common
 $ yarn build:apps crab
 
 # run docker
