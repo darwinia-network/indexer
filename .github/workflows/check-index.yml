@@ -28,6 +28,7 @@ jobs:
         run: |
           yarn install
           yarn boot
+          yarn build:common
 
       - name: Check subql
         working-directory: subql

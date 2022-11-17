@@ -86,10 +86,12 @@ export function handleAssigned(event: Assigned): void {
       marketEntity.unfinishedInSlotOrders + 1;
     marketEntity.save();
 
-    const assignedRelayerAddresses = contract
-      .getOrder(orderKey)
-      .getValue1()
-      .map<Address>(item => item.relayer);
+    const relayersFee = contract.getOrder(orderKey).getValue1();
+
+    const assignedRelayerFees = relayersFee.map<BigInt>(item => item.makerFee);
+    const assignedRelayerAddresses = relayersFee.map<Address>(
+      item => item.relayer
+    );
 
     const orderEntity = new OrderEntity(orderEntityId);
     orderEntity.lane = lane;
@@ -107,6 +109,7 @@ export function handleAssigned(event: Assigned): void {
     orderEntity.createBlockTime = assignedTime;
     orderEntity.createBlockNumber = blockNumber;
     orderEntity.createEventIndex = logIndex;
+    orderEntity.assignedRelayersFee = assignedRelayerFees;
     orderEntity.assignedRelayersAddress = assignedRelayerAddresses.map<string>(
       item => item.toHexString()
     );
@@ -279,9 +282,10 @@ export function handleSettled(event: Settled): void {
       orderEntity.slotIndex > 0
         ? BigInt.fromI32(orderEntity.slotIndex - 1)
         : ASSIGNED_RELAYERS_NUMBER;
-    const slotPrice = slot.equals(ASSIGNED_RELAYERS_NUMBER)
-      ? orderFee
-      : contract.getSlotFee(orderKey, slot);
+    const slotPrice =
+      orderEntity.slotIndex > 0
+        ? orderEntity.assignedRelayersFee[orderEntity.slotIndex - 1]
+        : orderFee;
     const messageSurplus = orderFee.minus(slotPrice);
 
     let slotDutyReward = BIG_ZEZO;

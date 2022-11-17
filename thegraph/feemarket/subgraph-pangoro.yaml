@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0x25ee4212CfA2DC29E6a5e4A857b9656E439259c9"
       abi: Pangoro
-      startBlock: 206560
+      startBlock: 220280
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

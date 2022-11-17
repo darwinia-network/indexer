@@ -173,7 +173,7 @@
 
 "@darwinia/index-common@*":
   version "1.0.5"
-  resolved "https://registry.npmmirror.com/@darwinia/index-common/-/index-common-1.0.5.tgz#981b775426697d567365173402e8325b0022964d"
+  resolved "https://registry.yarnpkg.com/@darwinia/index-common/-/index-common-1.0.5.tgz#981b775426697d567365173402e8325b0022964d"
   integrity sha512-qh78VG5ExPOUhtMgdz7dpXxehiy2zwadKC0kIcnQeaQG4BE1xQR4OGyD1e/rrQYb22htXWrOEoyY9G4gOP3LCw==
 
 "@ethersproject/abstract-provider@^5.6.1":
