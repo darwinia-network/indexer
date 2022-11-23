@@ -75,7 +75,7 @@ jobs:
           rm -rf packages/${{ matrix.package }}/node_modules/@darwinia/index-common
           mv common packages/${{ matrix.package }}/node_modules/@darwinia/index-common
 
-          yarn publish:${{ matrix.package }} -- ${{ matrix.chain }}
+          npm run publish:${{ matrix.package }} -- ${{ matrix.chain }}
 
       - name: Collect ipfs cid
         working-directory: subql
