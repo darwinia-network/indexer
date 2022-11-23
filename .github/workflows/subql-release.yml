@@ -7,10 +7,11 @@ on:
   workflow_dispatch:
 
 env:
+  SUBQL_ACCESS_TOKEN: ${{ secrets.SUBQUERY_TOKEN }}
   DOCKER_REGISTRY: ghcr.io
 
 jobs:
-  package-subql:
+  publish-subql:
     name: Build subql
     runs-on: ubuntu-latest
     strategy:
@@ -39,15 +40,6 @@ jobs:
         with:
           node-version: 16
 
-      - name: Docker login
-        uses: docker/login-action@v1
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ${{ env.DOCKER_REGISTRY }}
-      - uses: benjlevesque/short-sha@v1.2
-      - uses: olegtarasov/get-tag@v2.1
-
       - name: Detect if build is required
         id: detect-build
         working-directory: subql
@@ -64,7 +56,6 @@ jobs:
             fi
           done
           echo "::set-output name=ALLOW::$ALLOW"
-
 
       - name: Install deps
         working-directory: subql
@@ -83,16 +74,36 @@ jobs:
           rm -rf common/node_modules
           rm -rf packages/${{ matrix.package }}/node_modules/@darwinia/index-common
           mv common packages/${{ matrix.package }}/node_modules/@darwinia/index-common
-          IMAGE_NAME=${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/subql-${{ matrix.package }}-${{ matrix.chain }}
-          IMAGE_SHA=${IMAGE_NAME}:sha-${SHA}
-          IMAGE_TAG=${IMAGE_NAME}:${GIT_TAG_NAME}
-          docker build \
-            -f ${BASE_PATH}/Dockerfile \
-            -t ${IMAGE_SHA} \
-            ${GIT_TAG_NAME:+-t $IMAGE_TAG} \
-            packages/${{ matrix.package }}
 
-          docker push ${IMAGE_SHA}
-          if [ -n "${GIT_TAG_NAME}" ]; then
-            docker push ${IMAGE_TAG}
-          fi
+          yarn publish:${{ matrix.package }} -- ${{ matrix.chain }}
+
+      - name: Collect ipfs cid
+        working-directory: subql
+        if: steps.detect-build.outputs.ALLOW == 'true'
+        run: |
+          mkdir -p shared/${{ matrix.package }}
+          cp packages/${{ matrix.package }}/.project-cid shared/${{ matrix.package }}/${{ matrix.chain }}.cid
+
+      - name: Upload shared
+        uses: actions/upload-artifact@v2
+        with:
+          name: index-artifact
+          path: shared
+
+  complete-publish:
+    name: Complete publish
+    runs-on: ubuntu-latest
+    needs: [ publish-subql ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: index-artifact
+          path: shared
+
+      - name: Show ipfs cid
+        run: |
+          cd shared
+          tail -n +1 */*
+
