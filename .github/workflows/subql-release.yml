@@ -69,13 +69,13 @@ jobs:
         if: steps.detect-build.outputs.ALLOW == 'true'
         run: |
           BASE_PATH=$(pwd)
-          yarn build:common
-          yarn build:${{ matrix.package }} -- ${{ matrix.chain }}
+          yarn run build:common
+          yarn run build:${{ matrix.package }} -- ${{ matrix.chain }}
           rm -rf common/node_modules
           rm -rf packages/${{ matrix.package }}/node_modules/@darwinia/index-common
           mv common packages/${{ matrix.package }}/node_modules/@darwinia/index-common
 
-          npm run publish:${{ matrix.package }} -- ${{ matrix.chain }}
+          yarn run publish:${{ matrix.package }} -- ${{ matrix.chain }}
 
       - name: Collect ipfs cid
         working-directory: subql
