@@ -8,13 +8,13 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Dev Pangolin parachain index
+description: Polkadot index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0x92450e36080e06e046d81c3f3f2d551c873aaf13e1ffd60b151349d8378a9299'
-  endpoint: 'ws://g2.dev.darwinia.network:2245'
+  chainId: '0x0546f893ab9a4c4e93435d6e0c4d4b00918c846348b3cf8836bf169e3ff2c155'
+  endpoint: 'ws://g2.dev.darwinia.network:3344'
 dataSources:
   - name: main
     kind: substrate/Runtime
@@ -28,13 +28,16 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
-        ## bridge s2s
+        ## bridge s2s (parachain)
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinMessages
-            method: MessageAccepted
+            module: grandpa
+            method: NewAuthorities
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinDispatch
+            module: paraInclusion
+            method: CandidateIncluded

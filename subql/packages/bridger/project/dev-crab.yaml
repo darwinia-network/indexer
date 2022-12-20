@@ -8,14 +8,13 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Dev Pangolin index
+description: Crab index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0x2216d6120b51b6536478aaeb1584db6be568df67a13873ab9e21d689589f2dd7'
-  endpoint: 'ws://g2.dev.darwinia.network:1245'
-  # dictionary: 'https://api.subquery.network/sq/darwinia-network/pangolin-dictionary'
+  chainId: '0x54202bc88140deb30f24865d5f5007fc69bd3bb4c9c674d276ad047bfb8d0e10'
+  endpoint: 'ws://g1.dev.darwinia.network:2244'
 dataSources:
   - name: main
     kind: substrate/Runtime
@@ -30,7 +29,6 @@ dataSources:
           kind: substrate/CallHandler
 
         ## bridge s2s
-
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
@@ -39,19 +37,18 @@ dataSources:
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangoroMessages
+            module: bridgeCrabParachainMessages
             method: MessageAccepted
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinParachainMessages
+            module: bridgeCrabParachainDispatch
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeDarwiniaMessages
             method: MessageAccepted
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangoroDispatch
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: bridgePangolinParachainDispatch
-
+            module: bridgeDarwiniaDispatch

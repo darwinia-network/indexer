@@ -8,14 +8,13 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Dev Rococo index
+description: Kusama index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0xfec093d01f993fced7be5f7222bdc15f354fb92357b4b90ec5ee8cbc7d69037a'
-  endpoint: 'ws://g2.dev.darwinia.network:4245'
-#  dictionary: 'https://api.subquery.network/sq/subquery/kusama-dictionary'
+  chainId: '0x0f98a0c7cfce48b0fd3455d409fef0e39863aea77c1b54b5d66f25008079fd73'
+  endpoint: 'ws://g2.dev.darwinia.network:5544'
 dataSources:
   - name: main
     kind: substrate/Runtime
@@ -36,6 +35,7 @@ dataSources:
           filter:
             module: grandpa
             method: NewAuthorities
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
