@@ -3,12 +3,12 @@ import {activeChain, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} f
 import {
   CrabHandler,
   CrabParachainHandler,
-  DarwiniaHandler, DevPangolinHandler, DevPangolinParachainHandler, DevRococoHandler,
+  DarwiniaHandler, DevDarwiniaHandler, DevCrabHandler, DevKusamaHandler,
   KusamaHandler, MoonbaseHandler,
   PangolinHandler, PangolinParachainAlphaHandler,
   PangolinParachainHandler,
   PangoroHandler,
-  RococoHandler,
+  RococoHandler, DevPolkadotHandler,
 } from "../handler/chain"
 import * as _env from "../_env"
 
@@ -47,12 +47,14 @@ function indexHandler(): IndexHandler | undefined {
       return new MoonbaseHandler();
     case Chain.PangolinParachainAlpha:
       return new PangolinParachainAlphaHandler();
-    case Chain.DevPangolin:
-      return new DevPangolinHandler();
-    case Chain.DevPangolinParachain:
-      return new DevPangolinParachainHandler();
-    case Chain.DevRococo:
-      return new DevRococoHandler();
+    case Chain.DevDarwinia:
+      return new DevDarwiniaHandler();
+    case Chain.DevCrab:
+      return new DevCrabHandler();
+    case Chain.DevKusama:
+      return new DevKusamaHandler();
+    case Chain.DevPolkadot:
+      return new DevPolkadotHandler();
     default:
       logger.warn(`Can not support current chain: ${chain}`);
       return;

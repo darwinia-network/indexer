@@ -45,16 +45,18 @@ export function activeChain(envChain): Chain {
       return Chain.Kusama;
     case 'rococo':
       return Chain.Rococo;
-    case 'dev-pangolin':
-      return Chain.DevPangolin;
-    case 'dev-pangolin-parachain':
-      return Chain.DevPangolinParachain;
-    case 'dev-rococo':
-      return Chain.DevRococo;
     case 'pangolin-parachainalpha':
       return Chain.PangolinParachainAlpha;
     case 'moonbase':
       return Chain.Moonbase;
+    case 'dev-darwinia':
+      return Chain.DevDarwinia;
+    case 'dev-crab':
+      return Chain.DevCrab;
+    case 'dev-polkadot':
+      return Chain.DevPolkadot;
+    case 'dev-kusama':
+      return Chain.DevKusama;
     default:
       throw new Error(`Unsupported chain: ${envChain}`)
   }

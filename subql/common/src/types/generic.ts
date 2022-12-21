@@ -11,6 +11,7 @@ export enum Chain {
   DarwiniaParachain = 'darwinia-parachain',
   Rococo = 'rococo',
   Kusama = 'kusama',
+  Polkadot = 'polkadot',
   Moonbase = 'moonbase',
 
   PangolinParachainAlpha = 'pangolin-parachainalpha',
