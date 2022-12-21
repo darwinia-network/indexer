@@ -18,7 +18,7 @@
   ],
   "author": "Darwinia Network",
   "dependencies": {
-    "@darwinia/index-common": "*"
+    "@darwinia/index-common": "^1.0.6"
   },
   "devDependencies": {
     "@polkadot/api": "^9",
