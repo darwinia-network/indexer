@@ -31,9 +31,10 @@ jobs:
           - rococo
           - moonbase
           - pangolin-parachainalpha
-          # - dev-pangolin
-          # - dev-pangolin-parachain
-          # - dev-rococo
+          - dev-darwinia
+          - dev-crab
+          - dev-kusama
+          - dev-polkadot
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
