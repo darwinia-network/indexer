@@ -149,43 +149,57 @@ export class PangolinParachainAlphaHandler extends BasicChainHandler {
 // ############ dev
 
 
-export class DevPangolinHandler extends BasicChainHandler {
+export class DevDarwiniaHandler extends BasicChainHandler {
   constructor() {
-    super('dev-pangolin');
+    super('dev-darwinia');
   }
 
   handlers(): Array<IndexHandler> {
     return [
-      new GenericBlockHandler(Chain.DevPangolin),
-      new BridgeS2SHandler(Chain.DevPangolin),
-      new BridgeEthV1Handler(Chain.DevPangolin),
+      new GenericBlockHandler(Chain.DevDarwinia),
+      new BridgeS2SHandler(Chain.DevDarwinia),
+      new BridgeEthV1Handler(Chain.DevDarwinia),
     ];
   }
 }
 
-export class DevPangolinParachainHandler extends BasicChainHandler {
+export class DevCrabHandler extends BasicChainHandler {
   constructor() {
-    super('dev-pangolin-parachain');
+    super('dev-crab');
   }
 
   handlers(): Array<IndexHandler> {
     return [
-      new GenericBlockHandler(Chain.DevPangolinParachain),
-      new BridgeS2SHandler(Chain.DevPangolinParachain),
+      new GenericBlockHandler(Chain.DevCrab),
+      new BridgeS2SHandler(Chain.DevCrab),
     ];
   }
 }
 
-export class DevRococoHandler extends BasicChainHandler {
+export class DevKusamaHandler extends BasicChainHandler {
   constructor() {
-    super('dev-rococo');
+    super('dev-kusama');
   }
 
   handlers(): Array<IndexHandler> {
     return [
-      new GenericBlockHandler(Chain.DevRococo),
-      new BridgeS2SHandler(Chain.DevRococo),
-      new CandidateIncludedHandler(Chain.DevRococo),
+      new GenericBlockHandler(Chain.DevKusama),
+      new BridgeS2SHandler(Chain.DevKusama),
+      new CandidateIncludedHandler(Chain.DevKusama),
+    ];
+  }
+}
+
+export class DevPolkadotHandler extends BasicChainHandler {
+  constructor() {
+    super('dev-polkadot');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.DevPolkadot),
+      new BridgeS2SHandler(Chain.DevPolkadot),
+      new CandidateIncludedHandler(Chain.DevPolkadot),
     ];
   }
 }

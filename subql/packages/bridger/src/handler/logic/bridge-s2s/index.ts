@@ -11,6 +11,7 @@ import {ChainKusamaEventHandler} from "./chain/kusama";
 import {ChainRococoEventHandler} from "./chain/rococo";
 import {ChainPangolinParachainAlphaEventHandler} from "./chain/pangolin_parachain_alpha";
 import {ChainMoonbaseEventHandler} from "./chain/moonbase";
+import {ChainPolkadotEventHandler} from "./chain/polkadot";
 
 export class BridgeS2SHandler implements IndexHandler {
 
@@ -36,30 +37,30 @@ export class BridgeS2SHandler implements IndexHandler {
     const eventMethod = event.method;
     let handler: BridgeS2SEventHandler;
     switch (this.chain) {
+      case Chain.DevCrab:
       case Chain.Crab:
         handler = new ChainCrabEventHandler();
         break;
+      case Chain.DevDarwinia:
       case Chain.Darwinia:
         handler = new ChainDarwiniaEventHandler();
         break;
-      case Chain.DevPangolin:
       case Chain.Pangolin:
         handler = new ChainPangolinEventHandler();
         break;
       case Chain.Pangoro:
         handler = new ChainPangoroEventHandler();
         break;
-      case Chain.DevPangolinParachain:
       case Chain.PangolinParachain:
         handler = new ChainPangolinParachainEventHandler();
         break;
       case Chain.CrabParachain:
         handler = new ChainCrabParachainEventHandler();
         break;
+      case Chain.DevKusama:
       case Chain.Kusama:
         handler = new ChainKusamaEventHandler();
         break;
-      case Chain.DevRococo:
       case Chain.Rococo:
         handler = new ChainRococoEventHandler();
         break;
@@ -68,6 +69,10 @@ export class BridgeS2SHandler implements IndexHandler {
         break;
       case Chain.Moonbase:
         handler = new ChainMoonbaseEventHandler();
+        break;
+      case Chain.DevPolkadot:
+      case Chain.Polkadot:
+        handler = new ChainPolkadotEventHandler();
         break;
       default:
         logger.warn('Unsupported bridge s2s chain:', this.chain);

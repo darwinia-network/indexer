@@ -8,18 +8,17 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Dev Rococo index
+description: Crab index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0xfec093d01f993fced7be5f7222bdc15f354fb92357b4b90ec5ee8cbc7d69037a'
-  endpoint: 'ws://g2.dev.darwinia.network:4245'
-#  dictionary: 'https://api.subquery.network/sq/subquery/kusama-dictionary'
+  chainId: '0x54202bc88140deb30f24865d5f5007fc69bd3bb4c9c674d276ad047bfb8d0e10'
+  endpoint: 'ws://g2.dev.darwinia.network:2244'
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 1
+    startBlock: 11663
     mapping:
       file: ./dist/index.js
       handlers:
@@ -29,8 +28,7 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
-        ## bridge s2s (parachain)
-
+        ## bridge s2s
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
@@ -39,5 +37,18 @@ dataSources:
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: paraInclusion
-            method: CandidateIncluded
+            module: bridgeCrabParachainMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeCrabParachainDispatch
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeDarwiniaMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeDarwiniaDispatch

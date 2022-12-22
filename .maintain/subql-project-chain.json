@@ -17,6 +17,10 @@
     "kusama",
     "rococo",
     "moonbase",
-    "pangolin-parachainalpha"
+    "pangolin-parachainalpha",
+    "dev-darwinia",
+    "dev-crab",
+    "dev-kusama",
+    "dev-polkadot"
   ]
 }

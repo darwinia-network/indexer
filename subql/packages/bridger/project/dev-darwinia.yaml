@@ -1,0 +1,110 @@
+specVersion: 1.0.0
+name: index-subql
+version: 1.0.0
+runner:
+  node:
+    name: '@subql/node'
+    version: '*'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: Darwinia index
+repository: 'https://github.com/darwinia-network/indexer'
+schema:
+  file: ./schema.graphql
+network:
+  chainId: '0x3d18af4c20c086bdd6de2ead09e4783a1818d54815cce8816d30fb0e1db5f471'
+  endpoint: 'ws://g2.dev.darwinia.network:1144'
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 11663
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+        - handler: handleCall
+          kind: substrate/CallHandler
+
+        ## bridge s2s
+
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: grandpa
+            method: NewAuthorities
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeCrabMessages
+            method: MessageAccepted
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: bridgeCrabDispatch
+
+        ## bridge ethv1
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ethereumRelayAuthorities
+            method: MMRRootSigned
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ethereumRelayAuthorities
+            method: ScheduleMMRRoot
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ethereumRelayAuthorities
+            method: ScheduleAuthoritiesChange
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ethereumRelayAuthorities
+            method: AuthoritiesChangeSigned
+        ### bridge ethv1 name changed
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaRelayAuthority
+            method: MmrRootSigned
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaRelayAuthority
+            method: ScheduleMmrRoot
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaRelayAuthority
+            method: ScheduleAuthoritiesChange
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaRelayAuthority
+            method: AuthoritiesChangeSigned
+
+        ## bridge ethv2
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaAuthority
+            method: CollectingNewMessageRootSignatures
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaAuthority
+            method: CollectedEnoughNewMessageRootSignatures
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaAuthority
+            method: CollectingAuthoritiesChangeSignatures
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaAuthority
+            method: CollectedEnoughAuthoritiesChangeSignatures

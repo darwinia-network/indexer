@@ -8,17 +8,17 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Dev Pangolin parachain index
+description: Kusama index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0x92450e36080e06e046d81c3f3f2d551c873aaf13e1ffd60b151349d8378a9299'
-  endpoint: 'ws://g2.dev.darwinia.network:2245'
+  chainId: '0x0f98a0c7cfce48b0fd3455d409fef0e39863aea77c1b54b5d66f25008079fd73'
+  endpoint: 'ws://g2.dev.darwinia.network:5544'
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 1
+    startBlock: 70058
     mapping:
       file: ./dist/index.js
       handlers:
@@ -28,13 +28,16 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
-        ## bridge s2s
+        ## bridge s2s (parachain)
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinMessages
-            method: MessageAccepted
+            module: grandpa
+            method: NewAuthorities
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgePangolinDispatch
+            module: paraInclusion
+            method: CandidateIncluded
