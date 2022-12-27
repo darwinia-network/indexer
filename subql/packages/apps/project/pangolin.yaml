@@ -13,15 +13,13 @@ repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: "0x46720335bb0a5c81a29777a9ad81afcda36b70f34103ebea42fb55332a1b79b4"
-  endpoint: "wss://pangolin-rpc.darwinia.network"
+  chainId: "0xdb1665732758a8aa572d5ce1f1361e5e87287c869008d8e58d1af5777587b532"
+  endpoint: "ws://g1.dev.darwinia.network:20000"
   # dictionary: "https://api.subquery.network/sq/darwinia-network/pangolin-dictionary"
-  chaintypes:
-    file: chaintypes/pangolin.yaml
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 1
+    startBlock: 2200
     mapping:
       file: ./dist/index.js
       handlers:
@@ -32,40 +30,21 @@ dataSources:
           kind: substrate/CallHandler
 
         ################# Staking Event #################
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Reward
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Rewarded
+#        - handler: handleEvent
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Reward
+#        - handler: handleEvent
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Rewarded
 
-        ################# Fee Market Event #################
-        # Order Create
+
+        ################# Deposit Event #################
         - handler: handleEvent
           kind: substrate/EventHandler
-          filter:
-            method: OrderCreated
-        # Order Reward
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            method: OrderReward
-        # Order Slash
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            method: FeeMarketSlash
-        # Quote Update
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            method: UpdateRelayFee
-        # Quote Init
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            method: Enroll
+#          filter:
+#            module: staking
+#            method: Reward
