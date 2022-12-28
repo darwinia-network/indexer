@@ -26,12 +26,12 @@ type DepositRecord @entity {
   id: ID! # accountAddress-depositId
   depositId: Int!
   amount: BigInt!
-  startTime: Date
-  expireTime: Date
-  reward: BigInt
+  startTime: Date!
+  expiredTime: Date!
+  reward: BigInt!
   account: Deposit! #deposit owner
-  isEarlyClaimed: Boolean!
-  penalty: BigInt
+  blockNumber: Int! #block number this deposit was made
   createdTime: Date!
+  penalty: BigInt
   claimTime: Date
 }

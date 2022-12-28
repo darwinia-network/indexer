@@ -19,7 +19,7 @@ network:
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 6200
+    startBlock: 1
     mapping:
       file: ./dist/index.js
       handlers:
@@ -42,9 +42,20 @@ dataSources:
 #            method: Rewarded
 
 
-        ################# Deposit Event #################
+        ################# Deposit Events Start Here #################
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: deposit
             method: DepositCreated
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: deposit
+            method: DepositClaimed
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: deposit
+            method: DepositClaimedWithPenalty
+        ################# Deposit Events End Here #################

@@ -53,12 +53,38 @@ export const handleDeposit = async (fastEvent: FastEvent): Promise<void> => {
   depositRecord.depositId = parseInt(depositId.toString());
   depositRecord.amount = (amount as Balance).toBigInt();
   depositRecord.startTime = new Date(parseInt(startTime.toString()));
-  depositRecord.expireTime = new Date(parseInt(expireTime.toString()));
+  depositRecord.expiredTime = new Date(parseInt(expireTime.toString()));
   depositRecord.reward = (reward as Balance).toBigInt();
   depositRecord.accountId = accountAddress;
   depositRecord.penalty = undefined;
-  depositRecord.isEarlyClaimed = false;
   depositRecord.createdTime = fastEvent.timestamp;
+  depositRecord.blockNumber = fastEvent.blockNumber;
 
   return await depositRecord.save();
+}
+
+export const handleClaim = async (fastEvent: FastEvent, withPenalty = false): Promise<void> => {
+
+  //TODO change these accordingly
+  const [owner, depositIdString, penaltyAmount] = fastEvent.data;
+
+  const accountAddress = (owner as AccountId).toString();
+  const penalty = withPenalty ? (penaltyAmount as Balance).toBigInt() : BigInt(0);
+
+  const depositId = parseInt(depositIdString.toString());
+  const depositRecords = await DepositRecord.getByAccountId(accountAddress);
+  if(depositRecords) {
+    /*depositIds of the already claimed deposits could be recycled in the future on the chain,
+    here we only take the deposit record that has no claimTime since if it already has claimTime,
+    it MUST have been claimed already*/
+    const foundRecord = depositRecords.find((record)=>record.depositId === depositId && !record.claimTime);
+    if(foundRecord) {
+      foundRecord.claimTime = fastEvent.timestamp;
+      if(withPenalty) {
+        foundRecord.penalty = penalty;
+      }
+      return await foundRecord.save();
+    }
+  }
+  return Promise.resolve();
 }
