@@ -14,3 +14,24 @@ type StakingRewarded @entity {
   stash: StakingStash!
   amount: BigInt!
 }
+
+
+type Deposit @entity {
+  id: ID! #account address, deposit owner
+  records: [DepositRecord] @derivedFrom(field: "account")
+}
+
+
+type DepositRecord @entity {
+  id: ID! # accountAddress-depositId
+  depositId: Int!
+  amount: BigInt!
+  startTime: Date
+  expireTime: Date
+  reward: BigInt
+  account: Deposit! #deposit owner
+  isEarlyClaimed: Boolean!
+  penalty: BigInt
+  createdTime: Date!
+  claimTime: Date
+}

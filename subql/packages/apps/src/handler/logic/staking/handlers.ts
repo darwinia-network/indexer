@@ -1,7 +1,8 @@
 import type { SubstrateEvent } from "@subql/types";
 import type { Balance, AccountId } from "@polkadot/types/interfaces";
 
-import { StakingStash, StakingRewarded } from "../../../types";
+import {StakingStash, StakingRewarded, Deposit, DepositRecord} from "../../../types";
+import {FastEvent} from "@darwinia/index-common";
 
 export const handlerStakingRewarded = async (
   event: SubstrateEvent
@@ -34,3 +35,30 @@ export const handlerStakingRewarded = async (
   rewardedRecord.amount = amount;
   await rewardedRecord.save();
 };
+
+
+export const handleDeposit = async (fastEvent: FastEvent): Promise<void> => {
+
+  /* const [owner, depositId, amount, startTime, endTime, reward] = ['0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac',1,9926903553299999,1672144632027,1680050232027,326903553299492 ] */
+
+  const [owner, depositId, amount, startTime, expireTime, reward] = fastEvent.data;
+  // logger.info(`handle new Deposit======🚒 ${owner} ${depositId} ${amount.toString()} ${startTime} ${expireTime} ${reward}`);
+
+  const accountAddress = (owner as AccountId).toString();
+  const deposit = new Deposit(accountAddress);
+  await deposit.save();
+
+  const depositRecord = new DepositRecord(`${accountAddress}-${fastEvent.blockNumber}-${depositId}`);
+
+  depositRecord.depositId = parseInt(depositId.toString());
+  depositRecord.amount = (amount as Balance).toBigInt();
+  depositRecord.startTime = new Date(parseInt(startTime.toString()));
+  depositRecord.expireTime = new Date(parseInt(expireTime.toString()));
+  depositRecord.reward = (reward as Balance).toBigInt();
+  depositRecord.accountId = accountAddress;
+  depositRecord.penalty = undefined;
+  depositRecord.isEarlyClaimed = false;
+  depositRecord.createdTime = fastEvent.timestamp;
+
+  return await depositRecord.save();
+}

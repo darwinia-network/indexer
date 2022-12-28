@@ -60,12 +60,11 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
 
 export async function handleEvent(event: SubstrateEvent): Promise<void> {
   const fastEvent = new FastEvent(event);
-  logger.info(`MY EVENT==========🚒 ${fastEvent.blockNumber} ${fastEvent.data.toJSON()}`);
-  /*const handler = indexHandler();
+  const handler = indexHandler();
   if (!handler) {
     return;
   }
-  await handler.handleEvent(fastEvent);*/
+  await handler.handleEvent(fastEvent);
 }
 
 export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {

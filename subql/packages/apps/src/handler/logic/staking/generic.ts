@@ -6,7 +6,7 @@ import {
   IndexHandler,
 } from "@darwinia/index-common";
 
-import { handlerStakingRewarded } from "./handlers";
+import {handleDeposit, handlerStakingRewarded} from "./handlers";
 
 export class GenericStakingHandler implements IndexHandler {
   private readonly chain: Chain;
@@ -31,6 +31,8 @@ export class GenericStakingHandler implements IndexHandler {
       (method === "Reward" || method === "Rewarded")
     ) {
       await handlerStakingRewarded(event.raw);
+    } else if(section === "deposit" && method === "DepositCreated") {
+      await handleDeposit(event);
     }
   }
 }
