@@ -16,22 +16,16 @@ type StakingRewarded @entity {
 }
 
 
-type Deposit @entity {
-  id: ID! #account address, deposit owner
-  records: [DepositRecord] @derivedFrom(field: "account")
+type StakingRecord @entity {
+  id: ID! #staker account address
+  totalReward: BigInt!
+  rewards: [StakingReward] @derivedFrom(field: "staker")
 }
 
-
-type DepositRecord @entity {
-  id: ID! # accountAddress-depositId
-  depositId: Int!
+type StakingReward @entity {
+  id: ID! # blockNumber-eventIndex
+  blockTime: Date!
+  blockNumber: Int!
+  staker: StakingRecord!
   amount: BigInt!
-  startTime: Date!
-  expiredTime: Date!
-  reward: BigInt!
-  account: Deposit! #deposit owner
-  blockNumber: Int! #block number this deposit was made
-  createdTime: Date!
-  penalty: BigInt
-  claimTime: Date
 }

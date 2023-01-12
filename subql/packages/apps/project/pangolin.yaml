@@ -13,7 +13,7 @@ repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: "0xdb1665732758a8aa572d5ce1f1361e5e87287c869008d8e58d1af5777587b532"
+  chainId: "0x852d02d5b202557603ff6783e92c8e6d02057957a87c854a55023149165f6af8"
   endpoint: "ws://g1.dev.darwinia.network:20000"
   # dictionary: "https://api.subquery.network/sq/darwinia-network/pangolin-dictionary"
 dataSources:
@@ -42,20 +42,10 @@ dataSources:
 #            method: Rewarded
 
 
-        ################# Deposit Events Start Here #################
+        ################# Staking Events Start Here #################
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: deposit
-            method: DepositCreated
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: deposit
-            method: DepositClaimed
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: deposit
-            method: DepositClaimedWithPenalty
-        ################# Deposit Events End Here #################
+            module: staking
+            method: Payout
+        ################# Staking Events End Here #################

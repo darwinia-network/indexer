@@ -50,12 +50,12 @@ function indexHandler(): IndexHandler | undefined {
 }
 
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
-  /*const fastBlock = new FastBlock(block);
+  const fastBlock = new FastBlock(block);
   const handler = indexHandler();
   if (!handler) {
     return;
   }
-  await handler.handleBlock(fastBlock);*/
+  await handler.handleBlock(fastBlock);
 }
 
 export async function handleEvent(event: SubstrateEvent): Promise<void> {
@@ -68,12 +68,12 @@ export async function handleEvent(event: SubstrateEvent): Promise<void> {
 }
 
 export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
-  /*const fastExtrinsic = new FastExtrinsic(extrinsic);
+  const fastExtrinsic = new FastExtrinsic(extrinsic);
   const handler = indexHandler();
   if (!handler) {
     return;
   }
-  await handler.handleCall(fastExtrinsic);*/
+  await handler.handleCall(fastExtrinsic);
 }
 
 
