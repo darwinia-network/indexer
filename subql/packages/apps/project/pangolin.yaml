@@ -13,7 +13,7 @@ repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: "0x852d02d5b202557603ff6783e92c8e6d02057957a87c854a55023149165f6af8"
+  chainId: "0x000d71ad098f978e70470754730f182dd9bf942358578f34d345a982baecb371"
   endpoint: "ws://g1.dev.darwinia.network:20000"
   # dictionary: "https://api.subquery.network/sq/darwinia-network/pangolin-dictionary"
 dataSources:
