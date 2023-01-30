@@ -42,7 +42,7 @@ export const handlerStakingReward = async (
   fastEvent: FastEvent
 ): Promise<void> => {
 
-  const [paramStakerAccount, paramAmount] = fastEvent.data
+  const [paramStakerAccount, paramAmount] = fastEvent.data;
 
   const amount = (paramAmount as Balance).toBigInt();
   const accountAddress = (paramStakerAccount as AccountId).toString();

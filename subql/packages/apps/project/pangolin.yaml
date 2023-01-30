@@ -49,3 +49,11 @@ dataSources:
             module: staking
             method: Payout
         ################# Staking Events End Here #################
+
+        ################# Account Migration Events Start Here #################
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: accountMigration
+            method: Migrated
+        ################# Account Migration Events End Here #################
