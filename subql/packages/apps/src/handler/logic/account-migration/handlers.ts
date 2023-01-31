@@ -5,7 +5,7 @@ import {AccountMigration, DestinationAccount} from "../../../types";
 export const handleAccountMigration = async (
   fastEvent: FastEvent
 ): Promise<void> => {
-  const { block } = fastEvent;
+  const { block, extrinsicHash, timestamp, blockNumber } = fastEvent;
   const [from, to] = fastEvent.data;
   const sourceAccount = from.toString();
   const destinationAccount = to.toString();
@@ -14,6 +14,9 @@ export const handleAccountMigration = async (
   const accountMigration = new AccountMigration(sourceAccount);
   accountMigration.parentHash = parentHash;
   accountMigration.destination = destinationAccount;
+  accountMigration.transactionHash = extrinsicHash;
+  accountMigration.blockNumber = blockNumber;
+  accountMigration.blockTime = timestamp;
   await accountMigration.save();
 
   const destination = new DestinationAccount(destinationAccount);
