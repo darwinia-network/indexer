@@ -31,6 +31,7 @@ types:
   Common:
     amount: Balance
   DepositId: U256
+  DispatchErrorModule: DispatchErrorModuleU8
   EcdsaAddress: EthereumAddress
   EcdsaMessage: H256
   EcdsaSignature: "[u8; 65; EcdsaSignature]"
