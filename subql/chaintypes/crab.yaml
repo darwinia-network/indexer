@@ -31,6 +31,7 @@ types:
   Common:
     amount: Balance
   DepositId: U256
+  DispatchErrorModule: DispatchErrorModuleU8
   EcdsaAddress: EthereumAddress
   EcdsaMessage: H256
   EcdsaSignature: "[u8; 65; EcdsaSignature]"
@@ -109,6 +110,7 @@ types:
       Common: Common
       Staking: StakingLock
   LogEntry: "{}"
+  Lookup315: "Transaction"
   MMRProof:
     memberLeafIndex: u64
     lastLeafIndex: u64
@@ -245,6 +247,19 @@ types:
     expireTime: Compact<TsInMs>
   TokenMessageId: "[u8; 16; TokenMessageId]"
   TransactionOutcome: "{}"
+  Transaction:
+    nonce: "U256"
+    gasPrice: "U256"
+    gasLimit: "U256"
+    action: "TransactionAction"
+    value: "U256"
+    input: "Vec<u8>"
+    signature: "TransactionSignature"
+  TransactionAction:
+    _enum:
+      Call: "H160"
+      Create: "Null"
+  TransactionSignature: "{}"
   TreasuryProposal:
     proposer: AccountId
     beneficiary: AccountId
