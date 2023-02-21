@@ -13,11 +13,9 @@ repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: "0x1fe062d52429523226af0570f59dcc19fa0b0b841377d9f530b618deedf2eef5"
-  endpoint: "wss://pangoro-rpc.darwinia.network"
+  chainId: "0xe4a2b9b82ae6ed45dd421d0a0440ff29024b3ce8d4cf4d709d6577cb0ef2847b"
+  endpoint: "ws://g1.dev.darwinia.network:20000"
   # dictionary: "https://api.subquery.network/sq/darwinia-network/pangoro-dictionary"
-  chaintypes:
-    file: chaintypes/pangoro.yaml
 dataSources:
   - name: main
     kind: substrate/Runtime
@@ -32,16 +30,36 @@ dataSources:
           kind: substrate/CallHandler
 
         ################# Staking Event #################
+#        - handler: handleEvent
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Reward
+#        - handler: handleEvent
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Rewarded
+
+
+        ################# Staking Events Start Here #################
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: staking
-            method: Reward
+            method: Payout
+        ################# Staking Events End Here #################
+
+        ################# Account Migration Events Start Here #################
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: staking
-            method: Rewarded
+            module: accountMigration
+            method: Migrated
+        ################# Account Migration Events End Here #################
+
+
+
 
         ################# Fee Market Event #################
         # Order Create
