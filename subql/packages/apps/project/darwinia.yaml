@@ -15,9 +15,9 @@ schema:
 network:
   chainId: "0x729cb8f2cf428adcf81fe69610edda32c5711b2ff17de747e8604a3587021db8"
   endpoint: "wss://rpc.darwinia.network"
-#  dictionary: "https://api.subquery.network/sq/darwinia-network/darwinia-dictionary"
-#  chaintypes:
-#    file: chaintypes/darwinia.yaml
+  dictionary: "https://api.subquery.network/sq/darwinia-network/darwinia-dictionary"
+  chaintypes:
+    file: chaintypes/darwinia.yaml
 dataSources:
   - name: main
     kind: substrate/Runtime
