@@ -3,20 +3,13 @@
     "generic"
   ],
   "special": {
-    "darwinia": ["bridge-ethv1", "bridge-ethv2", "bridge-s2s"],
+    "darwinia": ["bridge-ethv2", "bridge-s2s"],
     "crab": ["bridge-s2s"],
     "crab-parachain": ["bridge-s2s"],
     "pangoro": ["bridge-ethv2" ,"bridge-s2s"],
-    "pangolin": ["bridge-ethv1", "bridge-s2s"],
-    "pangolin-parachain": ["bridge-s2s"],
+    "pangolin": ["bridge-s2s"],
     "kusama": ["bridge-s2s", "candidate-included"],
     "rococo": ["bridge-s2s", "candidate-included"],
-    "moonbase": ["bridge-s2s", "candidate-included"],
-    "pangolin-parachainalpha": ["bridge-s2s"],
-
-    "dev-darwinia": ["bridge-s2s", "bridge-ethv2"],
-    "dev-crab": ["bridge-s2s"],
-    "dev-kusama": ["bridge-s2s", "candidate-included"],
-    "dev-polkadot": ["bridge-s2s", "candidate-included"]
+    "moonbase": ["bridge-s2s", "candidate-included"]
   }
 }
