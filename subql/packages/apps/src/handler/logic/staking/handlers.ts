@@ -44,8 +44,8 @@ export const handlerStakingReward = async (
 
   const [paramStakerAccount, paramAmount] = fastEvent.data;
 
-  const amount = (paramAmount as Balance).toBigInt();
-  const accountAddress = (paramStakerAccount as AccountId).toString();
+  const amount = (paramAmount as unknown as Balance).toBigInt();
+  const accountAddress = (paramStakerAccount as unknown as AccountId).toString();
 
   const blockTime = fastEvent.block.timestamp;
   const blockNumber = fastEvent.blockNumber;
