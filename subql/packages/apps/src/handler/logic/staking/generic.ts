@@ -30,6 +30,7 @@ export class GenericStakingHandler implements IndexHandler {
       section === "staking" &&
       (method === "Reward" || method === "Rewarded")
     ) {
+      // @ts-ignore
       await handlerStakingRewarded(event.raw);
     } else if(section === "staking" && method === "Payout") {
       await handlerStakingReward(event);

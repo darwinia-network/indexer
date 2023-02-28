@@ -6,7 +6,6 @@ import {
   DarwiniaHandler,
   KusamaHandler,
   PangolinHandler,
-  PangolinParachainHandler,
   PangoroHandler,
   RococoHandler,
 } from "../handler/chain"
@@ -35,8 +34,6 @@ function indexHandler(): IndexHandler | undefined {
       return new PangolinHandler();
     case Chain.Pangoro:
       return new PangoroHandler();
-    case Chain.PangolinParachain:
-      return new PangolinParachainHandler();
     case Chain.CrabParachain:
       return new CrabParachainHandler();
     case Chain.Kusama:
@@ -50,6 +47,7 @@ function indexHandler(): IndexHandler | undefined {
 }
 
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
+  // @ts-ignore
   const fastBlock = new FastBlock(block);
   const handler = indexHandler();
   if (!handler) {
@@ -59,6 +57,7 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
 }
 
 export async function handleEvent(event: SubstrateEvent): Promise<void> {
+  // @ts-ignore
   const fastEvent = new FastEvent(event);
   const handler = indexHandler();
   if (!handler) {
@@ -68,6 +67,7 @@ export async function handleEvent(event: SubstrateEvent): Promise<void> {
 }
 
 export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
+  // @ts-ignore
   const fastExtrinsic = new FastExtrinsic(extrinsic);
   const handler = indexHandler();
   if (!handler) {

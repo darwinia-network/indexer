@@ -4,23 +4,16 @@
     "crab",
     "pangolin",
     "pangoro",
-    "crab-parachain",
-    "pangolin-parachain"
+    "crab-parachain"
   ],
   "bridger": [
     "darwinia",
     "crab",
     "pangolin",
     "pangoro",
-    "pangolin-parachain",
     "crab-parachain",
     "kusama",
     "rococo",
-    "moonbase",
-    "pangolin-parachainalpha",
-    "dev-darwinia",
-    "dev-crab",
-    "dev-kusama",
-    "dev-polkadot"
+    "moonbase"
   ]
 }

@@ -171,11 +171,6 @@
   resolved "https://registry.yarnpkg.com/@cosmjs/utils/-/utils-0.28.13.tgz#2fd2844ec832d7833811e2ae1691305d09791a08"
   integrity sha512-dVeMBiyg+46x7XBZEfJK8yTihphbCFpjVYmLJVqmTsHfJwymQ65cpyW/C+V/LgWARGK8hWQ/aX9HM5Ao8QmMSg==
 
-"@darwinia/index-common@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@darwinia/index-common/-/index-common-1.0.6.tgz#e06be8995bfd563510aa9d7b71d0097a4f5d7bb9"
-  integrity sha512-1bmIvSixZyNEJUUmdbwsL67iidlFcYj3ctCnJtDNvMSSs7T1P6jgxbDDvFN8pP+wM/t8K1GxNJlDvVBzrFHCgA==
-
 "@ethersproject/abstract-provider@^5.6.1":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/abstract-provider/-/abstract-provider-5.7.0.tgz#b0a8550f88b6bf9d51f90e4795d48294630cb9ef"

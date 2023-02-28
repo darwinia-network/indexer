@@ -109,6 +109,7 @@ export function handleAssigned(event: Assigned): void {
     orderEntity.createBlockTime = assignedTime;
     orderEntity.createBlockNumber = blockNumber;
     orderEntity.createEventIndex = logIndex;
+    orderEntity.assignedRelayersFee = [orderFee];
     orderEntity.assignedRelayersAddress = [relayerAddress.toHexString()];
     orderEntity.save();
 

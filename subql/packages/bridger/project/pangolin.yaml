@@ -13,31 +13,26 @@ repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0x46720335bb0a5c81a29777a9ad81afcda36b70f34103ebea42fb55332a1b79b4'
+  chainId: '0xb067215e6232ffeed7cede2f92ac6b65f2121523fa221fc76f2e4430086c6b70'
   endpoint: 'wss://pangolin-rpc.darwinia.network'
-  # dictionary: 'https://api.subquery.network/sq/darwinia-network/pangolin-dictionary'
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 1
+    startBlock: 175210
     mapping:
       file: ./dist/index.js
       handlers:
         - handler: handleBlock
           kind: substrate/BlockHandler
-
         - handler: handleCall
           kind: substrate/CallHandler
 
-        ## bridge s2s -> common
-
+        ## bridge s2s
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
             module: grandpa
             method: NewAuthorities
-
-        ### bridge s2s -> pangoro
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
@@ -47,69 +42,3 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: bridgePangoroDispatch
-
-        ### bridge s2s -> pangolinparachain
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: bridgePangolinParachainMessages
-            method: MessageAccepted
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: bridgePangolinParachainDispatch
-
-        ### bridge s2s -> pangolinparachainalpha
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: bridgePangolinParachainAlphaMessages
-            method: MessageAccepted
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: bridgePangolinParachainAlphaDispatch
-
-        ## bridge ethv1
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ethereumRelayAuthorities
-            method: MMRRootSigned
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ethereumRelayAuthorities
-            method: ScheduleMMRRoot
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ethereumRelayAuthorities
-            method: ScheduleAuthoritiesChange
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ethereumRelayAuthorities
-            method: AuthoritiesChangeSigned
-        ### bridge ethv1 name changed
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaRelayAuthority
-            method: MMRRootSigned
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaRelayAuthority
-            method: ScheduleMMRRoot
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaRelayAuthority
-            method: ScheduleAuthoritiesChange
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaRelayAuthority
-            method: AuthoritiesChangeSigned
-
