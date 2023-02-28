@@ -7,7 +7,6 @@
     "pangolin": ["feemarket", "staking", "account-migration"],
     "pangoro": ["feemarket", "staking", "account-migration"],
     "crab": ["feemarket", "staking", "account-migration"],
-    "pangolin-parachain": ["feemarket", "staking"],
     "crab-parachain": ["feemarket", "staking"],
     "kusama": [],
     "rococo": []
