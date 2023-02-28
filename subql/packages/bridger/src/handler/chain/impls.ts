@@ -71,20 +71,6 @@ export class PangolinHandler extends BasicChainHandler {
     return [
       new GenericBlockHandler(Chain.Pangolin),
       new BridgeS2SHandler(Chain.Pangolin),
-      new BridgeEthV1Handler(Chain.Pangolin),
-    ];
-  }
-}
-
-export class PangolinParachainHandler extends BasicChainHandler {
-  constructor() {
-    super('pangolin-parachain');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.PangolinParachain),
-      new BridgeS2SHandler(Chain.PangolinParachain),
     ];
   }
 }
@@ -98,7 +84,6 @@ export class PangoroHandler extends BasicChainHandler {
     return [
       new GenericBlockHandler(Chain.Pangoro),
       new BridgeS2SHandler(Chain.Pangoro),
-      new BridgeEthV1Handler(Chain.Pangoro),
       new BridgeEthV2Handler(Chain.Pangoro),
     ];
   }
@@ -128,78 +113,6 @@ export class MoonbaseHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Moonbase),
       new BridgeS2SHandler(Chain.Moonbase),
       new CandidateIncludedHandler(Chain.Moonbase),
-    ];
-  }
-}
-
-export class PangolinParachainAlphaHandler extends BasicChainHandler {
-  constructor() {
-    super('pangolin-parachainalpha');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.PangolinParachainAlpha),
-      new BridgeS2SHandler(Chain.PangolinParachainAlpha),
-    ];
-  }
-}
-
-
-// ############ dev
-
-
-export class DevDarwiniaHandler extends BasicChainHandler {
-  constructor() {
-    super('dev-darwinia');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.DevDarwinia),
-      new BridgeS2SHandler(Chain.DevDarwinia),
-      new BridgeEthV1Handler(Chain.DevDarwinia),
-    ];
-  }
-}
-
-export class DevCrabHandler extends BasicChainHandler {
-  constructor() {
-    super('dev-crab');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.DevCrab),
-      new BridgeS2SHandler(Chain.DevCrab),
-    ];
-  }
-}
-
-export class DevKusamaHandler extends BasicChainHandler {
-  constructor() {
-    super('dev-kusama');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.DevKusama),
-      new BridgeS2SHandler(Chain.DevKusama),
-      new CandidateIncludedHandler(Chain.DevKusama),
-    ];
-  }
-}
-
-export class DevPolkadotHandler extends BasicChainHandler {
-  constructor() {
-    super('dev-polkadot');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.DevPolkadot),
-      new BridgeS2SHandler(Chain.DevPolkadot),
-      new CandidateIncludedHandler(Chain.DevPolkadot),
     ];
   }
 }

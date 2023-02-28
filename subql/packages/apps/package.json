@@ -1,11 +1,12 @@
 {
   "name": "subql-apps",
-  "version": "0.0.1",
+  "version": "1.0.7",
   "description": "This SubQuery project can be use as a starting point for Rococo network",
   "main": "dist/index.js",
   "scripts": {
     "build": "node ../../scripts/build.js apps",
     "prepack": "rm -rf dist && npm build",
+    "postbuild": "../../scripts/redep.sh apps",
     "test": "jest",
     "publish": "node ../../scripts/publish.js apps"
   },

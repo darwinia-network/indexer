@@ -73,20 +73,6 @@ export class PangolinHandler extends BasicChainHandler {
   }
 }
 
-export class PangolinParachainHandler extends BasicChainHandler {
-  constructor() {
-    super('pangolin-parachain');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.PangolinParachain),
-      new GenericStakingHandler(Chain.PangolinParachain),
-      new GenericFeeMarketHandler(Chain.PangolinParachain),
-    ];
-  }
-}
-
 export class PangoroHandler extends BasicChainHandler {
   constructor() {
     super('pangoro');
