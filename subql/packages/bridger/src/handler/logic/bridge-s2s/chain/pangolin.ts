@@ -16,37 +16,11 @@ export class ChainPangolinEventHandler implements BridgeS2SEventHandler {
         }).store();
         return;
       }
-      case 'bridgePangolinParachainMessages:MessageAccepted': {
-        await new NeedRelayBlockStorage(event, BridgeS2SRelayBlockOrigin.BridgePangolinParachain, {
-          onDemandType: BridgeS2SOnDemandType.SendMessage,
-        }).store();
-        return;
-      }
-      case 'bridgePangolinParachainAlphaMessages:MessageAccepted': {
-        await new NeedRelayBlockStorage(event, BridgeS2SRelayBlockOrigin.BridgePangolinParachainAlpha, {
-          onDemandType: BridgeS2SOnDemandType.SendMessage,
-        }).store();
-        return;
-      }
     }
 
     // dispatch
     if (section === 'bridgePangoroDispatch') {
       await new NeedRelayBlockStorage(event, BridgeS2SRelayBlockOrigin.BridgePangoro, {
-        onDemandType: BridgeS2SOnDemandType.Dispatch,
-        additional: method,
-      }).store();
-      return;
-    }
-    if (section === 'bridgePangolinParachainDispatch') {
-      await new NeedRelayBlockStorage(event, BridgeS2SRelayBlockOrigin.BridgePangolinParachain, {
-        onDemandType: BridgeS2SOnDemandType.Dispatch,
-        additional: method,
-      }).store();
-      return;
-    }
-    if (section === 'bridgePangolinParachainAlphaDispatch') {
-      await new NeedRelayBlockStorage(event, BridgeS2SRelayBlockOrigin.BridgePangolinParachainAlpha, {
         onDemandType: BridgeS2SOnDemandType.Dispatch,
         additional: method,
       }).store();

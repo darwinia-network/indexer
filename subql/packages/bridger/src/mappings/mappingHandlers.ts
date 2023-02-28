@@ -3,12 +3,11 @@ import {activeChain, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} f
 import {
   CrabHandler,
   CrabParachainHandler,
-  DarwiniaHandler, DevDarwiniaHandler, DevCrabHandler, DevKusamaHandler,
+  DarwiniaHandler,
   KusamaHandler, MoonbaseHandler,
-  PangolinHandler, PangolinParachainAlphaHandler,
-  PangolinParachainHandler,
+  PangolinHandler,
   PangoroHandler,
-  RococoHandler, DevPolkadotHandler,
+  RococoHandler,
 } from "../handler/chain"
 import * as _env from "../_env"
 
@@ -35,8 +34,6 @@ function indexHandler(): IndexHandler | undefined {
       return new PangolinHandler();
     case Chain.Pangoro:
       return new PangoroHandler();
-    case Chain.PangolinParachain:
-      return new PangolinParachainHandler();
     case Chain.CrabParachain:
       return new CrabParachainHandler();
     case Chain.Kusama:
@@ -45,16 +42,6 @@ function indexHandler(): IndexHandler | undefined {
       return new RococoHandler();
     case Chain.Moonbase:
       return new MoonbaseHandler();
-    case Chain.PangolinParachainAlpha:
-      return new PangolinParachainAlphaHandler();
-    case Chain.DevDarwinia:
-      return new DevDarwiniaHandler();
-    case Chain.DevCrab:
-      return new DevCrabHandler();
-    case Chain.DevKusama:
-      return new DevKusamaHandler();
-    case Chain.DevPolkadot:
-      return new DevPolkadotHandler();
     default:
       logger.warn(`Can not support current chain: ${chain}`);
       return;
@@ -62,6 +49,7 @@ function indexHandler(): IndexHandler | undefined {
 }
 
 export async function handleBlock(block: SubstrateBlock): Promise<void> {
+  // @ts-ignore
   const fastBlock = new FastBlock(block);
   const handler = indexHandler();
   if (!handler) {
@@ -71,6 +59,7 @@ export async function handleBlock(block: SubstrateBlock): Promise<void> {
 }
 
 export async function handleEvent(event: SubstrateEvent): Promise<void> {
+  // @ts-ignore
   const fastEvent = new FastEvent(event);
   const handler = indexHandler();
   if (!handler) {
@@ -80,6 +69,7 @@ export async function handleEvent(event: SubstrateEvent): Promise<void> {
 }
 
 export async function handleCall(extrinsic: SubstrateExtrinsic): Promise<void> {
+  // @ts-ignore
   const fastExtrinsic = new FastExtrinsic(extrinsic);
   const handler = indexHandler();
   if (!handler) {

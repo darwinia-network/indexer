@@ -1,9 +1,10 @@
 {
   "name": "subql",
-  "version": "0.0.1",
+  "version": "1.0.7",
   "description": "subql index",
   "author": "Darwinia Network",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "boot": "yarn && lerna bootstrap",
     "build:common": "cd common && yarn && yarn build",

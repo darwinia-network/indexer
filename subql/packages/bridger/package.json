@@ -1,6 +1,6 @@
 {
   "name": "subql-bridger",
-  "version": "0.0.1",
+  "version": "1.0.7",
   "description": "This SubQuery project can be use as a starting point for Rococo network",
   "main": "dist/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   ],
   "author": "Darwinia Network",
   "dependencies": {
-    "@darwinia/index-common": "^1.0.6"
+    "@darwinia/index-common": "1.0.7"
   },
   "devDependencies": {
     "@polkadot/api": "^9",
