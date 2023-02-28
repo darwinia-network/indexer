@@ -13,9 +13,8 @@ repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0x1fe062d52429523226af0570f59dcc19fa0b0b841377d9f530b618deedf2eef5'
+  chainId: 'TODO: UPDATE ME'
   endpoint: 'wss://pangoro-rpc.darwinia.network'
-  # dictionary: 'https://api.subquery.network/sq/darwinia-network/pangoro-dictionary'
 dataSources:
   - name: main
     kind: substrate/Runtime
@@ -25,7 +24,6 @@ dataSources:
       handlers:
         - handler: handleBlock
           kind: substrate/BlockHandler
-
         - handler: handleCall
           kind: substrate/CallHandler
 
@@ -44,25 +42,3 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: bridgePangolinDispatch
-
-        ## bridge ethv2
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaAuthority
-            method: CollectingNewMessageRootSignatures
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaAuthority
-            method: CollectedEnoughNewMessageRootSignatures
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaAuthority
-            method: CollectingAuthoritiesChangeSignatures
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: ecdsaAuthority
-            method: CollectedEnoughAuthoritiesChangeSignatures
