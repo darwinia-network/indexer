@@ -32,6 +32,7 @@ export const dispatch = async (
       if (
         marketApiSections[source][destination].some((item) => item === section)
       ) {
+        // @ts-ignore
         await handler(event.raw, destination);
       }
     }

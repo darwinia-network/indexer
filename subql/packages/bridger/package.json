@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node ../../scripts/build.js bridger",
     "prepack": "rm -rf dist && npm build",
+    "postbuild": "../../scripts/redep.sh bridger",
     "test": "jest",
     "publish": "node ../../scripts/publish.js bridger"
   },

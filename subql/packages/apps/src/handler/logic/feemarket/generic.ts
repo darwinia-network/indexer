@@ -32,7 +32,9 @@ export class GenericFeeMarketHandler implements IndexHandler {
     const destinations = getDestinations();
 
     for (const destination of destinations) {
+      // @ts-ignore
       await handleCheckOutOfSlot(block.raw, destination);
+      // @ts-ignore
       await handleFeeHistory(block.raw, destination);
     }
   }

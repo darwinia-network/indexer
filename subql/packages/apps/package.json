@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node ../../scripts/build.js apps",
     "prepack": "rm -rf dist && npm build",
+    "postbuild": "../../scripts/redep.sh apps",
     "test": "jest",
     "publish": "node ../../scripts/publish.js apps"
   },
