@@ -6,9 +6,9 @@ import {
   IndexHandler,
 } from "@darwinia/index-common";
 
-import {handlerStakingReward, handlerStakingRewarded} from "./handlers";
+import {handleAccountMigration} from "./handlers";
 
-export class GenericStakingHandler implements IndexHandler {
+export class GenericAccountMigrationHandler implements IndexHandler {
   private readonly chain: Chain;
 
   constructor(chain: Chain) {
@@ -26,14 +26,8 @@ export class GenericStakingHandler implements IndexHandler {
   async handleEvent(event: FastEvent): Promise<void> {
     const { section, method } = event;
 
-    if (
-      section === "staking" &&
-      (method === "Reward" || method === "Rewarded")
-    ) {
-      // @ts-ignore
-      await handlerStakingRewarded(event.raw);
-    } else if(section === "staking" && method === "Payout") {
-      await handlerStakingReward(event);
+    if(section === "accountMigration" && method === "Migrated") {
+      await handleAccountMigration(event);
     }
   }
 }

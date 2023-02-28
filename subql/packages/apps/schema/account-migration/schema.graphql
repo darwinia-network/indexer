@@ -1,0 +1,14 @@
+type AccountMigration @entity {
+  id: ID! # the account that is migrated
+  destination: String
+  parentHash: String
+  transactionHash: String
+  blockTime: Date!
+  blockNumber: Int!
+}
+
+type DestinationAccount @entity {
+  id: ID! # account migration destination
+  source: String!
+}
+

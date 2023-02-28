@@ -13,11 +13,9 @@ repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: "0x46720335bb0a5c81a29777a9ad81afcda36b70f34103ebea42fb55332a1b79b4"
-  endpoint: "wss://pangolin-rpc.darwinia.network"
+  chainId: "0xb067215e6232ffeed7cede2f92ac6b65f2121523fa221fc76f2e4430086c6b70"
+  endpoint: "wss://pangolin-rpc.darwinia.network/"
   # dictionary: "https://api.subquery.network/sq/darwinia-network/pangolin-dictionary"
-  chaintypes:
-    file: chaintypes/pangolin.yaml
 dataSources:
   - name: main
     kind: substrate/Runtime
@@ -32,40 +30,30 @@ dataSources:
           kind: substrate/CallHandler
 
         ################# Staking Event #################
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Reward
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Rewarded
+#        - handler: handleEvent
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Reward
+#        - handler: handleEvent
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Rewarded
 
-        ################# Fee Market Event #################
-        # Order Create
+
+        ################# Staking Events Start Here #################
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            method: OrderCreated
-        # Order Reward
+            module: staking
+            method: Payout
+        ################# Staking Events End Here #################
+
+        ################# Account Migration Events Start Here #################
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            method: OrderReward
-        # Order Slash
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            method: FeeMarketSlash
-        # Quote Update
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            method: UpdateRelayFee
-        # Quote Init
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            method: Enroll
+            module: accountMigration
+            method: Migrated
+        ################# Account Migration Events End Here #################

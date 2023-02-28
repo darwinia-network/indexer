@@ -14,3 +14,18 @@ type StakingRewarded @entity {
   stash: StakingStash!
   amount: BigInt!
 }
+
+
+type StakingRecord @entity {
+  id: ID! #staker account address
+  totalReward: BigInt!
+  rewards: [StakingReward] @derivedFrom(field: "staker")
+}
+
+type StakingReward @entity {
+  id: ID! # blockNumber-eventIndex
+  blockTime: Date!
+  blockNumber: Int!
+  staker: StakingRecord!
+  amount: BigInt!
+}
