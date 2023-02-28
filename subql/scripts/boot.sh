@@ -5,6 +5,12 @@ BIN_PATH=$(cd "$(dirname "$0")"; pwd -P)
 WORK_PATH=${BIN_PATH}/../
 
 
+trap_ctrlc () {
+  docker-compose rm -f
+}
+
+trap "trap_ctrlc" 2
+
 for ITEM in $(ls ${WORK_PATH}/packages); do
   DEP_INDEX_COMMON=${WORK_PATH}/packages/${ITEM}/node_modules/@darwinia/index-common
   rm -rf ${DEP_INDEX_COMMON}
@@ -12,4 +18,5 @@ for ITEM in $(ls ${WORK_PATH}/packages); do
 done
 
 cd ${WORK_PATH}/packages/$1
+
 docker-compose up
