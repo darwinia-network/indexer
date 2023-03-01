@@ -13,9 +13,8 @@ repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: "0xbcbb2736e8520389dcf0971600c7406a0af75b6e50b89ad151c788c6d2971230"
-  endpoint: "ws://g1.dev.darwinia.network:20000"
-  # dictionary: "https://api.subquery.network/sq/darwinia-network/pangoro-dictionary"
+  chainId: "0xaaa8b33b723b30b44e45e4e6c01936cc92e7559b4184fb0cee2853d55610fcbf"
+  endpoint: "wss://pangoro-rpc.darwinia.network"
 dataSources:
   - name: main
     kind: substrate/Runtime
