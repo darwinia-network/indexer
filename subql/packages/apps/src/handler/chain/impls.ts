@@ -16,7 +16,6 @@ export class CrabHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Crab),
       new GenericStakingHandler(Chain.Crab),
       new GenericFeeMarketHandler(Chain.Crab),
-      new GenericAccountMigrationHandler(Chain.Crab),
     ];
   }
 }
@@ -31,7 +30,6 @@ export class CrabParachainHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.CrabParachain),
       new GenericStakingHandler(Chain.CrabParachain),
       new GenericFeeMarketHandler(Chain.CrabParachain),
-      new GenericAccountMigrationHandler(Chain.CrabParachain)
     ];
   }
 }
@@ -46,7 +44,6 @@ export class DarwiniaHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Darwinia),
       new GenericStakingHandler(Chain.Darwinia),
       new GenericFeeMarketHandler(Chain.Darwinia),
-      new GenericAccountMigrationHandler(Chain.Darwinia)
     ];
   }
 }
@@ -73,7 +70,7 @@ export class PangolinHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Pangolin),
       new GenericStakingHandler(Chain.Pangolin),
       new GenericFeeMarketHandler(Chain.Pangolin),
-      new GenericAccountMigrationHandler(Chain.Pangolin)
+      new GenericAccountMigrationHandler(Chain.Pangolin),
     ];
   }
 }
@@ -88,7 +85,7 @@ export class PangoroHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Pangoro),
       new GenericStakingHandler(Chain.Pangoro),
       new GenericFeeMarketHandler(Chain.Pangoro),
-      new GenericAccountMigrationHandler(Chain.Pangoro)
+      new GenericAccountMigrationHandler(Chain.Pangoro),
     ];
   }
 }
