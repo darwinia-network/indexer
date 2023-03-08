@@ -70,11 +70,11 @@ dataSources:
             method: Enroll
 
         ################# Staking Events Start Here #################
-          - handler: handleEvent
-            kind: substrate/EventHandler
-            filter:
-              module: staking
-              method: Payout
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: staking
+            method: Payout
         ################# Staking Events End Here #################
 
         ################# Account Migration Events Start Here #################
