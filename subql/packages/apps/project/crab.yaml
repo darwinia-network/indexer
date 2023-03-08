@@ -13,9 +13,8 @@ repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: "0x34f61bfda344b3fad3c3e38832a91448b3c613b199eb23e5110a635d71c13c65"
-  endpoint: "wss://crab-rpc.darwinia.network"
-  dictionary: "https://api.subquery.network/sq/darwinia-network/crab-dictionary"
+  chainId: "0xe495dfe131d2cf94f9e8055f1039a0604bcb11b4325c33d54195643d5a587837"
+  endpoint: "ws://g1.dev.darwinia.network:20000"
 dataSources:
   - name: main
     kind: substrate/Runtime
