@@ -6,7 +6,7 @@
     "darwinia": ["feemarket", "staking"],
     "pangolin": ["feemarket", "staking", "account-migration"],
     "pangoro": ["feemarket", "staking", "account-migration"],
-    "crab": ["feemarket", "staking"],
+    "crab": ["feemarket", "staking", "account-migration"],
     "crab-parachain": ["feemarket", "staking"],
     "kusama": [],
     "rococo": []

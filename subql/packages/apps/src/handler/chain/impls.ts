@@ -16,6 +16,7 @@ export class CrabHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Crab),
       new GenericStakingHandler(Chain.Crab),
       new GenericFeeMarketHandler(Chain.Crab),
+      new GenericAccountMigrationHandler(Chain.Crab),
     ];
   }
 }
