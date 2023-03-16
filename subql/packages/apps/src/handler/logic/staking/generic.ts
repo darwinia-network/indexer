@@ -32,7 +32,7 @@ export class GenericStakingHandler implements IndexHandler {
     ) {
       // @ts-ignore
       await handlerStakingRewarded(event.raw);
-    } else if(section === "staking" && method === "Payout") {
+    } else if(section === "darwiniaStaking" && method === "Payout") {
       await handlerStakingReward(event);
     }
   }

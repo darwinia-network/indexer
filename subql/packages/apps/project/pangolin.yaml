@@ -45,7 +45,7 @@ dataSources:
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: staking
+            module: darwiniaStaking
             method: Payout
         ################# Staking Events End Here #################
 
