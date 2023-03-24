@@ -71,6 +71,7 @@ export class PangolinHandler extends BasicChainHandler {
     return [
       new GenericBlockHandler(Chain.Pangolin),
       new BridgeS2SHandler(Chain.Pangolin),
+      new BridgeEthV2Handler(Chain.Pangolin),
     ];
   }
 }
