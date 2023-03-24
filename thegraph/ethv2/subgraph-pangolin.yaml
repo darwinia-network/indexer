@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: outbound
-    network: pangoro
+    network: pangolin
     source:
-      address: "0x2f6aE7fDbB7c0c613F7923Ddce3E5b71aFE71f78"
+      address: "0xaE18634E9a8Ab240Bf1a28b07Bf2A93264048983"
       abi: outbound
-      startBlock: 0
+      startBlock: 10000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
