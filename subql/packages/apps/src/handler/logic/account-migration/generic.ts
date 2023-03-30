@@ -6,7 +6,7 @@ import {
   IndexHandler,
 } from "@darwinia/index-common";
 
-import {handleAccountMigration} from "./handlers";
+import {handleAccountMigration, handleMultisigAccountMigration} from "./handlers";
 
 export class GenericAccountMigrationHandler implements IndexHandler {
   private readonly chain: Chain;
@@ -28,6 +28,8 @@ export class GenericAccountMigrationHandler implements IndexHandler {
 
     if(section === "accountMigration" && method === "Migrated") {
       await handleAccountMigration(event);
+    } else if(section === "accountMigration" && method === "MultisigMigrated") {
+      await handleMultisigAccountMigration(event);
     }
   }
 }

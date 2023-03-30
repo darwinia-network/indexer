@@ -18,7 +18,7 @@ network:
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 1
+    startBlock: 200640
     mapping:
       file: ./dist/index.js
       handlers:
@@ -55,6 +55,12 @@ dataSources:
           filter:
             module: accountMigration
             method: Migrated
+
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: accountMigration
+            method: MultisigMigrated
         ################# Account Migration Events End Here #################
 
 

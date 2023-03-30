@@ -1,6 +1,6 @@
 import {FastEvent} from "@darwinia/index-common";
 // @ts-ignore
-import {AccountMigration, DestinationAccount} from "../../../types";
+import {AccountMigration, DestinationAccount, DestinationParams, MultisigAccountMigration} from "../../../types";
 
 
 export const handleAccountMigration = async (
@@ -25,3 +25,15 @@ export const handleAccountMigration = async (
 
   return destination.save();
 };
+
+
+export const handleMultisigAccountMigration = async (fastEvent: FastEvent): Promise<void> => {
+  const { timestamp, blockNumber, data } = fastEvent;
+  const [from, params] = data;
+  const origin = from.toString();
+  const schema = new MultisigAccountMigration(origin);
+  schema.params = params as unknown as DestinationParams;
+  schema.blockTime = timestamp;
+  schema.blockNumber = blockNumber;
+  return schema.save();
+}
