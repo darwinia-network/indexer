@@ -26,3 +26,11 @@ type DestinationParams @jsonField {
   members: [String]!
 }
 
+
+type MultisigDestinationAccount @entity {
+  id: ID! # the account that is migrated
+  params: DestinationParams
+  blockTime: Date!
+  blockNumber: Int!
+}
+
