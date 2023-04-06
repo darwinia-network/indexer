@@ -83,4 +83,15 @@ dataSources:
           filter:
             module: accountMigration
             method: Migrated
+
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: accountMigration
+            method: MultisigMigrated
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: accountMigration
+            method: NewMultisigParamsNoted
         ################# Account Migration Events End Here #################
