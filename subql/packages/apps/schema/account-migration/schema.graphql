@@ -12,3 +12,25 @@ type DestinationAccount @entity {
   source: String!
 }
 
+
+type MultisigAccountMigration @entity {
+  id: ID! # the account that is migrated
+  params: DestinationParams
+  blockTime: Date!
+  blockNumber: Int!
+}
+
+type DestinationParams @jsonField {
+  to: String!
+  threshold: Int!
+  members: [String]!
+}
+
+
+type MultisigDestinationAccount @entity {
+  id: ID! # the account that is migrated
+  params: DestinationParams
+  blockTime: Date!
+  blockNumber: Int!
+}
+
