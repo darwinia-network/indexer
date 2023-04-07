@@ -20,7 +20,7 @@ dataSources:
     kind: substrate/Runtime
     # staking (Reward)   8179749
     # feemarket (Enroll) 8118033
-    startBlock: 1
+    startBlock: 193000
     mapping:
       file: ./dist/index.js
       handlers:
