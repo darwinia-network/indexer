@@ -14,13 +14,13 @@ schema:
   file: ./schema.graphql
 network:
   chainId: "0x729cb8f2cf428adcf81fe69610edda32c5711b2ff17de747e8604a3587021db8"
-  endpoint: "wss://rpc.darwinia.network"
+  endpoint: "ws://g1.dev.darwinia.network:20000"
 dataSources:
   - name: main
     kind: substrate/Runtime
     # staking (Reward)   6186547
     # feemarket (Enroll) 6157317
-    startBlock: 6157310
+    startBlock: 1
     mapping:
       file: ./dist/index.js
       handlers:
