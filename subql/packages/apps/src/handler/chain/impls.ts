@@ -45,6 +45,7 @@ export class DarwiniaHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Darwinia),
       new GenericStakingHandler(Chain.Darwinia),
       new GenericFeeMarketHandler(Chain.Darwinia),
+      new GenericAccountMigrationHandler(Chain.Darwinia),
     ];
   }
 }

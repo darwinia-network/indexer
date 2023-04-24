@@ -3,7 +3,7 @@
     "generic"
   ],
   "special": {
-    "darwinia": ["feemarket", "staking"],
+    "darwinia": ["feemarket", "staking", "account-migration"],
     "pangolin": ["feemarket", "staking", "account-migration"],
     "pangoro": ["feemarket", "staking", "account-migration"],
     "crab": ["feemarket", "staking", "account-migration"],

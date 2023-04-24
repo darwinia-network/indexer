@@ -13,17 +13,14 @@ repository: "https://github.com/darwinia-network/indexer"
 schema:
   file: ./schema.graphql
 network:
-  chainId: "0x729cb8f2cf428adcf81fe69610edda32c5711b2ff17de747e8604a3587021db8"
+  chainId: "0xf0b8924b12e8108550d28870bc03f7b45a947e1b2b9abf81bfb0b89ecb60570e"
   endpoint: "wss://rpc.darwinia.network"
-  dictionary: "https://api.subquery.network/sq/darwinia-network/darwinia-dictionary"
-  chaintypes:
-    file: chaintypes/darwinia.yaml
 dataSources:
   - name: main
     kind: substrate/Runtime
     # staking (Reward)   6186547
     # feemarket (Enroll) 6157317
-    startBlock: 6157310
+    startBlock: 1
     mapping:
       file: ./dist/index.js
       handlers:
@@ -32,17 +29,17 @@ dataSources:
         - handler: handleCall
           kind: substrate/CallHandler
 
-        ################# Staking Event #################
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Reward
-        - handler: handleEvent
-          kind: substrate/EventHandler
-          filter:
-            module: staking
-            method: Rewarded
+#        ################# Staking Event #################
+#        - handler: handleEvent
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Reward
+#        - handler: handleEvent
+#          kind: substrate/EventHandler
+#          filter:
+#            module: staking
+#            method: Rewarded
 
         ################# Fee Market Event #################
         # Order Create
@@ -70,3 +67,30 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             method: Enroll
+
+        ################# Staking Events Start Here #################
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: darwiniaStaking
+            method: Payout
+        ################# Staking Events End Here #################
+
+        ################# Account Migration Events Start Here #################
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: accountMigration
+            method: Migrated
+
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: accountMigration
+            method: MultisigMigrated
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: accountMigration
+            method: NewMultisigParamsNoted
+        ################# Account Migration Events End Here #################
