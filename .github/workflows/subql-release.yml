@@ -25,16 +25,10 @@ jobs:
           - crab
           - pangolin
           - pangoro
-          - pangolin-parachain
-          - crab-parachain
           - kusama
+          - polkadot
           - rococo
           - moonbase
-          - pangolin-parachainalpha
-          - dev-darwinia
-          - dev-crab
-          - dev-kusama
-          - dev-polkadot
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3

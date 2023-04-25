@@ -7,6 +7,10 @@ export const ALLOW_PARA_IDS_MAP = {
     // crab parachain
     2105,
   ],
+  polkadot: [
+    // darwinia parachain
+    2046,
+  ],
   rococo: [
     // pangolin parachain
     2105,

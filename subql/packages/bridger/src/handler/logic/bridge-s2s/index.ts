@@ -5,7 +5,6 @@ import {ChainCrabEventHandler} from "./chain/crab";
 import {ChainDarwiniaEventHandler} from "./chain/darwinia";
 import {ChainPangolinEventHandler} from "./chain/pangolin";
 import {ChainPangoroEventHandler} from "./chain/pangoro";
-import {ChainCrabParachainEventHandler} from "./chain/crab_parachain";
 import {ChainKusamaEventHandler} from "./chain/kusama";
 import {ChainRococoEventHandler} from "./chain/rococo";
 import {ChainMoonbaseEventHandler} from "./chain/moonbase";
@@ -46,9 +45,6 @@ export class BridgeS2SHandler implements IndexHandler {
         break;
       case Chain.Pangoro:
         handler = new ChainPangoroEventHandler();
-        break;
-      case Chain.CrabParachain:
-        handler = new ChainCrabParachainEventHandler();
         break;
       case Chain.Kusama:
         handler = new ChainKusamaEventHandler();
