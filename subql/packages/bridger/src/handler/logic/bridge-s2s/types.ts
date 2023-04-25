@@ -30,11 +30,8 @@ export enum BridgeS2SOnDemandType {
  */
 export enum BridgeS2SRelayBlockOrigin {
   Mandatory = 'mandatory',
-  BridgeCrabParachain = 'bridge-crab-parachain',
   BridgeDarwinia = 'bridge-darwinia',
   BridgeCrab = 'bridge-crab',
   BridgePangolin = 'bridge-pangolin',
   BridgePangoro = 'bridge-pangoro',
-  BridgePangolinParachain = 'bridge-pangolin-parachain',
-  BridgePangolinParachainAlpha = 'bridge-pangolin-parachainalpha',
 }

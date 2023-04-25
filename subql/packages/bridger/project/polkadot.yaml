@@ -8,32 +8,36 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: Crab parachain index
+description: Polkadot index
 repository: 'https://github.com/darwinia-network/indexer'
 schema:
   file: ./schema.graphql
 network:
-  chainId: '0xeac895d7768b17837a9c3a9f0280c01502c3ef40193df923490a0fa9c60ea076'
-  endpoint: 'wss://crab-parachain-rpc.darwinia.network'
+  chainId: '0x91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3'
+  endpoint: 'wss://rpc.polkadot.io'
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 1643119
+    startBlock: 15242604
     mapping:
       file: ./dist/index.js
       handlers:
         - handler: handleBlock
           kind: substrate/BlockHandler
+
         - handler: handleCall
           kind: substrate/CallHandler
 
-        ## bridge s2s
+        ## bridge s2s (parachain)
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgeCrabMessages
-            method: MessageAccepted
+            module: grandpa
+            method: NewAuthorities
+
         - handler: handleEvent
           kind: substrate/EventHandler
           filter:
-            module: bridgeCrabDispatch
+            module: paraInclusion
+            method: CandidateIncluded

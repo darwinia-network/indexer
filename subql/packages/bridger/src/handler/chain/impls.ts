@@ -20,19 +20,6 @@ export class CrabHandler extends BasicChainHandler {
   }
 }
 
-export class CrabParachainHandler extends BasicChainHandler {
-  constructor() {
-    super('crab-parachain');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.CrabParachain),
-      new BridgeS2SHandler(Chain.CrabParachain),
-    ];
-  }
-}
-
 export class DarwiniaHandler extends BasicChainHandler {
   constructor() {
     super('darwinia');
@@ -58,6 +45,20 @@ export class KusamaHandler extends BasicChainHandler {
       new GenericBlockHandler(Chain.Kusama),
       new BridgeS2SHandler(Chain.Kusama),
       new CandidateIncludedHandler(Chain.Kusama),
+    ];
+  }
+}
+
+export class PolkadotHandler extends BasicChainHandler {
+  constructor() {
+    super('polkadot');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.Polkadot),
+      new BridgeS2SHandler(Chain.Polkadot),
+      new CandidateIncludedHandler(Chain.Polkadot),
     ];
   }
 }

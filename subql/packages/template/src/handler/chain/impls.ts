@@ -16,18 +16,6 @@ export class CrabHandler extends BasicChainHandler {
   }
 }
 
-export class CrabParachainHandler extends BasicChainHandler {
-  constructor() {
-    super('crab-parachain');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.CrabParachain),
-    ];
-  }
-}
-
 export class DarwiniaHandler extends BasicChainHandler {
   constructor() {
     super('darwinia');
@@ -60,18 +48,6 @@ export class PangolinHandler extends BasicChainHandler {
   handlers(): Array<IndexHandler> {
     return [
       new GenericBlockHandler(Chain.Pangolin),
-    ];
-  }
-}
-
-export class PangolinParachainHandler extends BasicChainHandler {
-  constructor() {
-    super('pangolin-parachain');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.PangolinParachain),
     ];
   }
 }

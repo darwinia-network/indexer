@@ -2,11 +2,10 @@ import {SubstrateBlock, SubstrateEvent, SubstrateExtrinsic} from '@subql/types';
 import {activeChain, Chain, FastBlock, FastEvent, FastExtrinsic, IndexHandler} from "@darwinia/index-common";
 import {
   CrabHandler,
-  CrabParachainHandler,
   DarwiniaHandler,
   KusamaHandler, MoonbaseHandler,
   PangolinHandler,
-  PangoroHandler,
+  PangoroHandler, PolkadotHandler,
   RococoHandler,
 } from "../handler/chain"
 import * as _env from "../_env"
@@ -34,10 +33,10 @@ function indexHandler(): IndexHandler | undefined {
       return new PangolinHandler();
     case Chain.Pangoro:
       return new PangoroHandler();
-    case Chain.CrabParachain:
-      return new CrabParachainHandler();
     case Chain.Kusama:
       return new KusamaHandler();
+    case Chain.Polkadot:
+      return new PolkadotHandler();
     case Chain.Rococo:
       return new RococoHandler();
     case Chain.Moonbase:

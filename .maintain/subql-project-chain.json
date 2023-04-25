@@ -3,16 +3,15 @@
     "darwinia",
     "crab",
     "pangolin",
-    "pangoro",
-    "crab-parachain"
+    "pangoro"
   ],
   "bridger": [
     "darwinia",
     "crab",
     "pangolin",
     "pangoro",
-    "crab-parachain",
     "kusama",
+    "polkadot",
     "rococo",
     "moonbase"
   ]
