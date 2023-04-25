@@ -27,16 +27,18 @@ export function activeChain(envChain): Chain {
   }
   const lowercaseChainName = envChain.toLowerCase();
   switch (lowercaseChainName) {
-    case 'pangolin':
-      return Chain.Pangolin;
-    case 'pangoro':
-      return Chain.Pangoro;
     case 'darwinia':
       return Chain.Darwinia;
     case 'crab':
       return Chain.Crab;
     case 'kusama':
       return Chain.Kusama;
+    case 'polkadot':
+      return Chain.Polkadot;
+    case 'pangolin':
+      return Chain.Pangolin;
+    case 'pangoro':
+      return Chain.Pangoro;
     case 'rococo':
       return Chain.Rococo;
     case 'moonbase':
