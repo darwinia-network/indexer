@@ -21,20 +21,6 @@ export class CrabHandler extends BasicChainHandler {
   }
 }
 
-export class CrabParachainHandler extends BasicChainHandler {
-  constructor() {
-    super('crab-parachain');
-  }
-
-  handlers(): Array<IndexHandler> {
-    return [
-      new GenericBlockHandler(Chain.CrabParachain),
-      new GenericStakingHandler(Chain.CrabParachain),
-      new GenericFeeMarketHandler(Chain.CrabParachain),
-    ];
-  }
-}
-
 export class DarwiniaHandler extends BasicChainHandler {
   constructor() {
     super('darwinia');

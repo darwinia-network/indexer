@@ -23,9 +23,7 @@ export type FeeMarketApiSection =
   | "crabFeeMarket"
   | "darwiniaFeeMarket"
   | "pangolinFeeMarket"
-  | "pangoroFeeMarket"
-  | "crabParachainFeeMarket"
-  | "pangolinParachainFeeMarket";
+  | "pangoroFeeMarket";
 
 export type RewardData = {
   amount: Balance;
