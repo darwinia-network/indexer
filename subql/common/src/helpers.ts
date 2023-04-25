@@ -35,9 +35,6 @@ export function activeChain(envChain): Chain {
       return Chain.Darwinia;
     case 'crab':
       return Chain.Crab;
-    case 'crab-parachain':
-    case 'crabparachain':
-      return Chain.CrabParachain;
     case 'kusama':
       return Chain.Kusama;
     case 'rococo':
