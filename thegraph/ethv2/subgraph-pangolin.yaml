@@ -6,9 +6,9 @@ dataSources:
     name: outbound
     network: pangolin
     source:
-      address: "0xaE18634E9a8Ab240Bf1a28b07Bf2A93264048983"
+      address: "0xAbd165DE531d26c229F9E43747a8d683eAD54C6c"
       abi: outbound
-      startBlock: 10000
+      startBlock: 537200
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

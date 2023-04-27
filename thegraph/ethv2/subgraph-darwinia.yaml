@@ -6,9 +6,9 @@ dataSources:
     name: outbound
     network: darwinia
     source:
-      address: "0xcA3749C8C3aF04278D596a3fBe461481B6aa1b01"
+      address: "0x7e10D91862E7477C0FedE95D291f7101AE1Aec4d"
       abi: outbound
-      startBlock: 10469942
+      startBlock: 12366
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
