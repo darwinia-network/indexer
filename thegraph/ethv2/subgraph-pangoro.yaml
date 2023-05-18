@@ -1,0 +1,27 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: outbound
+    network: pangolin
+    source:
+      address: "0x4435E99c467fD48E3a4eBE1514De1ca7eEEed610"
+      abi: outbound
+      startBlock: 524382
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - MessageAccepted
+        - MessagesDelivered
+      abis:
+        - name: outbound
+          file: ./abis/outbound.json
+      eventHandlers:
+        - event: MessageAccepted(indexed uint64,address,address,bytes)
+          handler: handleMessageAccepted
+        - event: MessagesDelivered(indexed uint64,indexed uint64)
+          handler: handleMessagesDelivered
+      file: ./src/outbound.ts
