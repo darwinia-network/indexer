@@ -42,3 +42,26 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: bridgePangolinDispatch
+
+        ## bridge ethv2
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaAuthority
+            method: CollectingNewMessageRootSignatures
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaAuthority
+            method: CollectedEnoughNewMessageRootSignatures
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaAuthority
+            method: CollectingAuthoritiesChangeSignatures
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: ecdsaAuthority
+            method: CollectedEnoughAuthoritiesChangeSignatures
+
