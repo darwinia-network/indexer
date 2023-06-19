@@ -28,7 +28,7 @@ import { filter, isExist, ensureRelayer, ensureMarket } from "./utils";
 import {
   LANE_ID,
   FEEHISTORY_INTERVAL,
-  CHAIN_SMART_CHAIN_PANGOLIN,
+  CHAIN_PANGOLIN,
   STATUS_FINISHED,
   STATUS_INPROGRESS,
   ROLE_ASSIGNED,
@@ -41,7 +41,7 @@ import {
 } from "./config";
 
 const lane = LANE_ID;
-const destination = CHAIN_SMART_CHAIN_PANGOLIN; // marketEntityId
+const destination = CHAIN_PANGOLIN; // marketEntityId
 
 export function handleAssigned(event: Assigned): void {
   // params
