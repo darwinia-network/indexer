@@ -6,9 +6,9 @@ dataSources:
     name: Goerli
     network: goerli
     source:
-      address: "0xdb5E16A6E25ABF29dbe26e701D1DDCad03180E92"
+      address: "0x6c73B30a48Bb633DC353ed406384F73dcACcA5C3"
       abi: Goerli
-      startBlock: 7644330
+      startBlock: 8860448
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

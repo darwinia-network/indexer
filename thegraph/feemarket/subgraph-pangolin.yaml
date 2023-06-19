@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: Pangoro
-    network: pangoro
+    name: Pangolin
+    network: pangolin
     source:
-      address: "0x25ee4212CfA2DC29E6a5e4A857b9656E439259c9"
-      abi: Pangoro
+      address: "0x4DBdC9767F03dd078B5a1FC05053Dd0C071Cc005"
+      abi: Pangolin
       startBlock: 220280
     mapping:
       kind: ethereum/events
@@ -23,7 +23,7 @@ dataSources:
         - Order
         - OrderRelayer
       abis:
-        - name: Pangoro
+        - name: Pangolin
           file: ./abis/smartChain.json
       eventHandlers:
         - event: Assigned(indexed uint256,uint256,uint32,uint256)
@@ -54,4 +54,4 @@ dataSources:
           handler: handleWithdrawal
       blockHandlers:
         - handler: handleBlock
-      file: ./src/pangoro.ts
+      file: ./src/pangolin.ts

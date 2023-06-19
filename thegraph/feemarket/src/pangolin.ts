@@ -1,6 +1,6 @@
 import { BigInt, Address, ethereum } from "@graphprotocol/graph-ts";
 import {
-  Pangoro as Contract,
+  Pangolin as Contract,
   Assigned,
   AssignedExt,
   Delist,
@@ -14,7 +14,7 @@ import {
   Slash,
   UnLocked,
   Withdrawal
-} from "../generated/Pangoro/Pangoro";
+} from "../generated/Pangolin/Pangolin";
 import {
   Market as MarketEntity,
   Order as OrderEntity,
