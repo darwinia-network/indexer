@@ -14,7 +14,7 @@ schema:
   file: ./schema.graphql
 network:
   chainId: '0xf0b8924b12e8108550d28870bc03f7b45a947e1b2b9abf81bfb0b89ecb60570e'
-  endpoint: 'wss://rpc.darwinia.network'
+  endpoint: 'wss://darwinia-rpc.darwiniacommunitydao.xyz'
 dataSources:
   - name: main
     kind: substrate/Runtime
