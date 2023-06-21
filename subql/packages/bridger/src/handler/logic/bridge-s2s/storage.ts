@@ -5,7 +5,7 @@ import {FastBlock, FastEvent} from "@darwinia/index-common";
 import {BridgeS2SOnDemandType, BridgeS2SRelayBlockOrigin, BridgeS2SRelayBlockType} from "./types";
 // @ts-ignore
 import {JustificationMapping, NeedRelayBlock} from "../../../types";
-import {Justifications} from "@polkadot/types/interfaces/runtime/types";
+import {Justifications, FixedU64} from "@polkadot/types/interfaces/runtime/types";
 
 export class NeedRelayBlockStorage {
   private readonly event: FastEvent;
@@ -42,16 +42,16 @@ export class NeedRelayBlockStorage {
 
     if (_event.type == BridgeS2SRelayBlockType.OnDemand && this.onDemandType == BridgeS2SOnDemandType.SendMessage) {
       const data = this.event.data;
-      const [laneId, messageNonce] = data as unknown as [string, number];
+      const [laneId, messageNonce] = data as unknown as [string, FixedU64];
       _event.laneId = laneId.toString().replace('0x', '');
-      _event.messageNonce = messageNonce;
+      _event.messageNonce = messageNonce.toNumber();
     }
     if (_event.type == BridgeS2SRelayBlockType.OnDemand && this.onDemandType == BridgeS2SOnDemandType.Dispatch) {
       const data = this.event.data;
       const [chainId, bridgeMessageIdOf] = data as unknown as [string, any];
-      const [laneId, messageNonce] = bridgeMessageIdOf as unknown as [string, number];
+      const [laneId, messageNonce] = bridgeMessageIdOf as unknown as [string, FixedU64];
       _event.laneId = laneId.toString().replace('0x', '');
-      _event.messageNonce = messageNonce;
+      _event.messageNonce = messageNonce.toNumber();
     }
     if (_event.type == BridgeS2SRelayBlockType.Mandatory) {
       let justificationMapping = await JustificationMapping.get(block.number.toString());

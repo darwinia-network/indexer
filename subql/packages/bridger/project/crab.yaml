@@ -14,11 +14,12 @@ schema:
   file: ./schema.graphql
 network:
   chainId: '0x86e49c195aeae7c5c4a86ced251f1a28c67b3c35d8289c387ede1776cdd88b24'
-  endpoint: 'wss://crab.api.onfinality.io/public-ws'
+  endpoint: 'wss://crab-rpc.darwiniacommunitydao.xyz'
 dataSources:
   - name: main
     kind: substrate/Runtime
-    startBlock: 318542
+#    startBlock: 700000
+    startBlock: 690000
     mapping:
       file: ./dist/index.js
       handlers:
