@@ -13,10 +13,10 @@ export const BIG_MILLION = BigInt.fromI32(1000000);
 
 export const CHAIN_GOERLI = "Goerli";
 export const CHAIN_ETHEREUM = "Ethereum";
-export const CHAIN_SMART_CHAIN_CRAB = "Crab Smart Chain";
-export const CHAIN_SMART_CHAIN_DARWINIA = "Darwinia Smart Chain";
-export const CHAIN_SMART_CHAIN_PANGOLIN = "Pangolin Smart Chain";
-export const CHAIN_SMART_CHAIN_PANGORO = "Pangoro Smart Chain";
+export const CHAIN_CRAB = "Crab";
+export const CHAIN_DARWINIA = "Darwinia";
+export const CHAIN_PANGOLIN = "Pangolin";
+export const CHAIN_PANGORO = "Pangoro";
 
 export const STATUS_FINISHED = "Finished";
 export const STATUS_INPROGRESS = "InProgress";

@@ -6,9 +6,9 @@ dataSources:
     name: Darwinia
     network: darwinia
     source:
-      address: "0xcA927Df15afb7629b79dA4713a871190315c7409"
+      address: "0x9bd2F907B33E25126CD4e4342a75dE8F8eff76Bf"
       abi: Darwinia
-      startBlock: 10481650
+      startBlock: 12362
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

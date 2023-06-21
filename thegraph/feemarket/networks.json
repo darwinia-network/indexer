@@ -1,22 +1,22 @@
 {
   "ethereum": {
     "Ethereum": {
-      "address": "0xCD97185B7d05f8ea91d241C8dfD51a2Cc9c0547a"
+      "address": "0xC71593F6Cb1642DD95bd1330f7c0a59d9f66Db97"
     }
   },
   "goerli": {
     "Goerli": {
-      "address": "0xdb5E16A6E25ABF29dbe26e701D1DDCad03180E92"
+      "address": "0x6c73B30a48Bb633DC353ed406384F73dcACcA5C3"
     }
   },
   "darwinia": {
     "Darwinia": {
-      "address": "0xcA927Df15afb7629b79dA4713a871190315c7409"
+      "address": "0x9bd2F907B33E25126CD4e4342a75dE8F8eff76Bf"
     }
   },
-  "pangoro": {
-    "Pangoro": {
-      "address": "0x25ee4212CfA2DC29E6a5e4A857b9656E439259c9"
+  "pangolin": {
+    "Pangolin": {
+      "address": "0x4DBdC9767F03dd078B5a1FC05053Dd0C071Cc005"
     }
   }
 }
