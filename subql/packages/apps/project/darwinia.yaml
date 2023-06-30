@@ -18,8 +18,6 @@ network:
 dataSources:
   - name: main
     kind: substrate/Runtime
-    # staking (Reward)   6186547
-    # feemarket (Enroll) 6157317
     startBlock: 1
     mapping:
       file: ./dist/index.js
