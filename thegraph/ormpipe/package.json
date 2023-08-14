@@ -1,13 +1,13 @@
 {
-  "name": "ormpiple",
+  "name": "ormpipe",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ ormpiple",
-    "create-local": "graph create --node http://localhost:8020/ ormpiple",
-    "remove-local": "graph remove --node http://localhost:8020/ ormpiple",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 ormpiple",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ ormpipe-arbitrum-goerli",
+    "create-local": "graph create --node http://localhost:8020/ ormpipe-arbitrum-goerli",
+    "remove-local": "graph remove --node http://localhost:8020/ ormpipe-arbitrum-goerli",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 ormpipe-arbitrum-goerli",
     "test": "graph test"
   },
   "dependencies": {

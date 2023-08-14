@@ -21,3 +21,5 @@ _env.ts
 chain.json
 chain.ts
 build
+
+yarn.lock
