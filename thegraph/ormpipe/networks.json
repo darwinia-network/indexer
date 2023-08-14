@@ -6,6 +6,9 @@
     },
     "OrmpOracle": {
       "address": "0xd345Cc26e3685DA584AC9C38393F9f603B122EcF"
+    },
+    "OrmpChannel": {
+      "address": "0x12346a7b6aA35A2FD38941485c36A7c84B2936dB"
     }
   }
 }
