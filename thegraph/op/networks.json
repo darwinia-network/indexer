@@ -1,0 +1,14 @@
+{
+  "arbitrum-goerli": {
+    "OrmpChannel": {
+      "address": "0x12346a7b6aA35A2FD38941485c36A7c84B2936dB",
+      "startBlock": 33902183
+    },
+    "OrmpOracle": {
+      "address": "0xd345Cc26e3685DA584AC9C38393F9f603B122EcF"
+    },
+    "OrmpRelayer": {
+      "address": "0x8B7d10454367A324d4CbD8fd56ea64F87BD3b951"
+    }
+  }
+}
