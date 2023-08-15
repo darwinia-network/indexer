@@ -1,4 +1,4 @@
-type Assigned @entity(immutable: true) {
+type OrmpRelayerAssigned @entity(immutable: true) {
   id: Bytes!
   msgHash: Bytes! # bytes32
   fee: BigInt! # uint256
@@ -8,34 +8,15 @@ type Assigned @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-# type SetApproved @entity(immutable: true) {
-#   id: Bytes!
-#   operator: Bytes! # address
-#   approve: Boolean! # bool
-#   blockNumber: BigInt!
-#   blockTimestamp: BigInt!
-#   transactionHash: Bytes!
-# }
-
-# type SetDstConfig @entity(immutable: true) {
-#   id: Bytes!
-#   chainId: BigInt! # uint256
-#   baseGas: BigInt! # uint64
-#   gasPerByte: BigInt! # uint64
-#   blockNumber: BigInt!
-#   blockTimestamp: BigInt!
-#   transactionHash: Bytes!
-# }
-
-# type SetDstPrice @entity(immutable: true) {
-#   id: Bytes!
-#   chainId: BigInt! # uint256
-#   dstPriceRatio: BigInt! # uint128
-#   dstGasPriceInWei: BigInt! # uint128
-#   blockNumber: BigInt!
-#   blockTimestamp: BigInt!
-#   transactionHash: Bytes!
-# }
+type OrmpRelayerSetDstPrice @entity(immutable: true) {
+  id: Bytes!
+  chainId: BigInt! # uint256
+  dstPriceRatio: BigInt! # uint128
+  dstGasPriceInWei: BigInt! # uint128
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
 
 type OrmpOracleAssigned @entity(immutable: true) {
   id: Bytes!
@@ -46,25 +27,7 @@ type OrmpOracleAssigned @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type OrmpOracleSetApproved @entity(immutable: true) {
-  id: Bytes!
-  operator: Bytes! # address
-  approve: Boolean! # bool
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SetDapi @entity(immutable: true) {
-  id: Bytes!
-  chainId: BigInt! # uint256
-  dapi: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SetFee @entity(immutable: true) {
+type OrmpOracleSetFee @entity(immutable: true) {
   id: Bytes!
   chainId: BigInt! # uint256
   fee: BigInt! # uint256
@@ -72,6 +35,7 @@ type SetFee @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
 type MessageAccepted @entity(immutable: true) {
   id: Bytes!
   msgHash: Bytes! # bytes32
@@ -96,3 +60,6 @@ type MessageDispatched @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+## ---
+

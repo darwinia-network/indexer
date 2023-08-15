@@ -14,22 +14,16 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Assigned
-        # - SetApproved
-        # - SetDstConfig
-        # - SetDstPrice
+        - OrmpRelayerAssigned
+        - OrmpRelayerSetDstPrice
       abis:
         - name: OrmpRelayer
           file: ./abis/OrmpRelayer.json
       eventHandlers:
         - event: Assigned(indexed bytes32,uint256,bytes)
           handler: handleAssigned
-        # - event: SetApproved(address,bool)
-        #   handler: handleSetApproved
-        # - event: SetDstConfig(indexed uint256,uint64,uint64)
-        #   handler: handleSetDstConfig
-        # - event: SetDstPrice(indexed uint256,uint128,uint128)
-        #   handler: handleSetDstPrice
+        - event: SetDstPrice(indexed uint256,uint128,uint128)
+          handler: handleSetDstPrice
       file: ./src/ormp-relayer.ts
   - kind: ethereum
     name: OrmpOracle
@@ -44,19 +38,13 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - OrmpOracleAssigned
-        - OrmpOracleSetApproved
-        - SetDapi
-        - SetFee
+        - OrmpOracleSetFee
       abis:
         - name: OrmpOracle
           file: ./abis/OrmpOracle.json
       eventHandlers:
         - event: Assigned(indexed bytes32,uint256)
           handler: handleAssigned
-        - event: SetApproved(address,bool)
-          handler: handleSetApproved
-        - event: SetDapi(indexed uint256,address)
-          handler: handleSetDapi
         - event: SetFee(indexed uint256,uint256)
           handler: handleSetFee
       file: ./src/ormp-oracle.ts
