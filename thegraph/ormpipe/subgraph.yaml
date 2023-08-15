@@ -72,3 +72,4 @@ dataSources:
         - event: MessageDispatched(indexed bytes32,bool)
           handler: handleMessageDispatched
       file: ./src/ormp-channel.ts
+
