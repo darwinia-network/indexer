@@ -7,8 +7,6 @@ import {
   afterAll
 } from "matchstick-as/assembly/index"
 import { Bytes, BigInt, Address } from "@graphprotocol/graph-ts"
-import { Assigned } from "../generated/schema"
-import { Assigned as AssignedEvent } from "../generated/OrmpRelayer/OrmpRelayer"
 import { handleAssigned } from "../src/ormp-relayer"
 import { createAssignedEvent } from "./ormp-relayer-utils"
 

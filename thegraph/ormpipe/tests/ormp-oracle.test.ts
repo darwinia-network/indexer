@@ -7,8 +7,6 @@ import {
   afterAll
 } from "matchstick-as/assembly/index"
 import { Bytes, BigInt, Address } from "@graphprotocol/graph-ts"
-import { Assigned } from "../generated/schema"
-import { Assigned as AssignedEvent } from "../generated/OrmpOracle/OrmpOracle"
 import { handleAssigned } from "../src/ormp-oracle"
 import { createAssignedEvent } from "./ormp-oracle-utils"
 
