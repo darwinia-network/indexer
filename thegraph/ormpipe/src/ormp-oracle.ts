@@ -1,7 +1,5 @@
 import {
   Assigned as AssignedEvent,
-  SetApproved as SetApprovedEvent,
-  SetDapi as SetDapiEvent,
   SetFee as SetFeeEvent
 } from "../generated/OrmpOracle/OrmpOracle"
 import {OrmpOracleAssigned, OrmpOracleSetFee} from "../generated/schema"

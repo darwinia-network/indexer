@@ -1,7 +1,5 @@
 import {
   Assigned as AssignedEvent,
-  SetApproved as SetApprovedEvent,
-  SetDstConfig as SetDstConfigEvent,
   SetDstPrice as SetDstPriceEvent
 } from "../generated/OrmpRelayer/OrmpRelayer"
 import {
