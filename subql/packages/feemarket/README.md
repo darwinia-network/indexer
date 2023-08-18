@@ -7,10 +7,10 @@
 $ cd subql
 $ yarn boot
 $ yarn build:common
-$ yarn build:apps crab
+$ yarn build:feemarket crab
 
 # run docker
-$ cd packages/apps/
+$ cd packages/feemarket/
 $ docker-compose up
 ```
 

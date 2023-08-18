@@ -15,11 +15,11 @@ special [chain handler](packages/template/src/handler/chain/impls.ts).
 Please create new commit to main branch. and the commit message format like this
 
 ```
-[deploy-subql] mmr darwinia pangolin | apps all
+[deploy-subql] mmr darwinia pangolin | feemarket all
 ```
 
-this means you want to deploy project `mmr` and `apps`
+this means you want to deploy project `mmr` and `feemarket`
 
 the `mmr` project will be deployed with chain `darwinia` and `pangolin`
-the `apps` project will be deployed to all chains, it's defined by
+the `feemarket` project will be deployed to all chains, it's defined by
 [subql-project-chain.json](../.maintain/subql-project-chain.json)

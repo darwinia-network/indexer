@@ -8,10 +8,10 @@
   "scripts": {
     "boot": "yarn && lerna bootstrap",
     "build:common": "cd common && yarn && yarn build",
-    "build:apps": "lerna run build --scope subql-apps --",
+    "build:feemarket": "lerna run build --scope subql-feemarket --",
     "build:bridger": "lerna run build --scope subql-bridger --",
     "build:mmr": "lerna run build --scope subql-mmr --",
-    "publish:apps": "lerna run publish --scope subql-apps --",
+    "publish:feemarket": "lerna run publish --scope subql-feemarket --",
     "publish:bridger": "lerna run publish --scope subql-bridger --",
     "publish:mmr": "lerna run publish --scope subql-mmr --"
   },

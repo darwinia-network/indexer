@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         project:
-          - name: apps
+          - name: feemarket
             chain: darwinia
           - name: bridger
             chain: darwinia

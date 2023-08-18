@@ -1,14 +1,14 @@
 {
-  "name": "subql-apps",
+  "name": "subql-feemarket",
   "version": "1.0.7",
   "description": "This SubQuery project can be use as a starting point for Rococo network",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node ../../scripts/build.js apps",
+    "build": "node ../../scripts/build.js feemarket",
     "prepack": "rm -rf dist && npm build",
-    "postbuild": "../../scripts/redep.sh apps",
+    "postbuild": "../../scripts/redep.sh feemarket",
     "test": "jest",
-    "publish": "node ../../scripts/publish.js apps"
+    "publish": "node ../../scripts/publish.js feemarket"
   },
   "homepage": "https://github.com/darwinia-network/bridger",
   "repository": "https://github.com/darwinia-network/bridger",
