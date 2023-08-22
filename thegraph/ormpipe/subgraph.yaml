@@ -72,29 +72,3 @@ dataSources:
         - event: MessageDispatched(indexed bytes32,bool)
           handler: handleMessageDispatched
       file: ./src/ormp-channel.ts
-  - kind: ethereum
-    name: AirnodeDapi
-    network: arbitrum-goerli
-    source:
-      address: "0xa681492DBAd5a3999cFCE2d72196d5784dd08D0c"
-      abi: AirnodeDapi
-      startBlock: 34570517
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - AggregatedMessageRoot
-        - AirnodeRrpCompleted
-        - AirnodeRrpRequested
-      abis:
-        - name: AirnodeDapi
-          file: ./abis/AirnodeDapi.json
-      eventHandlers:
-        - event: AggregatedMessageRoot(bytes32)
-          handler: handleAggregatedMessageRoot
-        - event: AirnodeRrpCompleted(indexed bytes32,indexed bytes32,bytes)
-          handler: handleAirnodeRrpCompleted
-        - event: AirnodeRrpRequested(indexed bytes32,indexed bytes32)
-          handler: handleAirnodeRrpRequested
-      file: ./src/airnode-dapi.ts
