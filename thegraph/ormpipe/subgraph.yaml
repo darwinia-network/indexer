@@ -35,42 +35,6 @@ dataSources:
           handler: handleRemoveBeacon
       file: ./src/airnode-dapi.ts
   - kind: ethereum
-    name: OrmpEndpoint
-    network: arbitrum-goerli
-    source:
-      address: "0x00000000fec9f746a2138D9C6f42794236f3aca8"
-      abi: OrmpEndpoint
-      startBlock: 35033761
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - AppConfigUpdated
-        - ClearFailedMessage
-        - OrmpEndpointMessageAccepted
-        - OrmpEndpointMessageDispatched
-        - RetryFailedMessage
-        - SetDefaultConfig
-      abis:
-        - name: OrmpEndpoint
-          file: ./abis/OrmpEndpoint.json
-      eventHandlers:
-        - event: AppConfigUpdated(indexed address,address,address)
-          handler: handleAppConfigUpdated
-        - event: ClearFailedMessage(indexed bytes32)
-          handler: handleClearFailedMessage
-        - event: MessageAccepted(indexed
-            bytes32,bytes32,(address,uint256,uint256,address,uint256,address,bytes))
-          handler: handleMessageAccepted
-        - event: MessageDispatched(indexed bytes32,bool)
-          handler: handleMessageDispatched
-        - event: RetryFailedMessage(indexed bytes32,bool)
-          handler: handleRetryFailedMessage
-        - event: SetDefaultConfig(address,address)
-          handler: handleSetDefaultConfig
-      file: ./src/ormp-endpoint.ts
-  - kind: ethereum
     name: OrmpOracle
     network: arbitrum-goerli
     source:
@@ -128,3 +92,39 @@ dataSources:
         - event: SetDstPrice(indexed uint256,uint128,uint128)
           handler: handleSetDstPrice
       file: ./src/ormp-relayer.ts
+  - kind: ethereum
+    name: OrmpProtocol
+    network: arbitrum-goerli
+    source:
+      address: "0x00000000fec9f746a2138D9C6f42794236f3aca8"
+      abi: OrmpProtocol
+      startBlock: 35033761
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OrmpProtocolAppConfigUpdated
+        - OrmpProtocolClearFailedMessage
+        - MessageAccepted
+        - MessageDispatched
+        - OrmpProtocolRetryFailedMessage
+        - OrmpProtocolSetDefaultConfig
+      abis:
+        - name: OrmpProtocol
+          file: ./abis/OrmpProtocol.json
+      eventHandlers:
+        - event: AppConfigUpdated(indexed address,address,address)
+          handler: handleAppConfigUpdated
+        - event: ClearFailedMessage(indexed bytes32)
+          handler: handleClearFailedMessage
+        - event: MessageAccepted(indexed
+            bytes32,bytes32,(address,uint256,uint256,address,uint256,address,bytes))
+          handler: handleMessageAccepted
+        - event: MessageDispatched(indexed bytes32,bool)
+          handler: handleMessageDispatched
+        - event: RetryFailedMessage(indexed bytes32,bool)
+          handler: handleRetryFailedMessage
+        - event: SetDefaultConfig(address,address)
+          handler: handleSetDefaultConfig
+      file: ./src/ormp-protocol.ts

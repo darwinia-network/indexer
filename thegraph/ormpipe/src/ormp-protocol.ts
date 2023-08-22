@@ -5,18 +5,18 @@ import {
   MessageDispatched as MessageDispatchedEvent,
   RetryFailedMessage as RetryFailedMessageEvent,
   SetDefaultConfig as SetDefaultConfigEvent
-} from "../generated/OrmpEndpoint/OrmpEndpoint"
+} from "../generated/OrmpProtocol/OrmpProtocol"
 import {
-  OrmpEndpointAppConfigUpdated,
-  OrmpEndpointClearFailedMessage,
-  OrmpEndpointMessageAccepted,
-  OrmpEndpointMessageDispatched,
-  OrmpEndpointRetryFailedMessage,
-  OrmpEndpointSetDefaultConfig
+  OrmpProtocolAppConfigUpdated,
+  OrmpProtocolClearFailedMessage,
+  OrmpProtocolMessageAccepted,
+  OrmpProtocolMessageDispatched,
+  OrmpProtocolRetryFailedMessage,
+  OrmpProtocolSetDefaultConfig
 } from "../generated/schema"
 
 export function handleAppConfigUpdated(event: AppConfigUpdatedEvent): void {
-  let entity = new OrmpEndpointAppConfigUpdated(
+  let entity = new OrmpProtocolAppConfigUpdated(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.ua = event.params.ua
@@ -31,7 +31,7 @@ export function handleAppConfigUpdated(event: AppConfigUpdatedEvent): void {
 }
 
 export function handleClearFailedMessage(event: ClearFailedMessageEvent): void {
-  let entity = new OrmpEndpointClearFailedMessage(
+  let entity = new OrmpProtocolClearFailedMessage(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.msgHash = event.params.msgHash
@@ -44,7 +44,7 @@ export function handleClearFailedMessage(event: ClearFailedMessageEvent): void {
 }
 
 export function handleMessageAccepted(event: MessageAcceptedEvent): void {
-  let entity = new OrmpEndpointMessageAccepted(
+  let entity = new OrmpProtocolMessageAccepted(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.msgHash = event.params.msgHash
@@ -65,7 +65,7 @@ export function handleMessageAccepted(event: MessageAcceptedEvent): void {
 }
 
 export function handleMessageDispatched(event: MessageDispatchedEvent): void {
-  let entity = new OrmpEndpointMessageDispatched(
+  let entity = new OrmpProtocolMessageDispatched(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.msgHash = event.params.msgHash
@@ -79,7 +79,7 @@ export function handleMessageDispatched(event: MessageDispatchedEvent): void {
 }
 
 export function handleRetryFailedMessage(event: RetryFailedMessageEvent): void {
-  let entity = new OrmpEndpointRetryFailedMessage(
+  let entity = new OrmpProtocolRetryFailedMessage(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.msgHash = event.params.msgHash
@@ -93,7 +93,7 @@ export function handleRetryFailedMessage(event: RetryFailedMessageEvent): void {
 }
 
 export function handleSetDefaultConfig(event: SetDefaultConfigEvent): void {
-  let entity = new OrmpEndpointSetDefaultConfig(
+  let entity = new OrmpProtocolSetDefaultConfig(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.oracle = event.params.oracle

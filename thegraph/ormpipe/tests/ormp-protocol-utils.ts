@@ -7,7 +7,7 @@ import {
   MessageDispatched,
   RetryFailedMessage,
   SetDefaultConfig
-} from "../generated/OrmpEndpoint/OrmpEndpoint"
+} from "../generated/OrmpProtocol/OrmpProtocol"
 
 export function createAppConfigUpdatedEvent(
   ua: Address,

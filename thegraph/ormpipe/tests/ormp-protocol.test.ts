@@ -7,10 +7,10 @@ import {
   afterAll
 } from "matchstick-as/assembly/index"
 import { Address, Bytes } from "@graphprotocol/graph-ts"
-import { AppConfigUpdated } from "../generated/schema"
-import { AppConfigUpdated as AppConfigUpdatedEvent } from "../generated/OrmpEndpoint/OrmpEndpoint"
-import { handleAppConfigUpdated } from "../src/ormp-endpoint"
-import { createAppConfigUpdatedEvent } from "./ormp-endpoint-utils"
+import { OrmpProtocolAppConfigUpdated } from "../generated/schema"
+import { AppConfigUpdated as AppConfigUpdatedEvent } from "../generated/OrmpProtocol/OrmpProtocol"
+import { handleAppConfigUpdated } from "../src/ormp-protocol"
+import { createAppConfigUpdatedEvent } from "./ormp-protocol-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
