@@ -12,6 +12,9 @@
     },
     "AirnodeDapi": {
       "address": "0xa681492DBAd5a3999cFCE2d72196d5784dd08D0c"
+    },
+    "OrmpEndpoint": {
+      "address": "0x00000000fec9f746a2138D9C6f42794236f3aca8"
     }
   }
 }

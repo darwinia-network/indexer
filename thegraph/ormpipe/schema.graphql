@@ -108,3 +108,63 @@ type RemoveBeacon @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+type AppConfigUpdated @entity(immutable: true) {
+  id: Bytes!
+  ua: Bytes! # address
+  oracle: Bytes! # address
+  relayer: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ClearFailedMessage @entity(immutable: true) {
+  id: Bytes!
+  msgHash: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrmpEndpointMessageAccepted @entity(immutable: true) {
+  id: Bytes!
+  msgHash: Bytes! # bytes32
+  root: Bytes! # bytes32
+  message_channel: Bytes! # address
+  message_index: BigInt! # uint256
+  message_fromChainId: BigInt! # uint256
+  message_from: Bytes! # address
+  message_toChainId: BigInt! # uint256
+  message_to: Bytes! # address
+  message_encoded: Bytes! # bytes
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrmpEndpointMessageDispatched @entity(immutable: true) {
+  id: Bytes!
+  msgHash: Bytes! # bytes32
+  dispatchResult: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RetryFailedMessage @entity(immutable: true) {
+  id: Bytes!
+  msgHash: Bytes! # bytes32
+  dispatchResult: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetDefaultConfig @entity(immutable: true) {
+  id: Bytes!
+  oracle: Bytes! # address
+  relayer: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
