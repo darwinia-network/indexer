@@ -6,12 +6,21 @@ import {
   beforeAll,
   afterAll
 } from "matchstick-as/assembly/index"
+import { Bytes, Address } from "@graphprotocol/graph-ts"
+import { AddBeacon } from "../generated/schema"
+import { AddBeacon as AddBeaconEvent } from "../generated/AirnodeDapi/AirnodeDapi"
+import { handleAddBeacon } from "../src/airnode-dapi"
+import { createAddBeaconEvent } from "./airnode-dapi-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
 
 describe("Describe entity assertions", () => {
   beforeAll(() => {
+    let beaconId = Bytes.fromI32(1234567890)
+    let beacon = "ethereum.Tuple Not implemented"
+    let newAddBeaconEvent = createAddBeaconEvent(beaconId, beacon)
+    handleAddBeacon(newAddBeaconEvent)
   })
 
   afterAll(() => {

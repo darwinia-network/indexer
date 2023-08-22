@@ -9,6 +9,9 @@
     },
     "OrmpChannel": {
       "address": "0x12346a7b6aA35A2FD38941485c36A7c84B2936dB"
+    },
+    "AirnodeDapi": {
+      "address": "0xa681492DBAd5a3999cFCE2d72196d5784dd08D0c"
     }
   }
 }
