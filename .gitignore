@@ -21,3 +21,4 @@ _env.ts
 chain.json
 chain.ts
 build
+subgraph.yaml
