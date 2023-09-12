@@ -10,16 +10,9 @@ You can create follow [template](packages/template) project. and then add your
 code to `src/handler/logic` directory. last add your logic class to
 special [chain handler](packages/template/src/handler/chain/impls.ts).
 
-### How to deploy (to Subquery hosted server)
+### How to deploy
 
-Please create new commit to main branch. and the commit message format like this
+You can manually run [release ci](https://github.com/darwinia-network/indexer/actions/workflows/subql-release.yml)
+when build success, you can see ipfs cid for last action.
 
-```
-[deploy-subql] mmr darwinia pangolin | apps all
-```
-
-this means you want to deploy project `mmr` and `apps`
-
-the `mmr` project will be deployed with chain `darwinia` and `pangolin`
-the `apps` project will be deployed to all chains, it's defined by
-[subql-project-chain.json](../.maintain/subql-project-chain.json)
+then copy ipfs cid to ansible playbooks project.
