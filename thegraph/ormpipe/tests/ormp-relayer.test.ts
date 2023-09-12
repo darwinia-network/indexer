@@ -19,8 +19,9 @@ describe("Describe entity assertions", () => {
   beforeAll(() => {
     let msgHash = Bytes.fromI32(1234567890)
     let fee = BigInt.fromI32(234)
-    let parmas = Bytes.fromI32(1234567890)
-    let newAssignedEvent = createAssignedEvent(msgHash, fee, parmas)
+    let params = Bytes.fromI32(1234567890)
+    let proof = [Bytes.fromI32(1234567890)]
+    let newAssignedEvent = createAssignedEvent(msgHash, fee, params, proof)
     handleAssigned(newAssignedEvent)
   })
 
@@ -50,8 +51,14 @@ describe("Describe entity assertions", () => {
     assert.fieldEquals(
       "Assigned",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
-      "parmas",
+      "params",
       "1234567890"
+    )
+    assert.fieldEquals(
+      "Assigned",
+      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
+      "proof",
+      "[1234567890]"
     )
 
     // More assert options:

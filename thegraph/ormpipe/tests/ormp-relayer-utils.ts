@@ -10,7 +10,8 @@ import {
 export function createAssignedEvent(
   msgHash: Bytes,
   fee: BigInt,
-  parmas: Bytes
+  params: Bytes,
+  proof: Array<Bytes>
 ): Assigned {
   let assignedEvent = changetype<Assigned>(newMockEvent())
 
@@ -23,7 +24,10 @@ export function createAssignedEvent(
     new ethereum.EventParam("fee", ethereum.Value.fromUnsignedBigInt(fee))
   )
   assignedEvent.parameters.push(
-    new ethereum.EventParam("parmas", ethereum.Value.fromBytes(parmas))
+    new ethereum.EventParam("params", ethereum.Value.fromBytes(params))
+  )
+  assignedEvent.parameters.push(
+    new ethereum.EventParam("proof", ethereum.Value.fromFixedBytesArray(proof))
   )
 
   return assignedEvent

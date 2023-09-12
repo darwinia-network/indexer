@@ -7,7 +7,7 @@ import {
   afterAll
 } from "matchstick-as/assembly/index"
 import { Bytes, Address } from "@graphprotocol/graph-ts"
-import { AddBeacon } from "../generated/schema"
+import { AirnodeDapiAddBeacon } from "../generated/schema"
 import { AddBeacon as AddBeaconEvent } from "../generated/AirnodeDapi/AirnodeDapi"
 import { handleAddBeacon } from "../src/airnode-dapi"
 import { createAddBeaconEvent } from "./airnode-dapi-utils"

@@ -17,7 +17,8 @@ export function handleAssigned(event: AssignedEvent): void {
   )
   entity.msgHash = event.params.msgHash
   entity.fee = event.params.fee
-  entity.parmas = event.params.parmas
+  entity.params = event.params.params
+  entity.proof = event.params.proof
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

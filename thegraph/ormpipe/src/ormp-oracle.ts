@@ -4,7 +4,7 @@ import {
   SetDapi as SetDapiEvent,
   SetFee as SetFeeEvent
 } from "../generated/OrmpOracle/OrmpOracle"
-import { OrmpOracleAssigned, OrmpOracleSetApproved, OrmpOracleSetDapi, OrmpOracleSetFee } from "../generated/schema"
+import {OrmpOracleAssigned, OrmpOracleSetApproved, OrmpOracleSetDapi, OrmpOracleSetFee} from "../generated/schema"
 
 export function handleAssigned(event: AssignedEvent): void {
   let entity = new OrmpOracleAssigned(

@@ -4,13 +4,27 @@
       "address": "0xa681492DBAd5a3999cFCE2d72196d5784dd08D0c"
     },
     "OrmpOracle": {
-      "address": "0x00000012f877F68a8D2410b683FDC8214f4b5194"
+      "address": "0x000000003e2E2C9C8DD469E129E02E1666898E76"
     },
     "OrmpRelayer": {
-      "address": "0x000000fbfBc6954C8CBba3130b5Aee7f3Ea5108e"
+      "address": "0x000000007e24Da6666c773280804d8021E12e13F"
     },
     "OrmpProtocol": {
-      "address": "0x00000000fec9f746a2138D9C6f42794236f3aca8"
+      "address": "0x0000000000BD9dcFDa5C60697039E2b3B28b079b"
+    }
+  },
+  "pangolin": {
+    "AirnodeDapi": {
+      "address": "0x770713580e5c618A4D29D7E8c0d7604276B63832"
+    },
+    "OrmpOracle": {
+      "address": "0x000000003e2E2C9C8DD469E129E02E1666898E76"
+    },
+    "OrmpRelayer": {
+      "address": "0x000000007e24Da6666c773280804d8021E12e13F"
+    },
+    "OrmpProtocol": {
+      "address": "0x0000000000BD9dcFDa5C60697039E2b3B28b079b"
     }
   }
 }
