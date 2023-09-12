@@ -18,3 +18,12 @@ npm run deploy:studio \
   -- ormpipe-arbitrum-goerli subgraph-arbitrum-goerli.yaml
 ```
 
+### deploy to hosted server (by Darwinia)
+
+```
+npm run deploy:darwinia \
+  -- --access-token=<ACCESS_TOKEN> \
+     ormpipe-pangolin \
+     subgraph-pangolin.yaml
+```
+
