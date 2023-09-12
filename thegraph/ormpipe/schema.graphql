@@ -111,4 +111,40 @@ type OrmpProtocolSetDefaultConfig @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
+## -- ormp oracle
 
+type OrmpOracleAssigned @entity(immutable: true) {
+  id: Bytes!
+  msgHash: Bytes! # bytes32
+  fee: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrmpOracleSetApproved @entity(immutable: true) {
+  id: Bytes!
+  operator: Bytes! # address
+  approve: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrmpOracleSetDapi @entity(immutable: true) {
+  id: Bytes!
+  chainId: BigInt! # uint256
+  dapi: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrmpOracleSetFee @entity(immutable: true) {
+  id: Bytes!
+  chainId: BigInt! # uint256
+  fee: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
