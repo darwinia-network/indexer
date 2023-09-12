@@ -6,15 +6,15 @@ import {
   RemoveBeacon as RemoveBeaconEvent
 } from "../generated/AirnodeDapi/AirnodeDapi"
 import {
-  AddBeacon,
-  AggregatedMessageRoot,
-  AirnodeRrpCompleted,
-  AirnodeRrpRequested,
-  RemoveBeacon
+  AirnodeDapiAddBeacon,
+  AirnodeDapiAggregatedMessageRoot,
+  AirnodeDapiAirnodeRrpCompleted,
+  AirnodeDapiAirnodeRrpRequested,
+  AirnodeDapiRemoveBeacon
 } from "../generated/schema"
 
 export function handleAddBeacon(event: AddBeaconEvent): void {
-  let entity = new AddBeacon(
+  let entity = new AirnodeDapiAddBeacon(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.beaconId = event.params.beaconId
@@ -33,7 +33,7 @@ export function handleAddBeacon(event: AddBeaconEvent): void {
 export function handleAggregatedMessageRoot(
   event: AggregatedMessageRootEvent
 ): void {
-  let entity = new AggregatedMessageRoot(
+  let entity = new AirnodeDapiAggregatedMessageRoot(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.msgRoot = event.params.msgRoot
@@ -48,7 +48,7 @@ export function handleAggregatedMessageRoot(
 export function handleAirnodeRrpCompleted(
   event: AirnodeRrpCompletedEvent
 ): void {
-  let entity = new AirnodeRrpCompleted(
+  let entity = new AirnodeDapiAirnodeRrpCompleted(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.beaconId = event.params.beaconId
@@ -65,7 +65,7 @@ export function handleAirnodeRrpCompleted(
 export function handleAirnodeRrpRequested(
   event: AirnodeRrpRequestedEvent
 ): void {
-  let entity = new AirnodeRrpRequested(
+  let entity = new AirnodeDapiAirnodeRrpRequested(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.beaconId = event.params.beaconId
@@ -79,7 +79,7 @@ export function handleAirnodeRrpRequested(
 }
 
 export function handleRemoveBeacon(event: RemoveBeaconEvent): void {
-  let entity = new RemoveBeacon(
+  let entity = new AirnodeDapiRemoveBeacon(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.beaconId = event.params.beaconId
