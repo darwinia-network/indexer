@@ -148,3 +148,44 @@ type OrmpOracleSetFee @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+## -- ormp relayer
+type OrmpRelayerAssigned @entity(immutable: true) {
+  id: Bytes!
+  msgHash: Bytes! # bytes32
+  fee: BigInt! # uint256
+  params: Bytes! # bytes
+  proof: [Bytes!]! # bytes32[32]
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrmpRelayerSetApproved @entity(immutable: true) {
+  id: Bytes!
+  operator: Bytes! # address
+  approve: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrmpRelayerSetDstConfig @entity(immutable: true) {
+  id: Bytes!
+  chainId: BigInt! # uint256
+  baseGas: BigInt! # uint64
+  gasPerByte: BigInt! # uint64
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OrmpRelayerSetDstPrice @entity(immutable: true) {
+  id: Bytes!
+  chainId: BigInt! # uint256
+  dstPriceRatio: BigInt! # uint128
+  dstGasPriceInWei: BigInt! # uint128
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
