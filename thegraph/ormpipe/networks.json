@@ -12,5 +12,19 @@
     "OrmpProtocol": {
       "address": "0x0000000000BD9dcFDa5C60697039E2b3B28b079b"
     }
+  },
+  "pangolin": {
+    "AirnodeDapi": {
+      "address": "0x770713580e5c618A4D29D7E8c0d7604276B63832"
+    },
+    "OrmpOracle": {
+      "address": "0x000000003e2E2C9C8DD469E129E02E1666898E76"
+    },
+    "OrmpRelayer": {
+      "address": "0x000000007e24Da6666c773280804d8021E12e13F"
+    },
+    "OrmpProtocol": {
+      "address": "0x0000000000BD9dcFDa5C60697039E2b3B28b079b"
+    }
   }
 }
