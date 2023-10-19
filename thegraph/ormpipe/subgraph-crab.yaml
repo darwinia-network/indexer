@@ -1,0 +1,139 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Subapi
+    network: fantom
+    source:
+      address: "0x007471Db6AD668b30a7CE648589a4C8C4f65a36f"
+      abi: Subapi
+      startBlock: 624384
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AddBeacon
+        - AggregatedORMPData
+        - AirnodeRrpCompleted
+        - AirnodeRrpRequested
+        - OwnershipTransferStarted
+        - OwnershipTransferred
+        - RemoveBeacon
+        - SubAPIFeedUpdated
+      abis:
+        - name: Subapi
+          file: ./abis/Subapi.json
+      eventHandlers:
+        - event: AddBeacon(indexed bytes32,(address,bytes32,address,address))
+          handler: handleAddBeacon
+        - event: AggregatedORMPData((uint256,bytes32))
+          handler: handleAggregatedORMPData
+        - event: AirnodeRrpCompleted(indexed bytes32,indexed bytes32,bytes)
+          handler: handleAirnodeRrpCompleted
+        - event: AirnodeRrpRequested(indexed bytes32,indexed bytes32)
+          handler: handleAirnodeRrpRequested
+        - event: OwnershipTransferStarted(indexed address,indexed address)
+          handler: handleOwnershipTransferStarted
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RemoveBeacon(indexed bytes32)
+          handler: handleRemoveBeacon
+        - event: SubAPIFeedUpdated(indexed bytes32,(uint256,bytes32))
+          handler: handleSubAPIFeedUpdated
+      file: ./src/subapi.ts
+  - kind: ethereum
+    name: OrmpProtocol
+    network: fantom
+    source:
+      address: "0x0034607daf9c1dc6628f6e09E81bB232B6603A89"
+      abi: OrmpProtocol
+      startBlock: 624067
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OrmpProtocolAppConfigUpdated
+        - OrmpProtocolClearFailedMessage
+        - OrmpProtocolMessageAccepted
+        - OrmpProtocolMessageDispatched
+        - OrmpProtocolRetryFailedMessage
+        - OrmpProtocolSetDefaultConfig
+      abis:
+        - name: OrmpProtocol
+          file: ./abis/OrmpProtocol.json
+      eventHandlers:
+        - event: AppConfigUpdated(indexed address,address,address)
+          handler: handleAppConfigUpdated
+        - event: ClearFailedMessage(indexed bytes32)
+          handler: handleClearFailedMessage
+        - event: MessageAccepted(indexed
+            bytes32,bytes32,(address,uint256,uint256,address,uint256,address,bytes))
+          handler: handleMessageAccepted
+        - event: MessageDispatched(indexed bytes32,bool)
+          handler: handleMessageDispatched
+        - event: RetryFailedMessage(indexed bytes32,bool)
+          handler: handleRetryFailedMessage
+        - event: SetDefaultConfig(address,address)
+          handler: handleSetDefaultConfig
+      file: ./src/ormp-protocol.ts
+  - kind: ethereum
+    name: OrmpOracle
+    network: fantom
+    source:
+      address: "0x0002396F1D52323fcd1ae8079b38808F046882c3"
+      abi: OrmpOracle
+      startBlock: 624068
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Assigned
+        - SetApproved
+        - SetDapi
+        - SetFee
+      abis:
+        - name: OrmpOracle
+          file: ./abis/OrmpOracle.json
+      eventHandlers:
+        - event: Assigned(indexed bytes32,uint256)
+          handler: handleAssigned
+        - event: SetApproved(address,bool)
+          handler: handleSetApproved
+        - event: SetDapi(indexed uint256,address)
+          handler: handleSetDapi
+        - event: SetFee(indexed uint256,uint256)
+          handler: handleSetFee
+      file: ./src/ormp-oracle.ts
+  - kind: ethereum
+    name: OrmpRelayer
+    network: fantom
+    source:
+      address: "0x007EED6207c9AF3715964Fb7f8B5f44E002a3498"
+      abi: OrmpRelayer
+      startBlock: 624069
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OrmpRelayerAssigned
+        - OrmpRelayerSetApproved
+        - SetDstConfig
+        - SetDstPrice
+      abis:
+        - name: OrmpRelayer
+          file: ./abis/OrmpRelayer.json
+      eventHandlers:
+        - event: Assigned(indexed bytes32,uint256,bytes,bytes32[32])
+          handler: handleAssigned
+        - event: SetApproved(address,bool)
+          handler: handleSetApproved
+        - event: SetDstConfig(indexed uint256,uint64,uint64)
+          handler: handleSetDstConfig
+        - event: SetDstPrice(indexed uint256,uint128,uint128)
+          handler: handleSetDstPrice
+      file: ./src/ormp-relayer.ts
