@@ -1,13 +1,13 @@
 {
   "name": "ormpipe",
-  "version": "0.0.1",
+  "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy:studio": "graph deploy --node https://api.studio.thegraph.com/deploy/",
-    "create:darwinia": "graph create --node https://thegraph-g2.darwinia.network/ormpipe/deploy/",
-    "remove:darwinia": "graph remove --node https://thegraph-g2.darwinia.network/ormpipe/deploy/",
-    "deploy:darwinia": "graph deploy --node https://thegraph-g2.darwinia.network/ormpipe/deploy/ --ipfs http://g2.generic.darwinia.network:5001/",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ ormpipe",
+    "create-local": "graph create --node http://localhost:8020/ ormpipe",
+    "remove-local": "graph remove --node http://localhost:8020/ ormpipe",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 ormpipe",
     "test": "graph test"
   },
   "dependencies": {

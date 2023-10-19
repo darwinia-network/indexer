@@ -1,7 +1,6 @@
+## === subapi
 
-# --- airnode dpi
-
-type AirnodeDapiAddBeacon @entity(immutable: true) {
+type AddBeacon @entity(immutable: true) {
   id: Bytes!
   beaconId: Bytes! # bytes32
   beacon_airnode: Bytes! # address
@@ -13,15 +12,16 @@ type AirnodeDapiAddBeacon @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type AirnodeDapiAggregatedMessageRoot @entity(immutable: true) {
+type AggregatedORMPData @entity(immutable: true) {
   id: Bytes!
-  msgRoot: Bytes! # bytes32
+  ormpData_count: BigInt! # uint256
+  ormpData_root: Bytes! # bytes32
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type AirnodeDapiAirnodeRrpCompleted @entity(immutable: true) {
+type AirnodeRrpCompleted @entity(immutable: true) {
   id: Bytes!
   beaconId: Bytes! # bytes32
   requestId: Bytes! # bytes32
@@ -31,7 +31,7 @@ type AirnodeDapiAirnodeRrpCompleted @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type AirnodeDapiAirnodeRrpRequested @entity(immutable: true) {
+type AirnodeRrpRequested @entity(immutable: true) {
   id: Bytes!
   beaconId: Bytes! # bytes32
   requestId: Bytes! # bytes32
@@ -40,7 +40,25 @@ type AirnodeDapiAirnodeRrpRequested @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type AirnodeDapiRemoveBeacon @entity(immutable: true) {
+type OwnershipTransferStarted @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RemoveBeacon @entity(immutable: true) {
   id: Bytes!
   beaconId: Bytes! # bytes32
   blockNumber: BigInt!
@@ -48,144 +66,14 @@ type AirnodeDapiRemoveBeacon @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-# --- ormp protocol
-
-type OrmpProtocolAppConfigUpdated @entity(immutable: true) {
+type SubAPIFeedUpdated @entity(immutable: true) {
   id: Bytes!
-  ua: Bytes! # address
-  oracle: Bytes! # address
-  relayer: Bytes! # address
+  beaconId: Bytes! # bytes32
+  msgRoot_count: BigInt! # uint256
+  msgRoot_root: Bytes! # bytes32
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type OrmpProtocolClearFailedMessage @entity(immutable: true) {
-  id: Bytes!
-  msgHash: Bytes! # bytes32
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpProtocolMessageAccepted @entity(immutable: true) {
-  id: Bytes!
-  msgHash: Bytes! # bytes32
-  root: Bytes! # bytes32
-  message_channel: Bytes! # address
-  message_index: BigInt! # uint256
-  message_fromChainId: BigInt! # uint256
-  message_from: Bytes! # address
-  message_toChainId: BigInt! # uint256
-  message_to: Bytes! # address
-  message_encoded: Bytes! # bytes
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpProtocolMessageDispatched @entity(immutable: true) {
-  id: Bytes!
-  msgHash: Bytes! # bytes32
-  dispatchResult: Boolean! # bool
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpProtocolRetryFailedMessage @entity(immutable: true) {
-  id: Bytes!
-  msgHash: Bytes! # bytes32
-  dispatchResult: Boolean! # bool
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpProtocolSetDefaultConfig @entity(immutable: true) {
-  id: Bytes!
-  oracle: Bytes! # address
-  relayer: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-## -- ormp oracle
-
-type OrmpOracleAssigned @entity(immutable: true) {
-  id: Bytes!
-  msgHash: Bytes! # bytes32
-  fee: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpOracleSetApproved @entity(immutable: true) {
-  id: Bytes!
-  operator: Bytes! # address
-  approve: Boolean! # bool
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpOracleSetDapi @entity(immutable: true) {
-  id: Bytes!
-  chainId: BigInt! # uint256
-  dapi: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpOracleSetFee @entity(immutable: true) {
-  id: Bytes!
-  chainId: BigInt! # uint256
-  fee: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-## -- ormp relayer
-type OrmpRelayerAssigned @entity(immutable: true) {
-  id: Bytes!
-  msgHash: Bytes! # bytes32
-  fee: BigInt! # uint256
-  params: Bytes! # bytes
-  proof: [Bytes!]! # bytes32[32]
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpRelayerSetApproved @entity(immutable: true) {
-  id: Bytes!
-  operator: Bytes! # address
-  approve: Boolean! # bool
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpRelayerSetDstConfig @entity(immutable: true) {
-  id: Bytes!
-  chainId: BigInt! # uint256
-  baseGas: BigInt! # uint64
-  gasPerByte: BigInt! # uint64
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrmpRelayerSetDstPrice @entity(immutable: true) {
-  id: Bytes!
-  chainId: BigInt! # uint256
-  dstPriceRatio: BigInt! # uint128
-  dstGasPriceInWei: BigInt! # uint128
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
+## ========== ormp protocol
