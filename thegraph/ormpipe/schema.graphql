@@ -146,6 +146,7 @@ type OrmpOracleAssigned @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  seq: BigInt!
 }
 
 type OrmpOracleSetApproved @entity(immutable: true) {
@@ -185,6 +186,7 @@ type OrmpRelayerAssigned @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  seq: BigInt!
 }
 
 type OrmpRelayerSetApproved @entity(immutable: true) {
