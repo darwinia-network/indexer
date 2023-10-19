@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: Subapi
-    network: fantom
+    network: crab
     source:
       address: "0x007471Db6AD668b30a7CE648589a4C8C4f65a36f"
       abi: Subapi
@@ -14,14 +14,14 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - AddBeacon
-        - AggregatedORMPData
-        - AirnodeRrpCompleted
-        - AirnodeRrpRequested
-        - OwnershipTransferStarted
-        - OwnershipTransferred
-        - RemoveBeacon
-        - SubAPIFeedUpdated
+        - SubapiAddBeacon
+        - SubapiAggregatedORMPData
+        - SubapiAirnodeRrpCompleted
+        - SubapiAirnodeRrpRequested
+        - SubapiOwnershipTransferStarted
+        - SubapiOwnershipTransferred
+        - SubapiRemoveBeacon
+        - SubapiSubAPIFeedUpdated
       abis:
         - name: Subapi
           file: ./abis/Subapi.json
@@ -45,7 +45,7 @@ dataSources:
       file: ./src/subapi.ts
   - kind: ethereum
     name: OrmpProtocol
-    network: fantom
+    network: crab
     source:
       address: "0x0034607daf9c1dc6628f6e09E81bB232B6603A89"
       abi: OrmpProtocol
@@ -81,7 +81,7 @@ dataSources:
       file: ./src/ormp-protocol.ts
   - kind: ethereum
     name: OrmpOracle
-    network: fantom
+    network: crab
     source:
       address: "0x0002396F1D52323fcd1ae8079b38808F046882c3"
       abi: OrmpOracle
@@ -91,10 +91,10 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Assigned
-        - SetApproved
-        - SetDapi
-        - SetFee
+        - OrmpOracleAssigned
+        - OrmpOracleSetApproved
+        - OrmpOracleSetDapi
+        - OrmpOracleSetFee
       abis:
         - name: OrmpOracle
           file: ./abis/OrmpOracle.json
@@ -110,7 +110,7 @@ dataSources:
       file: ./src/ormp-oracle.ts
   - kind: ethereum
     name: OrmpRelayer
-    network: fantom
+    network: crab
     source:
       address: "0x007EED6207c9AF3715964Fb7f8B5f44E002a3498"
       abi: OrmpRelayer
@@ -122,8 +122,8 @@ dataSources:
       entities:
         - OrmpRelayerAssigned
         - OrmpRelayerSetApproved
-        - SetDstConfig
-        - SetDstPrice
+        - OrmpRelayerSetDstConfig
+        - OrmpRelayerSetDstPrice
       abis:
         - name: OrmpRelayer
           file: ./abis/OrmpRelayer.json

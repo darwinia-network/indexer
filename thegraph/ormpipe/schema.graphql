@@ -1,6 +1,6 @@
 ## === subapi
 
-type AddBeacon @entity(immutable: true) {
+type SubapiAddBeacon @entity(immutable: true) {
   id: Bytes!
   beaconId: Bytes! # bytes32
   beacon_airnode: Bytes! # address
@@ -12,7 +12,7 @@ type AddBeacon @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type AggregatedORMPData @entity(immutable: true) {
+type SubapiAggregatedORMPData @entity(immutable: true) {
   id: Bytes!
   ormpData_count: BigInt! # uint256
   ormpData_root: Bytes! # bytes32
@@ -21,7 +21,7 @@ type AggregatedORMPData @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type AirnodeRrpCompleted @entity(immutable: true) {
+type SubapiAirnodeRrpCompleted @entity(immutable: true) {
   id: Bytes!
   beaconId: Bytes! # bytes32
   requestId: Bytes! # bytes32
@@ -31,7 +31,7 @@ type AirnodeRrpCompleted @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type AirnodeRrpRequested @entity(immutable: true) {
+type SubapiAirnodeRrpRequested @entity(immutable: true) {
   id: Bytes!
   beaconId: Bytes! # bytes32
   requestId: Bytes! # bytes32
@@ -40,7 +40,7 @@ type AirnodeRrpRequested @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type OwnershipTransferStarted @entity(immutable: true) {
+type SubapiOwnershipTransferStarted @entity(immutable: true) {
   id: Bytes!
   previousOwner: Bytes! # address
   newOwner: Bytes! # address
@@ -49,7 +49,7 @@ type OwnershipTransferStarted @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type OwnershipTransferred @entity(immutable: true) {
+type SubapiOwnershipTransferred @entity(immutable: true) {
   id: Bytes!
   previousOwner: Bytes! # address
   newOwner: Bytes! # address
@@ -58,7 +58,7 @@ type OwnershipTransferred @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type RemoveBeacon @entity(immutable: true) {
+type SubapiRemoveBeacon @entity(immutable: true) {
   id: Bytes!
   beaconId: Bytes! # bytes32
   blockNumber: BigInt!
@@ -66,7 +66,7 @@ type RemoveBeacon @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type SubAPIFeedUpdated @entity(immutable: true) {
+type SubapiSubAPIFeedUpdated @entity(immutable: true) {
   id: Bytes!
   beaconId: Bytes! # bytes32
   msgRoot_count: BigInt! # uint256

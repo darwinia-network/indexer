@@ -9,18 +9,18 @@ import {
   SubAPIFeedUpdated as SubAPIFeedUpdatedEvent
 } from "../generated/Subapi/Subapi"
 import {
-  AddBeacon,
-  AggregatedORMPData,
-  AirnodeRrpCompleted,
-  AirnodeRrpRequested,
-  OwnershipTransferStarted,
-  OwnershipTransferred,
-  RemoveBeacon,
-  SubAPIFeedUpdated
+  SubapiAddBeacon,
+  SubapiAggregatedORMPData,
+  SubapiAirnodeRrpCompleted,
+  SubapiAirnodeRrpRequested,
+  SubapiOwnershipTransferStarted,
+  SubapiOwnershipTransferred,
+  SubapiRemoveBeacon,
+  SubapiSubAPIFeedUpdated
 } from "../generated/schema"
 
 export function handleAddBeacon(event: AddBeaconEvent): void {
-  let entity = new AddBeacon(
+  let entity = new SubapiAddBeacon(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.beaconId = event.params.beaconId
@@ -37,7 +37,7 @@ export function handleAddBeacon(event: AddBeaconEvent): void {
 }
 
 export function handleAggregatedORMPData(event: AggregatedORMPDataEvent): void {
-  let entity = new AggregatedORMPData(
+  let entity = new SubapiAggregatedORMPData(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.ormpData_count = event.params.ormpData.count
@@ -53,7 +53,7 @@ export function handleAggregatedORMPData(event: AggregatedORMPDataEvent): void {
 export function handleAirnodeRrpCompleted(
   event: AirnodeRrpCompletedEvent
 ): void {
-  let entity = new AirnodeRrpCompleted(
+  let entity = new SubapiAirnodeRrpCompleted(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.beaconId = event.params.beaconId
@@ -70,7 +70,7 @@ export function handleAirnodeRrpCompleted(
 export function handleAirnodeRrpRequested(
   event: AirnodeRrpRequestedEvent
 ): void {
-  let entity = new AirnodeRrpRequested(
+  let entity = new SubapiAirnodeRrpRequested(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.beaconId = event.params.beaconId
@@ -86,7 +86,7 @@ export function handleAirnodeRrpRequested(
 export function handleOwnershipTransferStarted(
   event: OwnershipTransferStartedEvent
 ): void {
-  let entity = new OwnershipTransferStarted(
+  let entity = new SubapiOwnershipTransferStarted(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.previousOwner = event.params.previousOwner
@@ -102,7 +102,7 @@ export function handleOwnershipTransferStarted(
 export function handleOwnershipTransferred(
   event: OwnershipTransferredEvent
 ): void {
-  let entity = new OwnershipTransferred(
+  let entity = new SubapiOwnershipTransferred(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.previousOwner = event.params.previousOwner
@@ -116,7 +116,7 @@ export function handleOwnershipTransferred(
 }
 
 export function handleRemoveBeacon(event: RemoveBeaconEvent): void {
-  let entity = new RemoveBeacon(
+  let entity = new SubapiRemoveBeacon(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.beaconId = event.params.beaconId
@@ -129,7 +129,7 @@ export function handleRemoveBeacon(event: RemoveBeaconEvent): void {
 }
 
 export function handleSubAPIFeedUpdated(event: SubAPIFeedUpdatedEvent): void {
-  let entity = new SubAPIFeedUpdated(
+  let entity = new SubapiSubAPIFeedUpdated(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.beaconId = event.params.beaconId
