@@ -6,9 +6,9 @@ dataSources:
     name: Subapi
     network: crab
     source:
-      address: "0x001F4321429B1E2DF774bdAe0fc62A7394652E0F"
+      address: "0x00945C032A37454333d7044a52a5A42Aa0f6c608"
       abi: Subapi
-      startBlock: 1531532
+      startBlock: 1558666
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
