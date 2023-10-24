@@ -2,14 +2,14 @@ import { newMockEvent } from "matchstick-as"
 import { ethereum, Bytes, Address } from "@graphprotocol/graph-ts"
 import {
   AddBeacon,
-  AggregatedMessageRoot,
-  AirnodeMessageRootFeedUpdated,
+  AggregatedORMPData,
   AirnodeRrpCompleted,
   AirnodeRrpRequested,
   OwnershipTransferStarted,
   OwnershipTransferred,
-  RemoveBeacon
-} from "../generated/AirnodeDapi/AirnodeDapi"
+  RemoveBeacon,
+  SubAPIFeedUpdated
+} from "../generated/Subapi/Subapi"
 
 export function createAddBeaconEvent(
   beaconId: Bytes,
@@ -29,40 +29,18 @@ export function createAddBeaconEvent(
   return addBeaconEvent
 }
 
-export function createAggregatedMessageRootEvent(
-  msgRoot: Bytes
-): AggregatedMessageRoot {
-  let aggregatedMessageRootEvent = changetype<AggregatedMessageRoot>(
-    newMockEvent()
+export function createAggregatedORMPDataEvent(
+  ormpData: ethereum.Tuple
+): AggregatedORMPData {
+  let aggregatedOrmpDataEvent = changetype<AggregatedORMPData>(newMockEvent())
+
+  aggregatedOrmpDataEvent.parameters = new Array()
+
+  aggregatedOrmpDataEvent.parameters.push(
+    new ethereum.EventParam("ormpData", ethereum.Value.fromTuple(ormpData))
   )
 
-  aggregatedMessageRootEvent.parameters = new Array()
-
-  aggregatedMessageRootEvent.parameters.push(
-    new ethereum.EventParam("msgRoot", ethereum.Value.fromFixedBytes(msgRoot))
-  )
-
-  return aggregatedMessageRootEvent
-}
-
-export function createAirnodeMessageRootFeedUpdatedEvent(
-  beaconId: Bytes,
-  msgRoot: Bytes
-): AirnodeMessageRootFeedUpdated {
-  let airnodeMessageRootFeedUpdatedEvent = changetype<
-    AirnodeMessageRootFeedUpdated
-  >(newMockEvent())
-
-  airnodeMessageRootFeedUpdatedEvent.parameters = new Array()
-
-  airnodeMessageRootFeedUpdatedEvent.parameters.push(
-    new ethereum.EventParam("beaconId", ethereum.Value.fromFixedBytes(beaconId))
-  )
-  airnodeMessageRootFeedUpdatedEvent.parameters.push(
-    new ethereum.EventParam("msgRoot", ethereum.Value.fromFixedBytes(msgRoot))
-  )
-
-  return airnodeMessageRootFeedUpdatedEvent
+  return aggregatedOrmpDataEvent
 }
 
 export function createAirnodeRrpCompletedEvent(
@@ -167,4 +145,22 @@ export function createRemoveBeaconEvent(beaconId: Bytes): RemoveBeacon {
   )
 
   return removeBeaconEvent
+}
+
+export function createSubAPIFeedUpdatedEvent(
+  beaconId: Bytes,
+  msgRoot: ethereum.Tuple
+): SubAPIFeedUpdated {
+  let subApiFeedUpdatedEvent = changetype<SubAPIFeedUpdated>(newMockEvent())
+
+  subApiFeedUpdatedEvent.parameters = new Array()
+
+  subApiFeedUpdatedEvent.parameters.push(
+    new ethereum.EventParam("beaconId", ethereum.Value.fromFixedBytes(beaconId))
+  )
+  subApiFeedUpdatedEvent.parameters.push(
+    new ethereum.EventParam("msgRoot", ethereum.Value.fromTuple(msgRoot))
+  )
+
+  return subApiFeedUpdatedEvent
 }

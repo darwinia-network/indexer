@@ -24,6 +24,7 @@ export function handleAssigned(event: AssignedEvent): void {
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
 
+  entity.seq = event.block.number.plus(event.logIndex);
   entity.save()
 }
 

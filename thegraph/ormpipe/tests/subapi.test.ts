@@ -7,10 +7,10 @@ import {
   afterAll
 } from "matchstick-as/assembly/index"
 import { Bytes, Address } from "@graphprotocol/graph-ts"
-import { AirnodeDapiAddBeacon } from "../generated/schema"
-import { AddBeacon as AddBeaconEvent } from "../generated/AirnodeDapi/AirnodeDapi"
-import { handleAddBeacon } from "../src/airnode-dapi"
-import { createAddBeaconEvent } from "./airnode-dapi-utils"
+import { SubapiAddBeacon } from "../generated/schema"
+import { AddBeacon as AddBeaconEvent } from "../generated/Subapi/Subapi"
+import { handleAddBeacon } from "../src/subapi"
+import { createAddBeaconEvent } from "./subapi-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0

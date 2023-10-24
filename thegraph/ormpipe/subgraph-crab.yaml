@@ -3,44 +3,53 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: AirnodeDapi
-    network: pangolin
+    name: Subapi
+    network: crab
     source:
-      address: "0x770713580e5c618A4D29D7E8c0d7604276B63832"
-      abi: AirnodeDapi
-      startBlock: 1285147
+      address: "0x00945C032A37454333d7044a52a5A42Aa0f6c608"
+      abi: Subapi
+      startBlock: 1558666
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - AirnodeDapiAddBeacon
-        - AirnodeDapiAggregatedMessageRoot
-        - AirnodeDapiAirnodeRrpCompleted
-        - AirnodeDapiAirnodeRrpRequested
-        - AirnodeDapiRemoveBeacon
+        - SubapiAddBeacon
+        - SubapiAggregatedORMPData
+        - SubapiAirnodeRrpCompleted
+        - SubapiAirnodeRrpRequested
+        - SubapiOwnershipTransferStarted
+        - SubapiOwnershipTransferred
+        - SubapiRemoveBeacon
+        - SubapiSubAPIFeedUpdated
       abis:
-        - name: AirnodeDapi
-          file: ./abis/AirnodeDapi.json
+        - name: Subapi
+          file: ./abis/Subapi.json
       eventHandlers:
         - event: AddBeacon(indexed bytes32,(address,bytes32,address,address))
           handler: handleAddBeacon
-        - event: AggregatedMessageRoot(bytes32)
-          handler: handleAggregatedMessageRoot
+        - event: AggregatedORMPData((uint256,bytes32))
+          handler: handleAggregatedORMPData
         - event: AirnodeRrpCompleted(indexed bytes32,indexed bytes32,bytes)
           handler: handleAirnodeRrpCompleted
         - event: AirnodeRrpRequested(indexed bytes32,indexed bytes32)
           handler: handleAirnodeRrpRequested
+        - event: OwnershipTransferStarted(indexed address,indexed address)
+          handler: handleOwnershipTransferStarted
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
         - event: RemoveBeacon(indexed bytes32)
           handler: handleRemoveBeacon
-      file: ./src/airnode-dapi.ts
+        - event: SubAPIFeedUpdated(indexed bytes32,(uint256,bytes32))
+          handler: handleSubAPIFeedUpdated
+      file: ./src/subapi.ts
   - kind: ethereum
     name: OrmpProtocol
-    network: pangolin
+    network: crab
     source:
-      address: "0x0000000000BD9dcFDa5C60697039E2b3B28b079b"
+      address: "0x0034607daf9c1dc6628f6e09E81bB232B6603A89"
       abi: OrmpProtocol
-      startBlock: 1367206
+      startBlock: 1525422
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -72,11 +81,11 @@ dataSources:
       file: ./src/ormp-protocol.ts
   - kind: ethereum
     name: OrmpOracle
-    network: pangolin
+    network: crab
     source:
-      address: "0x000000003e2E2C9C8DD469E129E02E1666898E76"
+      address: "0x0002396F1D52323fcd1ae8079b38808F046882c3"
       abi: OrmpOracle
-      startBlock: 1367206
+      startBlock: 1525423
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -101,11 +110,11 @@ dataSources:
       file: ./src/ormp-oracle.ts
   - kind: ethereum
     name: OrmpRelayer
-    network: pangolin
+    network: crab
     source:
-      address: "0x000000007e24Da6666c773280804d8021E12e13F"
+      address: "0x007EED6207c9AF3715964Fb7f8B5f44E002a3498"
       abi: OrmpRelayer
-      startBlock: 1367206
+      startBlock: 1525423
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
