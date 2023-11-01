@@ -105,7 +105,7 @@ dataSources:
     name: OrmpProtocol
     network: crab
     source:
-      address: "0x009D223Aad560e72282db9c0438Ef1ef2bf7703D"
+      address: "0x003605167cd4C36063a7B63e604497e623Bb8B10"
       abi: OrmpProtocol
       startBlock: 1611518
     mapping:
