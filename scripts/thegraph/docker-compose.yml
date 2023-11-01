@@ -1,0 +1,47 @@
+version: '3'
+services:
+
+  thegraph-ipfs:
+    container_name: thegraph-ipfs
+    image: ipfs/go-ipfs:v0.23.0
+    restart: always
+    ports:
+      - 5001:5001
+    volumes:
+      - v_ipfs:/data/ipfs
+
+  thegraph-postgres:
+    container_name: thegraph-postgres
+    image: postgres:16-alpine
+    restart: always
+    command: ["postgres", "-cshared_preload_libraries=pg_stat_statements"]
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'let-me-in'
+      POSTGRES_INITDB_ARGS: '-E UTF8 --locale=C'
+    volumes:
+      - v_postgres:/var/lib/postgresql/data
+
+  thegraph-darwinia:
+    container_name: thegraph-darwinia
+    image: graphprotocol/graph-node:v0.33.0
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      postgres_host: 'thegraph-postgres'
+      postgres_user: 'postgres'
+      postgres_pass: 'let-me-in'
+      postgres_db: 'graph_darwinia'
+      ipfs: 'thegraph-ipfs:5001'
+      ethereum: 'pangolin:https://pangolin-rpc.darwinia.network pangoro:https://pangoro-rpc.darwinia.network darwinia:https://rpc.darwinia.network crab:https://crab-rpc.darwinia.network arbitrum-sepolia:https://sepolia-rollup.arbitrum.io/rpc'
+      GRAPH_LOG: 'info'
+      GRAPH_ETHEREUM_CLEANUP_BLOCKS: 'true'
+      ETHEREUM_REORG_THRESHOLD: '10'
+    depends_on:
+      - thegraph-ipfs
+      - thegraph-postgres
+
+volumes:
+  v_ipfs:
+  v_postgres:
