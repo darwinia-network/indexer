@@ -107,7 +107,7 @@ dataSources:
     source:
       address: "0x009D223Aad560e72282db9c0438Ef1ef2bf7703D"
       abi: OrmpProtocol
-      startBlock: 1617010
+      startBlock: 1611518
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
