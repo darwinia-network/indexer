@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0x00d917EC19A6b8837ADFcF8adE3D6faF62e0F587"
       abi: Subapi
-      startBlock: 1558666
+      startBlock: 1611609
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -44,48 +44,12 @@ dataSources:
           handler: handleSubAPIFeedUpdated
       file: ./src/subapi.ts
   - kind: ethereum
-    name: OrmpProtocol
-    network: crab
-    source:
-      address: "0x009D223Aad560e72282db9c0438Ef1ef2bf7703D"
-      abi: OrmpProtocol
-      startBlock: 1525422
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - OrmpProtocolAppConfigUpdated
-        - OrmpProtocolClearFailedMessage
-        - OrmpProtocolMessageAccepted
-        - OrmpProtocolMessageDispatched
-        - OrmpProtocolRetryFailedMessage
-        - OrmpProtocolSetDefaultConfig
-      abis:
-        - name: OrmpProtocol
-          file: ./abis/OrmpProtocol.json
-      eventHandlers:
-        - event: AppConfigUpdated(indexed address,address,address)
-          handler: handleAppConfigUpdated
-        - event: ClearFailedMessage(indexed bytes32)
-          handler: handleClearFailedMessage
-        - event: MessageAccepted(indexed
-            bytes32,bytes32,(address,uint256,uint256,address,uint256,address,bytes))
-          handler: handleMessageAccepted
-        - event: MessageDispatched(indexed bytes32,bool)
-          handler: handleMessageDispatched
-        - event: RetryFailedMessage(indexed bytes32,bool)
-          handler: handleRetryFailedMessage
-        - event: SetDefaultConfig(address,address)
-          handler: handleSetDefaultConfig
-      file: ./src/ormp-protocol.ts
-  - kind: ethereum
     name: OrmpOracle
     network: crab
     source:
       address: "0x00BD655DDfA7aFeF4BB109FE1F938724527B49D8"
       abi: OrmpOracle
-      startBlock: 1525423
+      startBlock: 1611518
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -112,9 +76,9 @@ dataSources:
     name: OrmpRelayer
     network: crab
     source:
-      address: "0x0065a081a11cc1f6e1692c2A08E9AF36b17973eC"
+      address: "0x003605167cd4C36063a7B63e604497e623Bb8B10"
       abi: OrmpRelayer
-      startBlock: 1525423
+      startBlock: 1617010
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -137,3 +101,34 @@ dataSources:
         - event: SetDstPrice(indexed uint256,uint128,uint128)
           handler: handleSetDstPrice
       file: ./src/ormp-relayer.ts
+  - kind: ethereum
+    name: OrmpProtocol
+    network: crab
+    source:
+      address: "0x009D223Aad560e72282db9c0438Ef1ef2bf7703D"
+      abi: OrmpProtocol
+      startBlock: 1611518
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OrmpProtocolAppConfigUpdated
+        - OrmpProtocolMessageAccepted
+        - OrmpProtocolMessageDispatched
+        - OrmpProtocolSetDefaultConfig
+      abis:
+        - name: OrmpProtocol
+          file: ./abis/OrmpProtocol.json
+      eventHandlers:
+        - event: AppConfigUpdated(indexed address,address,address)
+          handler: handleAppConfigUpdated
+        - event: MessageAccepted(indexed
+            bytes32,bytes32,(address,uint256,uint256,address,uint256,address,uint256,bytes))
+          handler: handleMessageAccepted
+        - event: MessageDispatched(indexed bytes32,bool)
+          handler: handleMessageDispatched
+        - event: SetDefaultConfig(address,address)
+          handler: handleSetDefaultConfig
+      file: ./src/ormp-protocol.ts
+

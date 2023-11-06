@@ -1,17 +1,13 @@
 import {
   AppConfigUpdated as AppConfigUpdatedEvent,
-  ClearFailedMessage as ClearFailedMessageEvent,
   MessageAccepted as MessageAcceptedEvent,
   MessageDispatched as MessageDispatchedEvent,
-  RetryFailedMessage as RetryFailedMessageEvent,
   SetDefaultConfig as SetDefaultConfigEvent
 } from "../generated/OrmpProtocol/OrmpProtocol"
 import {
   OrmpProtocolAppConfigUpdated,
-  OrmpProtocolClearFailedMessage,
   OrmpProtocolMessageAccepted,
   OrmpProtocolMessageDispatched,
-  OrmpProtocolRetryFailedMessage,
   OrmpProtocolSetDefaultConfig
 } from "../generated/schema"
 
@@ -22,19 +18,6 @@ export function handleAppConfigUpdated(event: AppConfigUpdatedEvent): void {
   entity.ua = event.params.ua
   entity.oracle = event.params.oracle
   entity.relayer = event.params.relayer
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleClearFailedMessage(event: ClearFailedMessageEvent): void {
-  let entity = new OrmpProtocolClearFailedMessage(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.msgHash = event.params.msgHash
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -55,6 +38,7 @@ export function handleMessageAccepted(event: MessageAcceptedEvent): void {
   entity.message_from = event.params.message.from
   entity.message_toChainId = event.params.message.toChainId
   entity.message_to = event.params.message.to
+  entity.message_gasLimit = event.params.message.gasLimit
   entity.message_encoded = event.params.message.encoded
 
   entity.blockNumber = event.block.number
@@ -66,20 +50,6 @@ export function handleMessageAccepted(event: MessageAcceptedEvent): void {
 
 export function handleMessageDispatched(event: MessageDispatchedEvent): void {
   let entity = new OrmpProtocolMessageDispatched(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.msgHash = event.params.msgHash
-  entity.dispatchResult = event.params.dispatchResult
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleRetryFailedMessage(event: RetryFailedMessageEvent): void {
-  let entity = new OrmpProtocolRetryFailedMessage(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.msgHash = event.params.msgHash

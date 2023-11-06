@@ -7,7 +7,7 @@ import {
   afterAll
 } from "matchstick-as/assembly/index"
 import { Address, Bytes } from "@graphprotocol/graph-ts"
-import { OrmpProtocolAppConfigUpdated } from "../generated/schema"
+import { AppConfigUpdated } from "../generated/schema"
 import { AppConfigUpdated as AppConfigUpdatedEvent } from "../generated/OrmpProtocol/OrmpProtocol"
 import { handleAppConfigUpdated } from "../src/ormp-protocol"
 import { createAppConfigUpdatedEvent } from "./ormp-protocol-utils"

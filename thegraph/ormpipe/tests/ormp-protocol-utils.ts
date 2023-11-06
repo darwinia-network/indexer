@@ -2,10 +2,8 @@ import { newMockEvent } from "matchstick-as"
 import { ethereum, Address, Bytes } from "@graphprotocol/graph-ts"
 import {
   AppConfigUpdated,
-  ClearFailedMessage,
   MessageAccepted,
   MessageDispatched,
-  RetryFailedMessage,
   SetDefaultConfig
 } from "../generated/OrmpProtocol/OrmpProtocol"
 
@@ -29,20 +27,6 @@ export function createAppConfigUpdatedEvent(
   )
 
   return appConfigUpdatedEvent
-}
-
-export function createClearFailedMessageEvent(
-  msgHash: Bytes
-): ClearFailedMessage {
-  let clearFailedMessageEvent = changetype<ClearFailedMessage>(newMockEvent())
-
-  clearFailedMessageEvent.parameters = new Array()
-
-  clearFailedMessageEvent.parameters.push(
-    new ethereum.EventParam("msgHash", ethereum.Value.fromFixedBytes(msgHash))
-  )
-
-  return clearFailedMessageEvent
 }
 
 export function createMessageAcceptedEvent(
@@ -86,27 +70,6 @@ export function createMessageDispatchedEvent(
   )
 
   return messageDispatchedEvent
-}
-
-export function createRetryFailedMessageEvent(
-  msgHash: Bytes,
-  dispatchResult: boolean
-): RetryFailedMessage {
-  let retryFailedMessageEvent = changetype<RetryFailedMessage>(newMockEvent())
-
-  retryFailedMessageEvent.parameters = new Array()
-
-  retryFailedMessageEvent.parameters.push(
-    new ethereum.EventParam("msgHash", ethereum.Value.fromFixedBytes(msgHash))
-  )
-  retryFailedMessageEvent.parameters.push(
-    new ethereum.EventParam(
-      "dispatchResult",
-      ethereum.Value.fromBoolean(dispatchResult)
-    )
-  )
-
-  return retryFailedMessageEvent
 }
 
 export function createSetDefaultConfigEvent(
