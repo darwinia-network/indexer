@@ -46,6 +46,8 @@ jobs:
             chain: ethereum
           - name: feemarket
             chain: darwinia
+          - name: ormpipe
+            chain: crab
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -53,7 +55,8 @@ jobs:
           node-version: '16'
       - name: Check subgraph
         run: |
-          cd thegraph/${{ matrix.project.name }}
+          cd thegraph
           yarn install
+          cd packages/${{ matrix.project.name }}
           yarn codegen -- subgraph-${{ matrix.project.chain }}.yaml
           yarn build -- subgraph-${{ matrix.project.chain }}.yaml

@@ -1,0 +1,29 @@
+{
+  "name": "@darwinia/indexer-thegraph",
+  "version": "0.0.1",
+  "description": "Darwinia indexer for thegraph",
+  "private": true,
+  "author": "Darwinia Network <hello@darwinia.network>",
+  "license": "MIT",
+  "homepage": "https://github.com/darwinia-network/indexer",
+  "bugs": {
+    "url": "https://github.com/darwinia-network/indexer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darwinia-network/indexer.git"
+  },
+  "scripts": {
+    "build:all": "lerna run build",
+    "test:all": "lerna run test",
+    "lint:all": "lerna run lint",
+    "publish:npm": "lerna publish from-package --loglevel=silly --no-private --no-verify-access --yes -- --verbose"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^7.1.4",
+    "nx": "^16.6.0"
+  }
+}
