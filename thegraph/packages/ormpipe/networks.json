@@ -1,30 +1,30 @@
 {
   "arbitrum-sepolia": {
     "Subapi": {
-      "address": "0x00d917EC19A6b8837ADFcF8adE3D6faF62e0F587"
+      "address": "0x00000000007317c91F57D86A410934A490E62E1E"
     },
     "OrmpOracle": {
-      "address": "0x00BD655DDfA7aFeF4BB109FE1F938724527B49D8"
+      "address": "0x0000000000ba03146Cc235509E802873D418a6bc"
     },
     "OrmpRelayer": {
-      "address": "0x003605167cd4C36063a7B63e604497e623Bb8B10"
+      "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
     },
     "OrmpProtocol": {
-      "address": "0x009D223Aad560e72282db9c0438Ef1ef2bf7703D"
+      "address": "0x00000000001523057a05d6293C1e5171eE33eE0A"
     }
   },
   "crab": {
     "Subapi": {
-      "address": "0x00d917EC19A6b8837ADFcF8adE3D6faF62e0F587"
+      "address": "0x00000000007317c91F57D86A410934A490E62E1E"
     },
     "OrmpOracle": {
-      "address": "0x00BD655DDfA7aFeF4BB109FE1F938724527B49D8"
+      "address": "0x0000000000ba03146Cc235509E802873D418a6bc"
     },
     "OrmpRelayer": {
-      "address": "0x003605167cd4C36063a7B63e604497e623Bb8B10"
+      "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
     },
     "OrmpProtocol": {
-      "address": "0x009D223Aad560e72282db9c0438Ef1ef2bf7703D"
+      "address": "0x00000000001523057a05d6293C1e5171eE33eE0A"
     }
   }
 }
