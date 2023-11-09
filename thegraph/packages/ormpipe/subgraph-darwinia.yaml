@@ -4,7 +4,7 @@ schema:
 dataSources:
   - kind: ethereum
     name: Subapi
-    network: crab
+    network: darwinia
     source:
       address: "0x00000000007317c91F57D86A410934A490E62E1E"
       abi: Subapi
@@ -45,7 +45,7 @@ dataSources:
       file: ./src/subapi.ts
   - kind: ethereum
     name: OrmpOracle
-    network: crab
+    network: darwinia
     source:
       address: "0x0000000000ba03146Cc235509E802873D418a6bc"
       abi: OrmpOracle
@@ -74,7 +74,7 @@ dataSources:
       file: ./src/ormp-oracle.ts
   - kind: ethereum
     name: OrmpRelayer
-    network: crab
+    network: darwinia
     source:
       address: "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
       abi: OrmpRelayer
@@ -103,7 +103,7 @@ dataSources:
       file: ./src/ormp-relayer.ts
   - kind: ethereum
     name: OrmpProtocol
-    network: crab
+    network: darwinia
     source:
       address: "0x00000000001523057a05d6293C1e5171eE33eE0A"
       abi: OrmpProtocol

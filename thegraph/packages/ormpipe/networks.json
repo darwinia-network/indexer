@@ -26,5 +26,33 @@
     "OrmpProtocol": {
       "address": "0x00000000001523057a05d6293C1e5171eE33eE0A"
     }
+  },
+  "darwinia": {
+    "Subapi": {
+      "address": "0x00000000007317c91F57D86A410934A490E62E1E"
+    },
+    "OrmpOracle": {
+      "address": "0x0000000000ba03146Cc235509E802873D418a6bc"
+    },
+    "OrmpRelayer": {
+      "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
+    },
+    "OrmpProtocol": {
+      "address": "0x00000000001523057a05d6293C1e5171eE33eE0A"
+    }
+  },
+  "arbitrum": {
+    "Subapi": {
+      "address": "0x00000000007317c91F57D86A410934A490E62E1E"
+    },
+    "OrmpOracle": {
+      "address": "0x0000000000ba03146Cc235509E802873D418a6bc"
+    },
+    "OrmpRelayer": {
+      "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
+    },
+    "OrmpProtocol": {
+      "address": "0x00000000001523057a05d6293C1e5171eE33eE0A"
+    }
   }
 }
