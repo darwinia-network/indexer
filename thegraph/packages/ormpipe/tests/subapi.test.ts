@@ -6,7 +6,7 @@ import {
   beforeAll,
   afterAll
 } from "matchstick-as/assembly/index"
-import { Bytes, Address } from "@graphprotocol/graph-ts"
+import { BigInt, Bytes, Address } from "@graphprotocol/graph-ts"
 import { SubapiAddBeacon } from "../generated/schema"
 import { AddBeacon as AddBeaconEvent } from "../generated/Subapi/Subapi"
 import { handleAddBeacon } from "../src/subapi"
@@ -17,9 +17,10 @@ import { createAddBeaconEvent } from "./subapi-utils"
 
 describe("Describe entity assertions", () => {
   beforeAll(() => {
+    let chainId = BigInt.fromI32(234)
     let beaconId = Bytes.fromI32(1234567890)
     let beacon = "ethereum.Tuple Not implemented"
-    let newAddBeaconEvent = createAddBeaconEvent(beaconId, beacon)
+    let newAddBeaconEvent = createAddBeaconEvent(chainId, beaconId, beacon)
     handleAddBeacon(newAddBeaconEvent)
   })
 
@@ -34,6 +35,12 @@ describe("Describe entity assertions", () => {
     assert.entityCount("AddBeacon", 1)
 
     // 0xa16081f360e3847006db660bae1c6d1b2e17ec2a is the default address used in newMockEvent() function
+    assert.fieldEquals(
+      "AddBeacon",
+      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
+      "chainId",
+      "234"
+    )
     assert.fieldEquals(
       "AddBeacon",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
