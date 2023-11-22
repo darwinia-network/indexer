@@ -114,20 +114,23 @@ dataSources:
         - name: Subapi
           file: ./abis/Subapi.json
       eventHandlers:
-        - event: AddBeacon(indexed bytes32,(address,bytes32,address,address))
+        - event: AddBeacon(indexed uint256,indexed
+            bytes32,(uint256,address,bytes32,address,address))
           handler: handleAddBeacon
-        - event: AggregatedORMPData((uint256,bytes32))
+        - event: AggregatedORMPData(indexed uint256,(uint256,bytes32))
           handler: handleAggregatedORMPData
         - event: AirnodeRrpCompleted(indexed bytes32,indexed bytes32,bytes)
           handler: handleAirnodeRrpCompleted
-        - event: AirnodeRrpRequested(indexed bytes32,indexed bytes32)
+        - event: AirnodeRrpRequested(indexed uint256,indexed bytes32,indexed bytes32)
           handler: handleAirnodeRrpRequested
         - event: OwnershipTransferStarted(indexed address,indexed address)
           handler: handleOwnershipTransferStarted
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: RemoveBeacon(indexed bytes32)
+        - event: RemoveBeacon(indexed uint256,indexed bytes32)
           handler: handleRemoveBeacon
+        - event: SetFee(indexed uint256)
+          handler: handleSetFee
         - event: SubAPIFeedUpdated(indexed bytes32,(uint256,bytes32))
           handler: handleSubAPIFeedUpdated
       file: ./src/subapi.ts
