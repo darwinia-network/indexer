@@ -6,7 +6,7 @@ dataSources:
     name: OrmpOracle
     network: darwinia
     source:
-      address: "0x0000000000ba03146Cc235509E802873D418a6bc"
+      address: "0x00000000046bc530804d66B6b64f7aF69B4E4E81"
       abi: OrmpOracle
       startBlock: 1389407
     mapping:
