@@ -1,81 +1,3 @@
-## === subapi
-
-type SubapiAddBeacon @entity(immutable: true) {
-  id: Bytes!
-  beaconId: Bytes! # bytes32
-  beacon_airnode: Bytes! # address
-  beacon_endpointId: Bytes! # bytes32
-  beacon_sponsor: Bytes! # address
-  beacon_sponsorWallet: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SubapiAggregatedORMPData @entity(immutable: true) {
-  id: Bytes!
-  ormpData_count: BigInt! # uint256
-  ormpData_root: Bytes! # bytes32
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SubapiAirnodeRrpCompleted @entity(immutable: true) {
-  id: Bytes!
-  beaconId: Bytes! # bytes32
-  requestId: Bytes! # bytes32
-  data: Bytes! # bytes
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SubapiAirnodeRrpRequested @entity(immutable: true) {
-  id: Bytes!
-  beaconId: Bytes! # bytes32
-  requestId: Bytes! # bytes32
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SubapiOwnershipTransferStarted @entity(immutable: true) {
-  id: Bytes!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SubapiOwnershipTransferred @entity(immutable: true) {
-  id: Bytes!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SubapiRemoveBeacon @entity(immutable: true) {
-  id: Bytes!
-  beaconId: Bytes! # bytes32
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SubapiSubAPIFeedUpdated @entity(immutable: true) {
-  id: Bytes!
-  beaconId: Bytes! # bytes32
-  msgRoot_count: BigInt! # uint256
-  msgRoot_root: Bytes! # bytes32
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 ## ======= ormp oracle
 type OrmpOracleAssigned @entity(immutable: true) {
   id: Bytes!
@@ -197,6 +119,83 @@ type OrmpProtocolSetDefaultConfig @entity(immutable: true) {
   id: Bytes!
   oracle: Bytes! # address
   relayer: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+# ==
+type SubapiAddBeacon @entity(immutable: true) {
+  id: Bytes!
+  beaconId: Bytes! # bytes32
+  beacon_airnode: Bytes! # address
+  beacon_endpointId: Bytes! # bytes32
+  beacon_sponsor: Bytes! # address
+  beacon_sponsorWallet: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubapiAggregatedORMPData @entity(immutable: true) {
+  id: Bytes!
+  ormpData_count: BigInt! # uint256
+  ormpData_root: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubapiAirnodeRrpCompleted @entity(immutable: true) {
+  id: Bytes!
+  beaconId: Bytes! # bytes32
+  requestId: Bytes! # bytes32
+  data: Bytes! # bytes
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubapiAirnodeRrpRequested @entity(immutable: true) {
+  id: Bytes!
+  beaconId: Bytes! # bytes32
+  requestId: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubapiOwnershipTransferStarted @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubapiOwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubapiRemoveBeacon @entity(immutable: true) {
+  id: Bytes!
+  beaconId: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubapiSubAPIFeedUpdated @entity(immutable: true) {
+  id: Bytes!
+  beaconId: Bytes! # bytes32
+  msgRoot_count: BigInt! # uint256
+  msgRoot_root: Bytes! # bytes32
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

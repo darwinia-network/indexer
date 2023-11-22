@@ -3,47 +3,6 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: Subapi
-    network: arbitrum
-    source:
-      address: "0x00000000007317c91F57D86A410934A490E62E1E"
-      abi: Subapi
-      startBlock: 148559805
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - SubapiAddBeacon
-        - SubapiAggregatedORMPData
-        - SubapiAirnodeRrpCompleted
-        - SubapiAirnodeRrpRequested
-        - SubapiOwnershipTransferStarted
-        - SubapiOwnershipTransferred
-        - SubapiRemoveBeacon
-        - SubapiSubAPIFeedUpdated
-      abis:
-        - name: Subapi
-          file: ./abis/Subapi.json
-      eventHandlers:
-        - event: AddBeacon(indexed bytes32,(address,bytes32,address,address))
-          handler: handleAddBeacon
-        - event: AggregatedORMPData((uint256,bytes32))
-          handler: handleAggregatedORMPData
-        - event: AirnodeRrpCompleted(indexed bytes32,indexed bytes32,bytes)
-          handler: handleAirnodeRrpCompleted
-        - event: AirnodeRrpRequested(indexed bytes32,indexed bytes32)
-          handler: handleAirnodeRrpRequested
-        - event: OwnershipTransferStarted(indexed address,indexed address)
-          handler: handleOwnershipTransferStarted
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: RemoveBeacon(indexed bytes32)
-          handler: handleRemoveBeacon
-        - event: SubAPIFeedUpdated(indexed bytes32,(uint256,bytes32))
-          handler: handleSubAPIFeedUpdated
-      file: ./src/subapi.ts
-  - kind: ethereum
     name: OrmpOracle
     network: arbitrum
     source:
@@ -131,4 +90,45 @@ dataSources:
         - event: SetDefaultConfig(address,address)
           handler: handleSetDefaultConfig
       file: ./src/ormp-protocol.ts
+  - kind: ethereum
+    name: Subapi
+    network: arbitrum
+    source:
+      address: "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
+      abi: Subapi
+      startBlock: 0 # todo: update this.
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - SubapiAddBeacon
+        - SubapiAggregatedORMPData
+        - SubapiAirnodeRrpCompleted
+        - SubapiAirnodeRrpRequested
+        - SubapiOwnershipTransferStarted
+        - SubapiOwnershipTransferred
+        - SubapiRemoveBeacon
+        - SubapiSubAPIFeedUpdated
+      abis:
+        - name: Subapi
+          file: ./abis/Subapi.json
+      eventHandlers:
+        - event: AddBeacon(indexed bytes32,(address,bytes32,address,address))
+          handler: handleAddBeacon
+        - event: AggregatedORMPData((uint256,bytes32))
+          handler: handleAggregatedORMPData
+        - event: AirnodeRrpCompleted(indexed bytes32,indexed bytes32,bytes)
+          handler: handleAirnodeRrpCompleted
+        - event: AirnodeRrpRequested(indexed bytes32,indexed bytes32)
+          handler: handleAirnodeRrpRequested
+        - event: OwnershipTransferStarted(indexed address,indexed address)
+          handler: handleOwnershipTransferStarted
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: RemoveBeacon(indexed bytes32)
+          handler: handleRemoveBeacon
+        - event: SubAPIFeedUpdated(indexed bytes32,(uint256,bytes32))
+          handler: handleSubAPIFeedUpdated
+      file: ./src/subapi.ts
 

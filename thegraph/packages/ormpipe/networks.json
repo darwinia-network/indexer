@@ -1,7 +1,7 @@
 {
   "arbitrum-sepolia": {
     "Subapi": {
-      "address": "0x00000000007317c91F57D86A410934A490E62E1E"
+      "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
       "address": "0x0000000000ba03146Cc235509E802873D418a6bc"
@@ -15,7 +15,7 @@
   },
   "crab": {
     "Subapi": {
-      "address": "0x00000000007317c91F57D86A410934A490E62E1E"
+      "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
       "address": "0x0000000000ba03146Cc235509E802873D418a6bc"
@@ -29,7 +29,7 @@
   },
   "darwinia": {
     "Subapi": {
-      "address": "0x00000000007317c91F57D86A410934A490E62E1E"
+      "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
       "address": "0x0000000000ba03146Cc235509E802873D418a6bc"
@@ -43,7 +43,7 @@
   },
   "arbitrum": {
     "Subapi": {
-      "address": "0x00000000007317c91F57D86A410934A490E62E1E"
+      "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
       "address": "0x0000000000ba03146Cc235509E802873D418a6bc"
