@@ -6,10 +6,10 @@
     "build": "graph build",
     "remove": "graph remove --node https://thegraph.darwinia.network/feemarket/deploy/",
     "create": "graph create --node https://thegraph.darwinia.network/feemarket/deploy/",
-    "deploy": "graph deploy --node https://thegraph.darwinia.network/feemarket/deploy/ --ipfs https://thegraph.darwinia.network/feemarket/ipfs/",
+    "deploy": "graph deploy --node https://thegraph.darwinia.network/feemarket/deploy/ --ipfs https://ipfs.network.thegraph.com",
     "create-local": "graph create --node http://localhost:8020/ darwinia/feemarket",
     "remove-local": "graph remove --node http://localhost:8020/ darwinia/feemarket",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 darwinia/feemarket",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs https://ipfs.network.thegraph.com darwinia/feemarket",
     "test": "graph test"
   },
   "dependencies": {
