@@ -8,6 +8,9 @@
     "create:darwinia": "graph create --node https://thegraph-g2.darwinia.network/ormpipe/deploy/",
     "remove:darwinia": "graph remove --node https://thegraph-g2.darwinia.network/ormpipe/deploy/",
     "deploy:darwinia": "graph deploy --node https://thegraph-g2.darwinia.network/ormpipe/deploy/ --ipfs http://g2.generic.darwinia.network:5001/",
+    "create:local": "graph create --node http://127.0.0.1:8020",
+    "remove:local": "graph remove --node http://127.0.0.1:8020",
+    "deploy:local": "graph deploy --node http://127.0.0.1:8020 --ipfs https://ipfs.network.thegraph.com",
     "test": "graph test"
   },
   "dependencies": {
