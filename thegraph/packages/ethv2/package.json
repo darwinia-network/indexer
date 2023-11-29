@@ -4,10 +4,10 @@
     "codegen": "graph codegen",
     "build": "graph build",
     "create": "graph create --node https://thegraph.darwinia.network/ethv2/deploy/",
-    "deploy": "graph deploy --node https://thegraph.darwinia.network/ethv2/deploy/ --ipfs http://g1.generic.darwinia.network:5001/",
+    "deploy": "graph deploy --node https://thegraph.darwinia.network/ethv2/deploy/ --ipfs https://ipfs.network.thegraph.com",
     "create-local": "graph create --node http://localhost:8020/",
     "remove-local": "graph remove --node http://localhost:8020/",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001"
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs https://ipfs.network.thegraph.com"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.55.0",
