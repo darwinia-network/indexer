@@ -28,7 +28,7 @@ export function handleAppConfigUpdated(event: AppConfigUpdatedEvent): void {
 
 export function handleMessageAccepted(event: MessageAcceptedEvent): void {
   let entity = new OrmpProtocolMessageAccepted(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
+    event.params.msgHash
   )
   entity.msgHash = event.params.msgHash
   entity.root = event.params.root
@@ -60,6 +60,12 @@ export function handleMessageDispatched(event: MessageDispatchedEvent): void {
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+
+  const messageAccepted = OrmpProtocolMessageAccepted.load(entity.msgHash)
+  if (messageAccepted) {
+    messageAccepted.dispatchResult = entity.dispatchResult
+    messageAccepted.save()
+  }
 }
 
 export function handleSetDefaultConfig(event: SetDefaultConfigEvent): void {

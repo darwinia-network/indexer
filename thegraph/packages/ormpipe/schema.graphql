@@ -104,6 +104,19 @@ type OrmpProtocolMessageAccepted @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+
+  # ---- dispatched
+  dispatchResult: Boolean # bool
+
+  # ---- oracle
+  oracleAssigned: Boolean
+  oracleAssignedFee: BigInt
+
+  # ---- relayer
+  relayerAssigned: Boolean
+  relayerAssignedFee: BigInt # uint256
+  relayerAssignedParams: Bytes # bytes
+  relayerAssignedProof: [Bytes!] # bytes32[32]
 }
 
 type OrmpProtocolMessageDispatched @entity(immutable: true) {

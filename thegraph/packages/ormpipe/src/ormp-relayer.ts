@@ -5,6 +5,7 @@ import {
   SetDstPrice as SetDstPriceEvent
 } from "../generated/OrmpRelayer/OrmpRelayer"
 import {
+  OrmpProtocolMessageAccepted,
   OrmpRelayerAssigned,
   OrmpRelayerSetApproved,
   OrmpRelayerSetDstConfig,
@@ -24,8 +25,17 @@ export function handleAssigned(event: AssignedEvent): void {
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
 
-  entity.seq = event.block.number.plus(event.logIndex);
+  entity.seq = event.block.number.plus(event.logIndex)
   entity.save()
+
+  const messageAccepted = OrmpProtocolMessageAccepted.load(entity.msgHash)
+  if (messageAccepted) {
+    messageAccepted.relayerAssigned = true
+    messageAccepted.relayerAssignedFee = entity.fee
+    messageAccepted.relayerAssignedParams = entity.params
+    messageAccepted.relayerAssignedProof = entity.proof
+    messageAccepted.save()
+  }
 }
 
 export function handleSetApproved(event: SetApprovedEvent): void {
