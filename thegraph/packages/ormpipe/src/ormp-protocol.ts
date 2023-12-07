@@ -60,12 +60,6 @@ export function handleMessageDispatched(event: MessageDispatchedEvent): void {
   entity.transactionHash = event.transaction.hash
 
   entity.save()
-
-  const messageAccepted = OrmpProtocolMessageAccepted.load(entity.msgHash)
-  if (messageAccepted) {
-    messageAccepted.dispatchResult = entity.dispatchResult
-    messageAccepted.save()
-  }
 }
 
 export function handleSetDefaultConfig(event: SetDefaultConfigEvent): void {

@@ -105,9 +105,6 @@ type OrmpProtocolMessageAccepted @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 
-  # ---- dispatched
-  dispatchResult: Boolean # bool
-
   # ---- oracle
   oracleAssigned: Boolean
   oracleAssignedFee: BigInt
