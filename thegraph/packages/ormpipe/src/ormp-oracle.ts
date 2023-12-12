@@ -4,7 +4,13 @@ import {
   SetDapi as SetDapiEvent,
   SetFee as SetFeeEvent
 } from "../generated/OrmpOracle/OrmpOracle"
-import {OrmpOracleAssigned, OrmpOracleSetApproved, OrmpOracleSetDapi, OrmpOracleSetFee} from "../generated/schema"
+import {
+  OrmpOracleAssigned,
+  OrmpOracleSetApproved,
+  OrmpOracleSetDapi,
+  OrmpOracleSetFee,
+  OrmpProtocolMessageAccepted
+} from "../generated/schema"
 
 export function handleAssigned(event: AssignedEvent): void {
   let entity = new OrmpOracleAssigned(
@@ -19,6 +25,13 @@ export function handleAssigned(event: AssignedEvent): void {
 
   entity.seq = event.block.number.plus(event.logIndex);
   entity.save()
+
+  const messageAccepted = OrmpProtocolMessageAccepted.load(entity.msgHash);
+  if (messageAccepted) {
+    messageAccepted.oracleAssigned = true;
+    messageAccepted.oracleAssignedFee = entity.fee;
+    messageAccepted.save();
+  }
 }
 
 export function handleSetApproved(event: SetApprovedEvent): void {

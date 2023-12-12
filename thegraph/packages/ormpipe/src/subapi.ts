@@ -6,6 +6,7 @@ import {
   OwnershipTransferStarted as OwnershipTransferStartedEvent,
   OwnershipTransferred as OwnershipTransferredEvent,
   RemoveBeacon as RemoveBeaconEvent,
+  SetFee as SetFeeEvent,
   SubAPIFeedUpdated as SubAPIFeedUpdatedEvent
 } from "../generated/Subapi/Subapi"
 import {
@@ -16,6 +17,7 @@ import {
   SubapiOwnershipTransferStarted,
   SubapiOwnershipTransferred,
   SubapiRemoveBeacon,
+  SubapiSetFee,
   SubapiSubAPIFeedUpdated
 } from "../generated/schema"
 
@@ -23,7 +25,9 @@ export function handleAddBeacon(event: AddBeaconEvent): void {
   let entity = new SubapiAddBeacon(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
+  entity.chainId = event.params.chainId
   entity.beaconId = event.params.beaconId
+  entity.beacon_chainId = event.params.beacon.chainId
   entity.beacon_airnode = event.params.beacon.airnode
   entity.beacon_endpointId = event.params.beacon.endpointId
   entity.beacon_sponsor = event.params.beacon.sponsor
@@ -40,6 +44,7 @@ export function handleAggregatedORMPData(event: AggregatedORMPDataEvent): void {
   let entity = new SubapiAggregatedORMPData(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
+  entity.chainId = event.params.chainId
   entity.ormpData_count = event.params.ormpData.count
   entity.ormpData_root = event.params.ormpData.root
 
@@ -73,6 +78,7 @@ export function handleAirnodeRrpRequested(
   let entity = new SubapiAirnodeRrpRequested(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
+  entity.chainId = event.params.chainId
   entity.beaconId = event.params.beaconId
   entity.requestId = event.params.requestId
 
@@ -119,7 +125,21 @@ export function handleRemoveBeacon(event: RemoveBeaconEvent): void {
   let entity = new SubapiRemoveBeacon(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
+  entity.chainId = event.params.chainId
   entity.beaconId = event.params.beaconId
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleSetFee(event: SetFeeEvent): void {
+  let entity = new SubapiSetFee(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.fee = event.params.fee
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

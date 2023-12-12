@@ -1,5 +1,5 @@
 import { newMockEvent } from "matchstick-as"
-import { ethereum, Bytes, Address } from "@graphprotocol/graph-ts"
+import { ethereum, BigInt, Bytes, Address } from "@graphprotocol/graph-ts"
 import {
   AddBeacon,
   AggregatedORMPData,
@@ -8,10 +8,12 @@ import {
   OwnershipTransferStarted,
   OwnershipTransferred,
   RemoveBeacon,
+  SetFee,
   SubAPIFeedUpdated
 } from "../generated/Subapi/Subapi"
 
 export function createAddBeaconEvent(
+  chainId: BigInt,
   beaconId: Bytes,
   beacon: ethereum.Tuple
 ): AddBeacon {
@@ -19,6 +21,12 @@ export function createAddBeaconEvent(
 
   addBeaconEvent.parameters = new Array()
 
+  addBeaconEvent.parameters.push(
+    new ethereum.EventParam(
+      "chainId",
+      ethereum.Value.fromUnsignedBigInt(chainId)
+    )
+  )
   addBeaconEvent.parameters.push(
     new ethereum.EventParam("beaconId", ethereum.Value.fromFixedBytes(beaconId))
   )
@@ -30,12 +38,19 @@ export function createAddBeaconEvent(
 }
 
 export function createAggregatedORMPDataEvent(
+  chainId: BigInt,
   ormpData: ethereum.Tuple
 ): AggregatedORMPData {
   let aggregatedOrmpDataEvent = changetype<AggregatedORMPData>(newMockEvent())
 
   aggregatedOrmpDataEvent.parameters = new Array()
 
+  aggregatedOrmpDataEvent.parameters.push(
+    new ethereum.EventParam(
+      "chainId",
+      ethereum.Value.fromUnsignedBigInt(chainId)
+    )
+  )
   aggregatedOrmpDataEvent.parameters.push(
     new ethereum.EventParam("ormpData", ethereum.Value.fromTuple(ormpData))
   )
@@ -69,6 +84,7 @@ export function createAirnodeRrpCompletedEvent(
 }
 
 export function createAirnodeRrpRequestedEvent(
+  chainId: BigInt,
   beaconId: Bytes,
   requestId: Bytes
 ): AirnodeRrpRequested {
@@ -76,6 +92,12 @@ export function createAirnodeRrpRequestedEvent(
 
   airnodeRrpRequestedEvent.parameters = new Array()
 
+  airnodeRrpRequestedEvent.parameters.push(
+    new ethereum.EventParam(
+      "chainId",
+      ethereum.Value.fromUnsignedBigInt(chainId)
+    )
+  )
   airnodeRrpRequestedEvent.parameters.push(
     new ethereum.EventParam("beaconId", ethereum.Value.fromFixedBytes(beaconId))
   )
@@ -135,16 +157,37 @@ export function createOwnershipTransferredEvent(
   return ownershipTransferredEvent
 }
 
-export function createRemoveBeaconEvent(beaconId: Bytes): RemoveBeacon {
+export function createRemoveBeaconEvent(
+  chainId: BigInt,
+  beaconId: Bytes
+): RemoveBeacon {
   let removeBeaconEvent = changetype<RemoveBeacon>(newMockEvent())
 
   removeBeaconEvent.parameters = new Array()
 
   removeBeaconEvent.parameters.push(
+    new ethereum.EventParam(
+      "chainId",
+      ethereum.Value.fromUnsignedBigInt(chainId)
+    )
+  )
+  removeBeaconEvent.parameters.push(
     new ethereum.EventParam("beaconId", ethereum.Value.fromFixedBytes(beaconId))
   )
 
   return removeBeaconEvent
+}
+
+export function createSetFeeEvent(fee: BigInt): SetFee {
+  let setFeeEvent = changetype<SetFee>(newMockEvent())
+
+  setFeeEvent.parameters = new Array()
+
+  setFeeEvent.parameters.push(
+    new ethereum.EventParam("fee", ethereum.Value.fromUnsignedBigInt(fee))
+  )
+
+  return setFeeEvent
 }
 
 export function createSubAPIFeedUpdatedEvent(
