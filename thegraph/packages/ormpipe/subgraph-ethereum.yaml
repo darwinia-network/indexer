@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: OrmpOracle
-    network: darwinia
+    network: mainnet
     source:
       address: "0x00000000046bc530804d66B6b64f7aF69B4E4E81"
       abi: OrmpOracle
-      startBlock: 1389407
+      startBlock: 18753080
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -33,11 +33,11 @@ dataSources:
       file: ./src/ormp-oracle.ts
   - kind: ethereum
     name: OrmpRelayer
-    network: darwinia
+    network: mainnet
     source:
       address: "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
       abi: OrmpRelayer
-      startBlock: 1389408
+      startBlock: 18753082
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -62,11 +62,11 @@ dataSources:
       file: ./src/ormp-relayer.ts
   - kind: ethereum
     name: OrmpProtocol
-    network: darwinia
+    network: mainnet
     source:
       address: "0x00000000001523057a05d6293C1e5171eE33eE0A"
       abi: OrmpProtocol
-      startBlock: 1389405
+      startBlock: 18753079
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -92,24 +92,25 @@ dataSources:
       file: ./src/ormp-protocol.ts
   - kind: ethereum
     name: Subapi
-    network: darwinia
+    network: mainnet
     source:
       address: "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
       abi: Subapi
-      startBlock: 1610422
+      startBlock: 18753012
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - SubapiAddBeacon
-        - SubapiAggregatedORMPData
-        - SubapiAirnodeRrpCompleted
-        - SubapiAirnodeRrpRequested
-        - SubapiOwnershipTransferStarted
-        - SubapiOwnershipTransferred
-        - SubapiRemoveBeacon
-        - SubapiSubAPIFeedUpdated
+        - AddBeacon
+        - AggregatedORMPData
+        - AirnodeRrpCompleted
+        - AirnodeRrpRequested
+        - OwnershipTransferStarted
+        - OwnershipTransferred
+        - RemoveBeacon
+        - SetFee
+        - SubAPIFeedUpdated
       abis:
         - name: Subapi
           file: ./abis/Subapi.json
@@ -134,5 +135,3 @@ dataSources:
         - event: SubAPIFeedUpdated(indexed bytes32,(uint256,bytes32))
           handler: handleSubAPIFeedUpdated
       file: ./src/subapi.ts
-
-
