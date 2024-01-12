@@ -1,0 +1,12 @@
+
+## ======= signcribe
+type SignatureSubmittion @entity(immutable: true) {
+  id: Bytes!
+  chainId: BigInt! # uint256
+  signer: Bytes! # address
+  signature: Bytes! # bytes
+  data: Bytes! # bytes
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

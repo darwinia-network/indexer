@@ -1,0 +1,24 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: SubAPISignaturePub
+    network: darwinia
+    source:
+      address: "0x6e40a3621614b12821a0f184a03798ad505e4758"
+      abi: SubAPISignaturePub
+      startBlock: 1803702
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - SignatureSubmittion
+      abis:
+        - name: SubAPISignaturePub
+          file: ./abis/SubAPISignaturePub.json
+      eventHandlers:
+        - event: SignatureSubmittion(indexed uint256,indexed address,bytes,bytes)
+          handler: handleSignatureSubmittion
+      file: ./src/sub-api-signature-pub.ts
