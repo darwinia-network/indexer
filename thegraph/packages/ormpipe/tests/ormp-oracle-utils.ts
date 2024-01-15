@@ -2,8 +2,8 @@ import { newMockEvent } from "matchstick-as"
 import { ethereum, Bytes, BigInt, Address } from "@graphprotocol/graph-ts"
 import {
   Assigned,
+  ImportedMessageRoot,
   SetApproved,
-  SetDapi,
   SetFee
 } from "../generated/OrmpOracle/OrmpOracle"
 
@@ -22,6 +22,37 @@ export function createAssignedEvent(msgHash: Bytes, fee: BigInt): Assigned {
   return assignedEvent
 }
 
+export function createImportedMessageRootEvent(
+  chainId: BigInt,
+  blockNumber: BigInt,
+  messageRoot: Bytes
+): ImportedMessageRoot {
+  let importedMessageRootEvent = changetype<ImportedMessageRoot>(newMockEvent())
+
+  importedMessageRootEvent.parameters = new Array()
+
+  importedMessageRootEvent.parameters.push(
+    new ethereum.EventParam(
+      "chainId",
+      ethereum.Value.fromUnsignedBigInt(chainId)
+    )
+  )
+  importedMessageRootEvent.parameters.push(
+    new ethereum.EventParam(
+      "blockNumber",
+      ethereum.Value.fromUnsignedBigInt(blockNumber)
+    )
+  )
+  importedMessageRootEvent.parameters.push(
+    new ethereum.EventParam(
+      "messageRoot",
+      ethereum.Value.fromFixedBytes(messageRoot)
+    )
+  )
+
+  return importedMessageRootEvent
+}
+
 export function createSetApprovedEvent(
   operator: Address,
   approve: boolean
@@ -38,24 +69,6 @@ export function createSetApprovedEvent(
   )
 
   return setApprovedEvent
-}
-
-export function createSetDapiEvent(chainId: BigInt, dapi: Address): SetDapi {
-  let setDapiEvent = changetype<SetDapi>(newMockEvent())
-
-  setDapiEvent.parameters = new Array()
-
-  setDapiEvent.parameters.push(
-    new ethereum.EventParam(
-      "chainId",
-      ethereum.Value.fromUnsignedBigInt(chainId)
-    )
-  )
-  setDapiEvent.parameters.push(
-    new ethereum.EventParam("dapi", ethereum.Value.fromAddress(dapi))
-  )
-
-  return setDapiEvent
 }
 
 export function createSetFeeEvent(chainId: BigInt, fee: BigInt): SetFee {

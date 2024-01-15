@@ -30,6 +30,31 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "chainId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "blockNumber",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "messageRoot",
+        "type": "bytes32"
+      }
+    ],
+    "name": "ImportedMessageRoot",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": false,
         "internalType": "address",
         "name": "operator",
@@ -43,25 +68,6 @@
       }
     ],
     "name": "SetApproved",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "chainId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "dapi",
-        "type": "address"
-      }
-    ],
-    "name": "SetDapi",
     "type": "event"
   },
   {
@@ -116,13 +122,6 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "name": "dapiOf",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       { "internalType": "uint256", "name": "toChainId", "type": "uint256" },
       { "internalType": "address", "name": "", "type": "address" }
@@ -141,6 +140,17 @@
   },
   {
     "inputs": [
+      { "internalType": "uint256", "name": "chainId", "type": "uint256" },
+      { "internalType": "uint256", "name": "blockNumber", "type": "uint256" },
+      { "internalType": "bytes32", "name": "messageRoot", "type": "bytes32" }
+    ],
+    "name": "importMessageRoot",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "operator", "type": "address" }
     ],
     "name": "isApproved",
@@ -151,7 +161,7 @@
   {
     "inputs": [
       { "internalType": "uint256", "name": "chainId", "type": "uint256" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
+      { "internalType": "uint256", "name": "blockNumber", "type": "uint256" }
     ],
     "name": "merkleRoot",
     "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
@@ -171,16 +181,6 @@
       { "internalType": "bool", "name": "approve", "type": "bool" }
     ],
     "name": "setApproved",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "chainId", "type": "uint256" },
-      { "internalType": "address", "name": "dapi", "type": "address" }
-    ],
-    "name": "setDapi",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

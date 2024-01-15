@@ -1,15 +1,14 @@
 import {
   Assigned as AssignedEvent,
+  ImportedMessageRoot as ImportedMessageRootEvent,
   SetApproved as SetApprovedEvent,
-  SetDapi as SetDapiEvent,
   SetFee as SetFeeEvent
 } from "../generated/OrmpOracle/OrmpOracle"
 import {
   OrmpOracleAssigned,
+  OrmpOracleImportedMessageRoot,
   OrmpOracleSetApproved,
-  OrmpOracleSetDapi,
-  OrmpOracleSetFee,
-  OrmpProtocolMessageAccepted
+  OrmpOracleSetFee, OrmpProtocolMessageAccepted
 } from "../generated/schema"
 
 export function handleAssigned(event: AssignedEvent): void {
@@ -34,12 +33,15 @@ export function handleAssigned(event: AssignedEvent): void {
   }
 }
 
-export function handleSetApproved(event: SetApprovedEvent): void {
-  let entity = new OrmpOracleSetApproved(
+export function handleImportedMessageRoot(
+  event: ImportedMessageRootEvent
+): void {
+  let entity = new OrmpOracleImportedMessageRoot(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.operator = event.params.operator
-  entity.approve = event.params.approve
+  entity.chainId = event.params.chainId
+  entity.blockNumber = event.params.blockNumber
+  entity.messageRoot = event.params.messageRoot
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -48,12 +50,12 @@ export function handleSetApproved(event: SetApprovedEvent): void {
   entity.save()
 }
 
-export function handleSetDapi(event: SetDapiEvent): void {
-  let entity = new OrmpOracleSetDapi(
+export function handleSetApproved(event: SetApprovedEvent): void {
+  let entity = new OrmpOracleSetApproved(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.chainId = event.params.chainId
-  entity.dapi = event.params.dapi
+  entity.operator = event.params.operator
+  entity.approve = event.params.approve
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

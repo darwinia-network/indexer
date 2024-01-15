@@ -4,7 +4,7 @@
       "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
-      "address": "0x00000000046bc530804d66B6b64f7aF69B4E4E81"
+      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -18,7 +18,7 @@
       "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
-      "address": "0x00000000046bc530804d66B6b64f7aF69B4E4E81"
+      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -32,7 +32,7 @@
       "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
-      "address": "0x00000000046bc530804d66B6b64f7aF69B4E4E81"
+      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -46,7 +46,21 @@
       "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
-      "address": "0x00000000046bc530804d66B6b64f7aF69B4E4E81"
+      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
+    },
+    "OrmpRelayer": {
+      "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
+    },
+    "OrmpProtocol": {
+      "address": "0x00000000001523057a05d6293C1e5171eE33eE0A"
+    }
+  },
+  "sepolia": {
+    "Subapi": {
+      "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
+    },
+    "OrmpOracle": {
+      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
