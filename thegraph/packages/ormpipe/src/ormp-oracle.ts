@@ -8,7 +8,8 @@ import {
   OrmpOracleAssigned,
   OrmpOracleImportedMessageRoot,
   OrmpOracleSetApproved,
-  OrmpOracleSetFee, OrmpProtocolMessageAccepted
+  OrmpOracleSetFee,
+  OrmpProtocolMessageAccepted
 } from "../generated/schema"
 
 export function handleAssigned(event: AssignedEvent): void {
