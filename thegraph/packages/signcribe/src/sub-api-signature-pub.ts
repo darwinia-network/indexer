@@ -8,6 +8,7 @@ export function handleSignatureSubmittion(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.chainId = event.params.chainId
+  entity.msgIndex = event.params.msgIndex
   entity.signer = event.params.signer
   entity.signature = event.params.signature
   entity.data = event.params.data

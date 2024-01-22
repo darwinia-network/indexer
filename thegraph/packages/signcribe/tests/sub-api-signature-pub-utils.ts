@@ -4,6 +4,7 @@ import { SignatureSubmittion } from "../generated/SubAPISignaturePub/SubAPISigna
 
 export function createSignatureSubmittionEvent(
   chainId: BigInt,
+  msgIndex: BigInt,
   signer: Address,
   signature: Bytes,
   data: Bytes
@@ -16,6 +17,12 @@ export function createSignatureSubmittionEvent(
     new ethereum.EventParam(
       "chainId",
       ethereum.Value.fromUnsignedBigInt(chainId)
+    )
+  )
+  signatureSubmittionEvent.parameters.push(
+    new ethereum.EventParam(
+      "msgIndex",
+      ethereum.Value.fromUnsignedBigInt(msgIndex)
     )
   )
   signatureSubmittionEvent.parameters.push(

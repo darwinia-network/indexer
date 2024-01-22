@@ -18,6 +18,7 @@ import { createSignatureSubmittionEvent } from "./sub-api-signature-pub-utils"
 describe("Describe entity assertions", () => {
   beforeAll(() => {
     let chainId = BigInt.fromI32(234)
+    let msgIndex = BigInt.fromI32(234)
     let signer = Address.fromString(
       "0x0000000000000000000000000000000000000001"
     )
@@ -25,6 +26,7 @@ describe("Describe entity assertions", () => {
     let data = Bytes.fromI32(1234567890)
     let newSignatureSubmittionEvent = createSignatureSubmittionEvent(
       chainId,
+      msgIndex,
       signer,
       signature,
       data
@@ -47,6 +49,12 @@ describe("Describe entity assertions", () => {
       "SignatureSubmittion",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
       "chainId",
+      "234"
+    )
+    assert.fieldEquals(
+      "SignatureSubmittion",
+      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
+      "msgIndex",
       "234"
     )
     assert.fieldEquals(
