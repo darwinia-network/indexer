@@ -202,7 +202,7 @@ type OrmpOracleImportedMessageRoot @entity(immutable: true) {
   id: Bytes!
   chainId: BigInt! # uint256
   messageRoot: Bytes! # bytes32
-  srcBlockNumber: BigInt!
+  blockHeight: BigInt!
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
