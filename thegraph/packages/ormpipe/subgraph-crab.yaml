@@ -6,7 +6,7 @@ dataSources:
     name: OrmpOracle
     network: crab
     source:
-      address: "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
+      address: "0x0000000005Be70A35b6534bFBd21eC0c98B27b1f"
       abi: OrmpOracle
       startBlock: 2079095
     mapping:
