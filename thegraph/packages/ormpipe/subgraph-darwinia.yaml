@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0x0000000005Be70A35b6534bFBd21eC0c98B27b1f"
       abi: OrmpOracle
-      startBlock: 2079095
+      startBlock: 1908242
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
