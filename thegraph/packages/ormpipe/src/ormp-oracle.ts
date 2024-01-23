@@ -41,7 +41,7 @@ export function handleImportedMessageRoot(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.chainId = event.params.chainId
-  entity.blockHeight = event.params.blockNumber
+  entity.blockHeight = event.params.blockHeight
   entity.messageRoot = event.params.messageRoot
 
   entity.blockNumber = event.block.number
