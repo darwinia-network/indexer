@@ -4,7 +4,7 @@
       "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
-      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
+      "address": "0x0000000005Be70A35b6534bFBd21eC0c98B27b1f"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -18,7 +18,7 @@
       "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
-      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
+      "address": "0x0000000005Be70A35b6534bFBd21eC0c98B27b1f"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -32,7 +32,7 @@
       "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
-      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
+      "address": "0x0000000005Be70A35b6534bFBd21eC0c98B27b1f"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -46,7 +46,7 @@
       "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
-      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
+      "address": "0x0000000005Be70A35b6534bFBd21eC0c98B27b1f"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -60,7 +60,7 @@
       "address": "0x00000000096c285629Fe3EAb3dd042c27b9dcBa6"
     },
     "OrmpOracle": {
-      "address": "0x0000000004452056780Ff88Beb91d8FDf6381fc5"
+      "address": "0x0000000005Be70A35b6534bFBd21eC0c98B27b1f"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
