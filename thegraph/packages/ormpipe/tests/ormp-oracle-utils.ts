@@ -3,8 +3,10 @@ import { ethereum, Bytes, BigInt, Address } from "@graphprotocol/graph-ts"
 import {
   Assigned,
   ImportedMessageRoot,
+  OwnershipTransferred,
   SetApproved,
-  SetFee
+  SetFee,
+  Withdrawal
 } from "../generated/OrmpOracle/OrmpOracle"
 
 export function createAssignedEvent(msgHash: Bytes, fee: BigInt): Assigned {
@@ -24,7 +26,7 @@ export function createAssignedEvent(msgHash: Bytes, fee: BigInt): Assigned {
 
 export function createImportedMessageRootEvent(
   chainId: BigInt,
-  blockNumber: BigInt,
+  messageIndex: BigInt,
   messageRoot: Bytes
 ): ImportedMessageRoot {
   let importedMessageRootEvent = changetype<ImportedMessageRoot>(newMockEvent())
@@ -39,8 +41,8 @@ export function createImportedMessageRootEvent(
   )
   importedMessageRootEvent.parameters.push(
     new ethereum.EventParam(
-      "blockNumber",
-      ethereum.Value.fromUnsignedBigInt(blockNumber)
+      "messageIndex",
+      ethereum.Value.fromUnsignedBigInt(messageIndex)
     )
   )
   importedMessageRootEvent.parameters.push(
@@ -51,6 +53,29 @@ export function createImportedMessageRootEvent(
   )
 
   return importedMessageRootEvent
+}
+
+export function createOwnershipTransferredEvent(
+  previousOwner: Address,
+  newOwner: Address
+): OwnershipTransferred {
+  let ownershipTransferredEvent = changetype<OwnershipTransferred>(
+    newMockEvent()
+  )
+
+  ownershipTransferredEvent.parameters = new Array()
+
+  ownershipTransferredEvent.parameters.push(
+    new ethereum.EventParam(
+      "previousOwner",
+      ethereum.Value.fromAddress(previousOwner)
+    )
+  )
+  ownershipTransferredEvent.parameters.push(
+    new ethereum.EventParam("newOwner", ethereum.Value.fromAddress(newOwner))
+  )
+
+  return ownershipTransferredEvent
 }
 
 export function createSetApprovedEvent(
@@ -87,4 +112,19 @@ export function createSetFeeEvent(chainId: BigInt, fee: BigInt): SetFee {
   )
 
   return setFeeEvent
+}
+
+export function createWithdrawalEvent(to: Address, amt: BigInt): Withdrawal {
+  let withdrawalEvent = changetype<Withdrawal>(newMockEvent())
+
+  withdrawalEvent.parameters = new Array()
+
+  withdrawalEvent.parameters.push(
+    new ethereum.EventParam("to", ethereum.Value.fromAddress(to))
+  )
+  withdrawalEvent.parameters.push(
+    new ethereum.EventParam("amt", ethereum.Value.fromUnsignedBigInt(amt))
+  )
+
+  return withdrawalEvent
 }

@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: OrmpOracle
-    network: arbitrum-one
+    network: crab
     source:
       address: "0x0000000004A34ac73374b65a55C93CF9D4Bc3d17"
       abi: OrmpOracle
-      startBlock: 0 # todo: update this
+      startBlock: 2269760
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -39,11 +39,11 @@ dataSources:
       file: ./src/ormp-oracle.ts
   - kind: ethereum
     name: OrmpRelayer
-    network: arbitrum-one
+    network: crab
     source:
       address: "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
       abi: OrmpRelayer
-      startBlock: 148555382
+      startBlock: 2269760
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -68,11 +68,11 @@ dataSources:
       file: ./src/ormp-relayer.ts
   - kind: ethereum
     name: OrmpProtocol
-    network: arbitrum-one
+    network: crab
     source:
       address: "0x00000000001523057a05d6293C1e5171eE33eE0A"
       abi: OrmpProtocol
-      startBlock: 148555316
+      startBlock: 2269760
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
