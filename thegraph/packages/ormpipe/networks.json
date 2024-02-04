@@ -1,7 +1,7 @@
 {
   "arbitrum-sepolia": {
     "OrmpOracle": {
-      "address": "0x0000000004A34ac73374b65a55C93CF9D4Bc3d17"
+      "address": "0x0000000003ebeF32D8f0ED406a5CA8805c80AFba"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -12,7 +12,7 @@
   },
   "crab": {
     "OrmpOracle": {
-      "address": "0x0000000004A34ac73374b65a55C93CF9D4Bc3d17"
+      "address": "0x0000000003ebeF32D8f0ED406a5CA8805c80AFba"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -23,7 +23,7 @@
   },
   "darwinia": {
     "OrmpOracle": {
-      "address": "0x0000000004A34ac73374b65a55C93CF9D4Bc3d17"
+      "address": "0x0000000003ebeF32D8f0ED406a5CA8805c80AFba"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -34,7 +34,7 @@
   },
   "arbitrum": {
     "OrmpOracle": {
-      "address": "0x0000000004A34ac73374b65a55C93CF9D4Bc3d17"
+      "address": "0x0000000003ebeF32D8f0ED406a5CA8805c80AFba"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"
@@ -45,7 +45,7 @@
   },
   "sepolia": {
     "OrmpOracle": {
-      "address": "0x0000000004A34ac73374b65a55C93CF9D4Bc3d17"
+      "address": "0x0000000003ebeF32D8f0ED406a5CA8805c80AFba"
     },
     "OrmpRelayer": {
       "address": "0x0000000000808fE9bDCc1d180EfbF5C53552a6b1"

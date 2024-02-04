@@ -26,7 +26,7 @@ export function createAssignedEvent(msgHash: Bytes, fee: BigInt): Assigned {
 
 export function createImportedMessageRootEvent(
   chainId: BigInt,
-  messageIndex: BigInt,
+  blockHeight: BigInt,
   messageRoot: Bytes
 ): ImportedMessageRoot {
   let importedMessageRootEvent = changetype<ImportedMessageRoot>(newMockEvent())
@@ -41,8 +41,8 @@ export function createImportedMessageRootEvent(
   )
   importedMessageRootEvent.parameters.push(
     new ethereum.EventParam(
-      "messageIndex",
-      ethereum.Value.fromUnsignedBigInt(messageIndex)
+      "blockHeight",
+      ethereum.Value.fromUnsignedBigInt(blockHeight)
     )
   )
   importedMessageRootEvent.parameters.push(

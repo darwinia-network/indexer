@@ -8,11 +8,11 @@ import {
 } from "../generated/OrmpOracle/OrmpOracle"
 import {
   OrmpOracleAssigned,
-  OrmpOracleImportedMessageRoot, OrmpProtocolMessageAccepted,
+  OrmpOracleImportedMessageRoot,
   OrmpOracleOwnershipTransferred,
   OrmpOracleSetApproved,
   OrmpOracleSetFee,
-  OrmpOracleWithdrawal
+  OrmpOracleWithdrawal, OrmpProtocolMessageAccepted
 } from "../generated/schema"
 
 export function handleAssigned(event: AssignedEvent): void {
@@ -43,7 +43,7 @@ export function handleImportedMessageRoot(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.chainId = event.params.chainId
-  entity.messageIndex = event.params.messageIndex
+  entity.blockHeight = event.params.blockHeight
   entity.messageRoot = event.params.messageRoot
 
   entity.blockNumber = event.block.number

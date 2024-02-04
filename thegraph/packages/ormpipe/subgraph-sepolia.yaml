@@ -6,9 +6,9 @@ dataSources:
     name: OrmpOracle
     network: sepolia
     source:
-      address: "0x000000000DA67291724858F7e759A43B2d23225e"
+      address: "0x0000000003ebeF32D8f0ED406a5CA8805c80AFba"
       abi: OrmpOracle
-      startBlock: 5202852
+      startBlock: 5217030
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
