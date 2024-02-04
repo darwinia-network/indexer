@@ -6,9 +6,9 @@ dataSources:
     name: OrmpOracle
     network: pangolin
     source:
-      address: "0x0000000004A34ac73374b65a55C93CF9D4Bc3d17"
+      address: "0x000000000DA67291724858F7e759A43B2d23225e"
       abi: OrmpOracle
-      startBlock: 2269760
+      startBlock: 2275722
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
