@@ -1,15 +1,18 @@
 import {
   Assigned as AssignedEvent,
+  ImportedMessageRoot as ImportedMessageRootEvent,
+  OwnershipTransferred as OwnershipTransferredEvent,
   SetApproved as SetApprovedEvent,
-  SetDapi as SetDapiEvent,
-  SetFee as SetFeeEvent
+  SetFee as SetFeeEvent,
+  Withdrawal as WithdrawalEvent
 } from "../generated/OrmpOracle/OrmpOracle"
 import {
   OrmpOracleAssigned,
+  OrmpOracleImportedMessageRoot,
+  OrmpOracleOwnershipTransferred,
   OrmpOracleSetApproved,
-  OrmpOracleSetDapi,
   OrmpOracleSetFee,
-  OrmpProtocolMessageAccepted
+  OrmpOracleWithdrawal, OrmpProtocolMessageAccepted
 } from "../generated/schema"
 
 export function handleAssigned(event: AssignedEvent): void {
@@ -23,7 +26,6 @@ export function handleAssigned(event: AssignedEvent): void {
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
 
-  entity.seq = event.block.number.plus(event.logIndex);
   entity.save()
 
   const messageAccepted = OrmpProtocolMessageAccepted.load(entity.msgHash);
@@ -32,6 +34,39 @@ export function handleAssigned(event: AssignedEvent): void {
     messageAccepted.oracleAssignedFee = entity.fee;
     messageAccepted.save();
   }
+}
+
+export function handleImportedMessageRoot(
+  event: ImportedMessageRootEvent
+): void {
+  let entity = new OrmpOracleImportedMessageRoot(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.chainId = event.params.chainId
+  entity.blockHeight = event.params.blockHeight
+  entity.messageRoot = event.params.messageRoot
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleOwnershipTransferred(
+  event: OwnershipTransferredEvent
+): void {
+  let entity = new OrmpOracleOwnershipTransferred(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.previousOwner = event.params.previousOwner
+  entity.newOwner = event.params.newOwner
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
 }
 
 export function handleSetApproved(event: SetApprovedEvent): void {
@@ -48,12 +83,12 @@ export function handleSetApproved(event: SetApprovedEvent): void {
   entity.save()
 }
 
-export function handleSetDapi(event: SetDapiEvent): void {
-  let entity = new OrmpOracleSetDapi(
+export function handleSetFee(event: SetFeeEvent): void {
+  let entity = new OrmpOracleSetFee(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.chainId = event.params.chainId
-  entity.dapi = event.params.dapi
+  entity.fee = event.params.fee
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -62,12 +97,12 @@ export function handleSetDapi(event: SetDapiEvent): void {
   entity.save()
 }
 
-export function handleSetFee(event: SetFeeEvent): void {
-  let entity = new OrmpOracleSetFee(
+export function handleWithdrawal(event: WithdrawalEvent): void {
+  let entity = new OrmpOracleWithdrawal(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.chainId = event.params.chainId
-  entity.fee = event.params.fee
+  entity.to = event.params.to
+  entity.amt = event.params.amt
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

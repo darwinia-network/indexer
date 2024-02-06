@@ -2,9 +2,11 @@ import { newMockEvent } from "matchstick-as"
 import { ethereum, Bytes, BigInt, Address } from "@graphprotocol/graph-ts"
 import {
   Assigned,
+  ImportedMessageRoot,
+  OwnershipTransferred,
   SetApproved,
-  SetDapi,
-  SetFee
+  SetFee,
+  Withdrawal
 } from "../generated/OrmpOracle/OrmpOracle"
 
 export function createAssignedEvent(msgHash: Bytes, fee: BigInt): Assigned {
@@ -20,6 +22,60 @@ export function createAssignedEvent(msgHash: Bytes, fee: BigInt): Assigned {
   )
 
   return assignedEvent
+}
+
+export function createImportedMessageRootEvent(
+  chainId: BigInt,
+  blockHeight: BigInt,
+  messageRoot: Bytes
+): ImportedMessageRoot {
+  let importedMessageRootEvent = changetype<ImportedMessageRoot>(newMockEvent())
+
+  importedMessageRootEvent.parameters = new Array()
+
+  importedMessageRootEvent.parameters.push(
+    new ethereum.EventParam(
+      "chainId",
+      ethereum.Value.fromUnsignedBigInt(chainId)
+    )
+  )
+  importedMessageRootEvent.parameters.push(
+    new ethereum.EventParam(
+      "blockHeight",
+      ethereum.Value.fromUnsignedBigInt(blockHeight)
+    )
+  )
+  importedMessageRootEvent.parameters.push(
+    new ethereum.EventParam(
+      "messageRoot",
+      ethereum.Value.fromFixedBytes(messageRoot)
+    )
+  )
+
+  return importedMessageRootEvent
+}
+
+export function createOwnershipTransferredEvent(
+  previousOwner: Address,
+  newOwner: Address
+): OwnershipTransferred {
+  let ownershipTransferredEvent = changetype<OwnershipTransferred>(
+    newMockEvent()
+  )
+
+  ownershipTransferredEvent.parameters = new Array()
+
+  ownershipTransferredEvent.parameters.push(
+    new ethereum.EventParam(
+      "previousOwner",
+      ethereum.Value.fromAddress(previousOwner)
+    )
+  )
+  ownershipTransferredEvent.parameters.push(
+    new ethereum.EventParam("newOwner", ethereum.Value.fromAddress(newOwner))
+  )
+
+  return ownershipTransferredEvent
 }
 
 export function createSetApprovedEvent(
@@ -40,24 +96,6 @@ export function createSetApprovedEvent(
   return setApprovedEvent
 }
 
-export function createSetDapiEvent(chainId: BigInt, dapi: Address): SetDapi {
-  let setDapiEvent = changetype<SetDapi>(newMockEvent())
-
-  setDapiEvent.parameters = new Array()
-
-  setDapiEvent.parameters.push(
-    new ethereum.EventParam(
-      "chainId",
-      ethereum.Value.fromUnsignedBigInt(chainId)
-    )
-  )
-  setDapiEvent.parameters.push(
-    new ethereum.EventParam("dapi", ethereum.Value.fromAddress(dapi))
-  )
-
-  return setDapiEvent
-}
-
 export function createSetFeeEvent(chainId: BigInt, fee: BigInt): SetFee {
   let setFeeEvent = changetype<SetFee>(newMockEvent())
 
@@ -74,4 +112,19 @@ export function createSetFeeEvent(chainId: BigInt, fee: BigInt): SetFee {
   )
 
   return setFeeEvent
+}
+
+export function createWithdrawalEvent(to: Address, amt: BigInt): Withdrawal {
+  let withdrawalEvent = changetype<Withdrawal>(newMockEvent())
+
+  withdrawalEvent.parameters = new Array()
+
+  withdrawalEvent.parameters.push(
+    new ethereum.EventParam("to", ethereum.Value.fromAddress(to))
+  )
+  withdrawalEvent.parameters.push(
+    new ethereum.EventParam("amt", ethereum.Value.fromUnsignedBigInt(amt))
+  )
+
+  return withdrawalEvent
 }
