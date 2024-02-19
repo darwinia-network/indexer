@@ -34,6 +34,7 @@ export function handleAssigned(event: AssignedEvent): void {
     messageAccepted.relayerAssignedFee = entity.fee
     messageAccepted.relayerAssignedParams = entity.params
     messageAccepted.relayerAssignedProof = entity.proof
+    messageAccepted.relayerLogIndex = event.logIndex;
     messageAccepted.save()
   }
 }
