@@ -40,6 +40,7 @@ export function handleMessageAccepted(event: MessageAcceptedEvent): void {
   entity.message_to = event.params.message.to
   entity.message_gasLimit = event.params.message.gasLimit
   entity.message_encoded = event.params.message.encoded
+  entity.logIndex = event.logIndex
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

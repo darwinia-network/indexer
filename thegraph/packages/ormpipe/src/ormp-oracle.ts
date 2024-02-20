@@ -32,6 +32,7 @@ export function handleAssigned(event: AssignedEvent): void {
   if (messageAccepted) {
     messageAccepted.oracleAssigned = true;
     messageAccepted.oracleAssignedFee = entity.fee;
+    messageAccepted.oracleLogIndex = event.logIndex;
     messageAccepted.save();
   }
 }
