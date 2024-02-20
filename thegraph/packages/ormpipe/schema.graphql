@@ -72,14 +72,14 @@ type OrmpProtocolMessageAccepted @entity(immutable: true) {
   # ---- oracle
   oracleAssigned: Boolean
   oracleAssignedFee: BigInt
-  oracleLogIndex: BigInt!
+  oracleLogIndex: BigInt
 
   # ---- relayer
   relayerAssigned: Boolean
   relayerAssignedFee: BigInt # uint256
   relayerAssignedParams: Bytes # bytes
   relayerAssignedProof: [Bytes!] # bytes32[32]
-  relayerLogIndex: BigInt!
+  relayerLogIndex: BigInt
 }
 
 type OrmpProtocolMessageDispatched @entity(immutable: true) {
