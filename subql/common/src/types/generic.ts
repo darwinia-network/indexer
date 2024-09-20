@@ -10,5 +10,5 @@ export enum Chain {
   Kusama = 'kusama',
   Polkadot = 'polkadot',
   Moonbase = 'moonbase',
-
+  Koi = 'koi',
 }

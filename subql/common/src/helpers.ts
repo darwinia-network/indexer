@@ -43,6 +43,8 @@ export function activeChain(envChain): Chain {
       return Chain.Rococo;
     case 'moonbase':
       return Chain.Moonbase;
+    case 'koi':
+      return Chain.Koi;
     default:
       throw new Error(`Unsupported chain: ${envChain}`)
   }
