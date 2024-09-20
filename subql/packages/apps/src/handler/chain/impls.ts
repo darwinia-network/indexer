@@ -97,7 +97,7 @@ export class KoiHandler extends BasicChainHandler {
 
   handlers(): Array<IndexHandler> {
     return [
-      new GenericBlockHandler(Chain.Koi),
+      new GenericStakingHandler(Chain.Koi),
     ];
   }
 }

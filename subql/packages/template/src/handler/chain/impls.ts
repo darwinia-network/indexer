@@ -75,3 +75,15 @@ export class RococoHandler extends BasicChainHandler {
     ];
   }
 }
+
+export class KoiHandler extends BasicChainHandler {
+  constructor() {
+    super('koi');
+  }
+
+  handlers(): Array<IndexHandler> {
+    return [
+      new GenericBlockHandler(Chain.Koi),
+    ];
+  }
+}
