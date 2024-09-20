@@ -1,0 +1,37 @@
+specVersion: 1.0.0
+name: index-subql
+version: 1.0.0
+runner:
+  node:
+    name: "@subql/node"
+    version: "*"
+  query:
+    name: "@subql/query"
+    version: "*"
+description: Koi index
+repository: "https://github.com/darwinia-network/indexer"
+schema:
+  file: ./schema.graphql
+network:
+  chainId: "0xce663480d55121504f3faf403756ac2b2d9f9870135b6f10222c848db45ded58"
+  endpoint: "wss://koi-rpc.darwinia.network"
+dataSources:
+  - name: main
+    kind: substrate/Runtime
+    startBlock: 1
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: substrate/BlockHandler
+
+        - handler: handleCall
+          kind: substrate/CallHandler
+
+        ################# Staking Events Start Here #################
+        - handler: handleEvent
+          kind: substrate/EventHandler
+          filter:
+            module: darwiniaStaking
+            method: Payout
+        ################# Staking Events End Here #################
