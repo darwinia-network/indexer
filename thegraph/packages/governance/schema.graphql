@@ -1,117 +1,117 @@
 type EIP712DomainChanged @entity(immutable: true) {
-  id: Bytes!
+  id: String!
 
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type Initialized @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   version: BigInt! # uint64
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type ProposalCanceled @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   proposalId: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type ProposalCreated @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   proposalId: BigInt! # uint256
-  proposer: Bytes! # address
-  targets: [Bytes!]! # address[]
+  proposer: String! # address
+  targets: [String!]! # address[]
   values: [BigInt!]! # uint256[]
   signatures: [String!]! # string[]
-  calldatas: [Bytes!]! # bytes[]
+  calldatas: [String!]! # String[]
   voteStart: BigInt! # uint256
   voteEnd: BigInt! # uint256
   description: String! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type ProposalExecuted @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   proposalId: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type ProposalQueued @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   proposalId: BigInt! # uint256
   etaSeconds: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type ProposalThresholdSet @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   oldProposalThreshold: BigInt! # uint256
   newProposalThreshold: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type TimelockChange @entity(immutable: true) {
-  id: Bytes!
-  oldTimelock: Bytes! # address
-  newTimelock: Bytes! # address
+  id: String!
+  oldTimelock: String! # address
+  newTimelock: String! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type VoteCast @entity(immutable: true) {
-  id: Bytes!
-  voter: Bytes! # address
+  id: String!
+  voter: String! # address
   proposalId: BigInt! # uint256
   support: Int! # uint8
   weight: BigInt! # uint256
   reason: String! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type VoteCastWithParams @entity(immutable: true) {
-  id: Bytes!
-  voter: Bytes! # address
+  id: String!
+  voter: String! # address
   proposalId: BigInt! # uint256
   support: Int! # uint8
   weight: BigInt! # uint256
   reason: String! # string
-  params: Bytes! # bytes
+  params: String! # String
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type VotingDelaySet @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   oldVotingDelay: BigInt! # uint256
   newVotingDelay: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
 
 type VotingPeriodSet @entity(immutable: true) {
-  id: Bytes!
+  id: String!
   oldVotingPeriod: BigInt! # uint256
   newVotingPeriod: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  transactionHash: String!
 }
