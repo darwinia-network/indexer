@@ -1,0 +1,16 @@
+type ProposalCreated @entity(immutable: true) {
+  id: String!
+  origin: String!
+  proposalId: BigInt! # uint256
+  proposer: String! # address
+  targets: [String!]! # address[]
+  values: [BigInt!]! # uint256[]
+  signatures: [String!]! # string[]
+  calldatas: [String!]! # String[]
+  voteStart: BigInt! # uint256
+  voteEnd: BigInt! # uint256
+  description: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: String!
+}

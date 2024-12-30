@@ -40,11 +40,7 @@ jobs:
     strategy:
       matrix:
         project:
-          - name: ethv2
-            chain: darwinia
-          - name: feemarket
-            chain: ethereum
-          - name: feemarket
+          - name: governance
             chain: darwinia
           - name: ormpipe
             chain: crab
