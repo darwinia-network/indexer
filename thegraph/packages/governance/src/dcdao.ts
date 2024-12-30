@@ -5,7 +5,7 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
   let entity = new ProposalCreated(
     event.transaction.hash.concatI32(event.logIndex.toI32()).toHexString()
   );
-  entity.origin = "KtonDAO";
+  entity.origin = "DCDAO";
   entity.proposalId = event.params.proposalId;
   entity.proposer = event.params.proposer.toHexString();
   entity.targets = event.params.targets.map<string>(value =>
